@@ -1,8 +1,9 @@
 import { useState } from "react";
 import style from './styles/LofinForm.module.scss'
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 import axios from 'axios';
+import { Error } from "@mui/icons-material";
 
 const RegistrationForm = () => {
 
@@ -13,6 +14,8 @@ const RegistrationForm = () => {
         confirmPassword: '',
 
     });
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
 
@@ -48,8 +51,9 @@ const RegistrationForm = () => {
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/register/', registrationData);
+            navigate("/confirm-email");
             console.log(response.data);
-            
+
 
         } catch (error) {
             console.error('Помилка під час реєстрації:', error);
@@ -63,7 +67,7 @@ const RegistrationForm = () => {
             <h2 className={style.login__title}>Become a Sailor!</h2>
 
             <form onSubmit={handleSubmit}>
-                {error && <p className={style.error}>{error}</p>}
+                {error && <div  className={style.error} ><Error/><p>{error}</p></div>}
                 <label htmlFor="email">
                     <input type="email" placeholder="Your email" id="email" name="email" required onChange={handleInputChange} />
                 </label>

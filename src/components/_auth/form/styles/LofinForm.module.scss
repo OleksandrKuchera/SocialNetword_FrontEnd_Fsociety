@@ -36,8 +36,14 @@
 }
 
 .error {
-    margin-bottom: 15px;
-    padding: 5px;
-    border-radius: 10px;
-    background: rgb(242, 0, 0);
+    display: flex;
+    justify-content: center;
+
+    p {
+        margin-left: 5px;
+        margin-bottom: 15px;
+        padding: 5px;
+        border-radius: 10px;
+        background: rgb(242, 0, 0);
+    }
 }
