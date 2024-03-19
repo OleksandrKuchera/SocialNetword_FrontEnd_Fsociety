@@ -1,24 +1,39 @@
-name: Build and deploy to GitHub Pages
-
+# Простий workflow для деплою статичного контенту на GitHub Pages
+name: Deploy to GitHub Pages
 on:
+  # Запускається при пушах в головну гілку
   push:
-    branches: [main]
-
+    branches:
+      - 'main'
+  # Дозволяє вручну запустити цей workflow з вкладки Actions
+  workflow_dispatch:
+# Налаштування дозволів GITHUB_TOKEN для деплою на GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+# Дозволяє одночасний деплой
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 jobs:
-  build-and-deploy:
+  # Один джоб для деплою
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
-
-      - name: Install, lint, build 🔧
-        run: |
-          npm install
-          npm run lint:js
-          npm run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
-          branch: gh-pages
-          folder: build
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build and deploy
+        run: npm run build
+        # Деплой на GitHub Pages
+        # Ваші налаштування для деплою тут
