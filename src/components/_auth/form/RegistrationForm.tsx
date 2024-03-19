@@ -85,7 +85,7 @@ const RegistrationForm = () => {
             </form>
 
             <div className={style.recomendation}>
-                <p>Already have an account? <Link className={style.recomendation__link} to="/sign-in"><strong>Sign In</strong></Link></p>
+                <p>Already have an account? <Link className={style.recomendation__link} to="/login"><strong>Sign In</strong></Link></p>
             </div>
         </>
     );

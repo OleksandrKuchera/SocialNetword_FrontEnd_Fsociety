@@ -1,12 +1,13 @@
 import { useState } from "react";
 import style from './styles/LofinForm.module.scss'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FastSingIn from "../FastSingIn/FastSingIn";
 import axios from "axios";
 
 const LoginForm = () => {
 
     const [loginData, setLoginData] = useState({ email: '', password: '' });
+    const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData({
@@ -19,11 +20,17 @@ const LoginForm = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData); //  POST-запит на сервер Django
+            navigate('/home');
             console.log(response.data); //  відповідь сервера у консоль
-            // БОДЯ ТУТ МАЄ БУТИ ПЕРЕКИДАННЯ НА СТОРІНКУ Home!!!!!!!
+            
         } catch (error) {
-            console.error('Error:', error.response.data); // Якщо сталася помилка
+            if (axios.isAxiosError(error)) {
+                console.error('Error:', error.response?.data);
+            } else {
+                console.error('An unexpected error occurred:', error);
+            }
         }
+        
     };
     
 
@@ -49,7 +56,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className={style.recomendation}>
-                    <p>Don’t have an account ? <Link className={style.recomendation__link} to="/sing-up"><strong>Sign Up</strong></Link></p>
+                    <p>Don’t have an account ? <Link className={style.recomendation__link} to="/register"><strong>Sign Up</strong></Link></p>
                 </div>
             </div>
         </>
