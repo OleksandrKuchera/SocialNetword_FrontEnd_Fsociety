@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { Navigate, HashRouter as Router } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout/AuthLayout";
 import { Routes, Route } from "react-router-dom";
 import LoginForm from "./_auth/form/LoginForm";
@@ -16,10 +16,11 @@ const AppContainer = () => {
             <main style={{
                 height: '100vh'
             }}>
-                <Routes>
+                <Routes >
                     <Route element={<AuthLayout />}>
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegistrationForm />} />
+                        <Route path="/" element={<Navigate to="/register" />} />
                     </Route>
                     <Route element={<HomeLayout />}>
                         <Route path="/message" element={<Chat />} />
