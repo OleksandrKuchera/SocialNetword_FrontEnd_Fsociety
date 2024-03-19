@@ -52,6 +52,7 @@ const RegistrationForm = () => {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/register/', registrationData);
             navigate("/confirm-email");
+            // мб буде ще якийсь функціонал, який буде перевіряти токен користувача
             console.log(response.data);
 
 
