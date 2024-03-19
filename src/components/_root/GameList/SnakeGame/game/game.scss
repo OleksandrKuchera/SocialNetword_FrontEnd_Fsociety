@@ -1,0 +1,10 @@
+@import '../../../../styles/color.scss';
+
+.btn__start{
+    padding: 10px 20px 10px 20px;
+    color: black;
+    box-shadow: none;
+    border-radius: 10px;
+    background: $buttonGreen;
+    margin: 10px;
+}

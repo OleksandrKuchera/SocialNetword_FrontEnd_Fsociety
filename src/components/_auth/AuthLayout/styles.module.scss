@@ -1,0 +1,112 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+
+    .blur__circle__1 {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        filter: blur(68.95px);
+        left: 250px;
+        top: -5px;
+        background: #FF5C16;
+    }
+
+    .blur__circle__2 {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        filter: blur(68.95px);
+        left: 10%;
+        top: 10%;
+        background: #16FFD5;
+    }
+
+    .blur__circle__3 {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        filter: blur(68.95px);
+        right: 10%;
+        bottom: 10%;
+        background: #FF5C16;
+    }
+
+    .blur__circle__4 {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        filter: blur(68.95px);
+        right: 15%;
+        top: 20%;
+        background: #1B16FF;
+    }
+
+    .blur__circle__5 {
+        position: absolute;
+        width: 185px;
+        height: 185px;
+        filter: blur(68.95px);
+        left: 5%;
+        bottom: 20%;
+        background: #5316FF;
+    }
+
+    .logo__container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        img {
+            width: 30%;
+            height: 30%;
+            transition: all 0.5s;
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        input[type="date"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background: #333;
+            color: #ccc;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background: rgb(219,255,116);
+            background: linear-gradient(42deg, rgba(219,255,116,1) 0%, rgba(0,255,148,1) 100%);
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: black;
+            transition: all 0.5s;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(0.98);
+            }
+        }
+    }
+}

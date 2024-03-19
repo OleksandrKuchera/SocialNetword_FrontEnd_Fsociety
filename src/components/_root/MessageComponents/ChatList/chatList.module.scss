@@ -1,0 +1,70 @@
+@import '../../../styles/color.scss';
+
+.chat {
+    &__container {
+        background-color: $lightDark;
+        height: 100%;
+        padding: 10px;
+    }
+    &__title {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    &__list {
+        border: 1px solid $greyBorder;
+        border-radius: 10px;
+        margin: 5px;
+        height: 96%;
+    }
+    &__item {
+        padding: 5px;
+        border-bottom: 1px solid $greyBorder;
+        cursor: pointer;
+    }
+    &__message{
+        font-size: 13px;
+        background-color: $lightDark;
+        padding: 5px 10px 5px 10px;
+        border-radius: 10px;
+        font-weight: 200;
+    }
+
+}
+.active{
+    background: $buttonGreen;
+    box-shadow: -10px 0px 15px rgba(137, 255, 69, 0.4);
+    padding: 5px;
+
+
+    .avatar__info {
+        h4{
+            color: black;
+        }
+        p{  
+            color: white;
+            padding: 1px 5px 1px 5px;
+            border-radius: 10px;
+            background-color: $lightDark;
+        }
+    }
+}
+
+.avatar__info {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        border-radius: 100%;
+    }
+    h4{
+        font-size: 18px;
+    }
+    p{  
+        font-size: 13px;
+        color: $green;
+    }
+}

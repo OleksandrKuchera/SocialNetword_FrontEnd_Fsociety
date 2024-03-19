@@ -1,0 +1,36 @@
+.login__title {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: 250%;
+    margin-bottom: 20px;
+}
+
+.forgot__password {
+    color: #FF3333;
+    text-decoration: none;
+    text-align: right;
+    display: block;
+    margin-bottom: 20px;
+    transition: all 0.5s;
+
+    &:hover {
+        color: #FF5C16;
+    }
+}
+
+.recomendation {
+    display: flex;
+    justify-content: center;
+    color: white;
+
+    &__link {
+        text-decoration: none;
+
+        strong {
+            color: wheat;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    }
+}
