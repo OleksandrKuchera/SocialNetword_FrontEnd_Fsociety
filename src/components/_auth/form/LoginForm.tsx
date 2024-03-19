@@ -3,11 +3,14 @@ import style from './styles/LofinForm.module.scss'
 import { Link, useNavigate } from "react-router-dom";
 import FastSingIn from "../FastSingIn/FastSingIn";
 import axios from "axios";
+import { Error } from "@mui/icons-material";
 
 const LoginForm = () => {
 
     const [loginData, setLoginData] = useState({ email: '', password: '' });
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData({
@@ -24,6 +27,7 @@ const LoginForm = () => {
             console.log(response.data); //  відповідь сервера у консоль
             
         } catch (error) {
+            setError('Обліковий запис не знайдено')
             if (axios.isAxiosError(error)) {
                 console.error('Error:', error.response?.data);
             } else {
@@ -41,6 +45,7 @@ const LoginForm = () => {
                     <div className="col">
                         <h2 className={style.login__title}>Welcome back!</h2>
                         <form onSubmit={handleSubmit}>
+                        {error && <div  className={style.error} ><Error/><p>{error}</p></div>}
                             <label htmlFor="email">
                                 <input type="email" placeholder="Your email" id="email" name="email" required onChange={handleInputChange} />
                             </label>
