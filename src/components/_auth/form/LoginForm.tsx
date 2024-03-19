@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from './styles/LofinForm.module.scss'
 import { Link } from "react-router-dom";
 import FastSingIn from "../FastSingIn/FastSingIn";
+import axios from "axios";
 
 const LoginForm = () => {
 
@@ -16,9 +17,15 @@ const LoginForm = () => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        // Тут логіка відправки даних на сервер
-        // Наприклад, fetch або axios для відправки запиту
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData); //  POST-запит на сервер Django
+            console.log(response.data); //  відповідь сервера у консоль
+            // БОДЯ ТУТ МАЄ БУТИ ПЕРЕКИДАННЯ НА СТОРІНКУ Home!!!!!!!
+        } catch (error) {
+            console.error('Error:', error.response.data); // Якщо сталася помилка
+        }
     };
+    
 
     return (
         <>
@@ -47,6 +54,6 @@ const LoginForm = () => {
             </div>
         </>
     );
-}
+    }
 
 export default LoginForm;
