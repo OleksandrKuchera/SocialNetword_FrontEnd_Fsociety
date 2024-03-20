@@ -13,6 +13,7 @@
         width: 95%;
         border: 1px solid $greyBorder;
         background: linear-gradient(180deg, #212020 77%, rgba(137, 255, 69, 0.92) 280%);
+        background-repeat: round;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
