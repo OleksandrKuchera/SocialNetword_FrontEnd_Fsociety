@@ -8,6 +8,7 @@ import Chat from "./_root/MessageComponents/Chat/Chat";
 import Home from "./_root/HomeLayout/Home/Home";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
+import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
 
 
 const AppContainer = () => {
@@ -21,6 +22,8 @@ const AppContainer = () => {
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/" element={<Navigate to="/register" />} />
+                        <Route path="/confirm-email" element={<ConfirmEmail/>} />
+
                     </Route>
                     <Route element={<HomeLayout />}>
                         <Route path="/message" element={<Chat />} />
