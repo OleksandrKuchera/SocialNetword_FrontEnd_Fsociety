@@ -1,14 +1,22 @@
 @import '../../../styles/color.scss';
 
-.chat__container {
-    border-radius: 20px;
-    height: 98vh;
-    border: 1px solid $greyBorder;
-    background: linear-gradient(180deg, #212020 77%, rgba(137, 255, 69, 0.92) 280%);
-    margin: 10px 20px 10px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.chat {
+    &__layout{
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__container {
+        border-radius: 20px;
+        height: 98vh;
+        width: 95%;
+        border: 1px solid $greyBorder;
+        background: linear-gradient(180deg, #212020 77%, rgba(137, 255, 69, 0.92) 280%);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }
 
 .avatar {
@@ -62,6 +70,7 @@
     width: fit-content;
     text-align: start;
 }
+
 .message__sender {
     padding: 10px 15px 10px 15px;
     color: #000;
@@ -71,4 +80,8 @@
     margin: 10px;
     border-radius: 20px;
     text-align: start;
+}
+
+.height__control{
+    height: 100vh;
 }

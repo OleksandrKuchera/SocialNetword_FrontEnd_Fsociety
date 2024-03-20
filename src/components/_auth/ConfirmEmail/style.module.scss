@@ -1,21 +1,31 @@
 @import '../../styles/color.scss';
 
-.layout{
+.layout {
     width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    p{
-        padding: 30px 20px 30px 20px;
-        border-radius: 10px;
-        color: black;
+    background-image: url(../../../assets/background.png);
+
+    h2{
+        color: white;
+        font-size: 25px;
         font-weight: 700;
-        font-size: 18px;
-        background: $buttonGreen;
-        text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
+
+    p {
+        color: rgb(214, 214, 214);
+        font-weight: 400;
+        font-size: 16px;
+    }
+    img{
+        width: 15%;
+        margin-bottom: 10px;
+    }
+
     button {
         padding: 20px;
         border: 1px solid $green;
@@ -23,10 +33,21 @@
         border-radius: 10px;
         background: none;
         transition: all 0.3s;
-        &:hover{
+
+        &:hover {
             transform: scale(1.02);
             border-color: white;
             color: white;
         }
     }
+}
+
+.confirm__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px 30px 20px;
+    border-radius: 10px;
+    margin-bottom: 5%;
 }

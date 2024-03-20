@@ -21,12 +21,9 @@
     }
     &s{
         width: 100%;
-        flex-direction: column;
         margin: 0;
         padding: 10px;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
+        height: 100vh;
         background-color: black;
         &__title {
             font-size: 25px;

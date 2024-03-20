@@ -8,8 +8,8 @@ type chatItemType = {
 const ChatItem = ({isActive = false} : chatItemType) => {
     return (
         <div  className={isActive? `${style.active} ${style.chat__item}}` : `${style.chat__item}`}>
-            <div className="row">
-                <div className="col-4">
+            <div className="d-flex justify-content-between">
+                <div>
                     <div className={style.avatar__info}>
                         <img src={avatar} alt="avatar" />
                         <div>
@@ -18,7 +18,7 @@ const ChatItem = ({isActive = false} : chatItemType) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-8 d-flex align-items-center">
+                <div className='d-flex align-items-center'>
                     <p className={style.chat__message}>Buy milk kurwo...</p>
                 </div>
             </div>

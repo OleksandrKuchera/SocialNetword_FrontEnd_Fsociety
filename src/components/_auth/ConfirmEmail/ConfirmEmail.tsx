@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import style from './style.module.scss'
+import style from './style.module.scss';
+import logo from '../../../assets/FSLogo2.png';
 
 
 const ConfirmEmail = () => {
@@ -7,13 +8,19 @@ const ConfirmEmail = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/home');
+        navigate('/login');
     }
 
     return (
         <div className={style.layout}>
-            <p>Перейдіть на свою електрону пошту для підтвердження.</p>
-            <button onClick={handleClick}>Перейти до профілю</button>
+            <div>
+            <div className={style.confirm__container}>
+                <img src={logo} alt="mail" />
+                <h2>Confirm your mail</h2>
+                <p>Go to your email to confirm.</p>
+            </div>
+            </div>
+            <button onClick={handleClick}>Go to login</button>
         </div>
     );
 }

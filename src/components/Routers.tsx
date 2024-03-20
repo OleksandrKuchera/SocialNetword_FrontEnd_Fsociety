@@ -22,9 +22,8 @@ const AppContainer = () => {
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/" element={<Navigate to="/register" />} />
-                        <Route path="/confirm-email" element={<ConfirmEmail/>} />
-
                     </Route>
+                    <Route path="/confirm-email" element={<ConfirmEmail/>} />
                     <Route element={<HomeLayout />}>
                         <Route path="/message" element={<Chat />} />
                         <Route path="/home" element={<Home />} />
