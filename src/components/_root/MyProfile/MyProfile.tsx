@@ -16,7 +16,7 @@ function UserProfile() {
     // Функція, яка виконує GET-запит на сервер для отримання інформації про користувача
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get<UserInfo>('http://127.0.0.1:8000/api/profile/');
+        const response = await axios.get<UserInfo>('http://127.0.0.1:8000/profile/');
         setUserInfo(response.data); // Встановлюємо отриману інформацію в стан
         setLoading(false); // Змінюємо стан загрузки на false
       } catch (error) {
