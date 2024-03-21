@@ -13,10 +13,13 @@ function UserProfile() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Отримуємо user_id з URL
+    const userId = window.location.pathname.split('/').pop(); // Отримуємо останній шматок URL, що є user_id
+
     // Функція, яка виконує GET-запит на сервер для отримання інформації про користувача
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get<UserInfo>('http://127.0.0.1:8000/profile/<int:user_id>/');
+        const response = await axios.get<UserInfo>(`http://127.0.0.1:8000/profile/${userId}/`);
         setUserInfo(response.data); // Встановлюємо отриману інформацію в стан
         setLoading(false); // Змінюємо стан загрузки на false
       } catch (error) {
@@ -37,7 +40,7 @@ function UserProfile() {
       ) : (
         // Виводимо інформацію про користувача, якщо дані успішно отримані
         <div>
-          <p>Username: {userInfo?.username}</p>
+          <p>Username: {userInfo?.name}</p>
           <p>Email: {userInfo?.email}</p>
           {userInfo?.avatar && <p>Avatar: <img src={userInfo.avatar} alt="Avatar" /></p>}
           {/* Додайте інші дані профілю, якщо потрібно */}
