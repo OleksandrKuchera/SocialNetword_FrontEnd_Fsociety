@@ -1,10 +1,7 @@
 import Sidebar from "./Sidebar/Sidebar";
 import './homeLayout.scss'
-import { Route, Routes } from "react-router-dom";
-import Chat from "../MessageComponents/Chat/Chat";
-import Home from "./Home/Home";
-import GameList from "../GameList/GameList";
-import GameSnake from "../GameList/SnakeGame/SnakeGame";
+import { Outlet} from "react-router-dom";
+
 
 const HomeLayout = () => {
     return (
@@ -15,12 +12,7 @@ const HomeLayout = () => {
                 </div>
                 <div className="col-md-10 p-0">
                     <div className="background__central">
-                        <Routes>
-                            <Route path="/message" element={<Chat />} />
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/game" element={<GameList />} />
-                            <Route path="/game/snake" element={<GameSnake />} />
-                        </Routes>
+                        <Outlet/>
                     </div>
                 </div>
             </div>

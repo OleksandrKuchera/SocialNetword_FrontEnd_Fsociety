@@ -1,8 +1,8 @@
 import logo from '../../../../assets/FS2D2.png'
 import style from './style.module.scss';
-import { Nav } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { Gamepad, Home, Message, People, Person } from '@mui/icons-material';
+import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person } from '@mui/icons-material';
 
 
 
@@ -16,28 +16,41 @@ const Sidebar = () => {
                     <img src={logo} alt="logo" />
                     <figcaption>Fsociety</figcaption>
                 </div>
-                <Nav defaultActiveKey="/home" className={style.nav__bar}>
-                    <Link to="/home" className={pathname === '/home' ? style.activeLink : ''}>
-                        <Home />
-                        Home
-                    </Link>
-                    <Link to="/socirty" className={pathname === '/socirty' ? style.activeLink : ''}>
-                        <People />
-                        Society
-                    </Link>
-                    <Link to="/my-profile" className={pathname === '/my-profile' ? style.activeLink : ''}>
-                        <Person />
-                        My Profile
-                    </Link>
-                    <Link to="/message" className={pathname === '/message' ? style.activeLink : ''}>
-                        <Message />
-                        Message
-                    </Link>
-                    <Link to="/game" className={pathname.startsWith('/game') ? style.activeLink : ''}>
-                        <Gamepad />
-                        Game
-                    </Link>
-                </Nav>
+                <div className={style.btn__container}>
+                    <Nav defaultActiveKey="/home" className={style.nav__bar}>
+                        <Link to="/home" className={pathname === '/home' ? style.activeLink : ''}>
+                            <Home className={style.nav__icon} />
+                            Home
+                        </Link>
+                        <Link to="/society" className={pathname === '/society' ? style.activeLink : ''}>
+                            <People className={style.nav__icon} />
+                            Society
+                        </Link>
+                        <Link to="/my-profile" className={pathname === '/my-profile' ? style.activeLink : ''}>
+                            <Person className={style.nav__icon} />
+                            My Profile
+                        </Link>
+                        <Link to="/message" className={pathname === '/message' ? style.activeLink : ''}>
+                            <Message className={style.nav__icon} />
+                            Message
+                        </Link>
+                        <Link to="/game" className={pathname.startsWith('/game') ? style.activeLink : ''}>
+                            <Gamepad className={style.nav__icon} />
+                            Game
+                        </Link>
+                        <Link to="/license" className={pathname.startsWith('/license') ? style.activeLink : ''}>
+                            <Error className={style.nav__icon} />
+                            About product
+                        </Link>
+
+                    </Nav>
+                    <div className='d-flex align-items-center justify-content-center'>
+                        <Button className={style.log__out}>
+                            <ExitToAppRounded />
+                            Log Out
+                        </Button>
+                    </div>
+                </div>
             </div>
         </aside>
     );

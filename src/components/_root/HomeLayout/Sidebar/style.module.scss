@@ -6,6 +6,8 @@
     height: 100vh;
     background-color: $lightDark;
     margin-right: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 .logo__container {
@@ -15,10 +17,13 @@
     border-radius: 10px;
     padding-top: 10px;
     margin-bottom: 20px;
+    transition: all 0.3s;
+    &:hover{
+        transform: scale(1.1);
+    }
 
     & img {
         width: 30%;
-        height: 30%;
     }
 
     & figcaption {
@@ -29,6 +34,10 @@
         font-size: 150%;
         cursor: default;
     }
+}
+
+.nav__icon{
+    margin-right: 5px;
 }
 
 .nav__bar {
@@ -64,3 +73,29 @@
         }
     }
 }
+.btn__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.log__out{
+    color: red !important;
+    border: 1px solid red;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    transition: all 0.3s;
+    background: none;
+    color: $textWhite;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    &:hover{
+        transform: scale(0.95);
+        background: none;
+        border-color: red;
+    }
+}
+
