@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 interface UserInfo {
-  username: string;
+  name: string;
   email: string;
   avatar: string | null;
   // Додайте інші властивості, якщо потрібно
