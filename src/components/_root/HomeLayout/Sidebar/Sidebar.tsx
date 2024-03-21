@@ -38,7 +38,7 @@ const Sidebar = () => {
                             <Gamepad className={style.nav__icon} />
                             Game
                         </Link>
-                        <Link to="/license" className={pathname.startsWith('/license') ? style.activeLink : ''}>
+                        <Link to="/my-profile" className={pathname.startsWith('/license') ? style.activeLink : ''}>
                             <Error className={style.nav__icon} />
                             About product
                         </Link>
