@@ -1,19 +1,21 @@
 @import '../../../styles/color.scss';
 
 .chat {
-    &__layout{
+    &__layout {
         width: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     &__container {
         border-radius: 20px;
         height: 98vh;
         width: 95%;
+        box-shadow: 0px 0px 10px black;
+        background-color: rgba(0, 0, 0, 0.380);
         border: 1px solid $greyBorder;
-        background: linear-gradient(180deg, #212020 77%, rgba(137, 255, 69, 0.92) 280%);
-        background-repeat: round;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -83,6 +85,6 @@
     text-align: start;
 }
 
-.height__control{
+.height__control {
     height: 100vh;
 }
