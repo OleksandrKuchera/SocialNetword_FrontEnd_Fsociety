@@ -76,11 +76,6 @@ const MyProfilePost = () => {
                             </div>
                         </div>
                     </DialogContent>
-                    {/* <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions> */}
                 </Dialog>
             </React.Fragment>
         </div>

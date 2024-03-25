@@ -2,6 +2,7 @@ import { Add, CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-mater
 import avatar from '../../../../assets/avatar.png'
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
+import EditMyProfile from '../EditMyProfile/EditMyProfile';
 
 const MyProfileTop = () => {
     return (
@@ -19,7 +20,7 @@ const MyProfileTop = () => {
                             </div>
                             <div className="col-4 d-flex justify-content-end">
                                 <button  title='Add post'><Add/></button>
-                                <button>Edit Profile</button>
+                                <EditMyProfile/>
                             </div>
                         </div>
                     </div>

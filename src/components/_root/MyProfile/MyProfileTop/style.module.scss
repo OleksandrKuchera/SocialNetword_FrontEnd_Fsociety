@@ -1,70 +1,67 @@
 @import '../../../styles/color.scss';
 
-.avatar{
+.avatar {
     width: 100%;
     border-radius: 100px;
 }
-.profile{
-    &__count{
+
+.profile {
+    &__count {
         text-decoration: none;
         color: $green;
-        &:hover{
+
+        &:hover {
             text-decoration: underline;
             text-decoration-color: $green;
         }
 
-        &__container{
+        &__container {
             margin-bottom: 10px;
             margin-top: 20px;
         }
-    
-        span{
+
+        span {
             color: white;
             margin-right: 10px;
             font-weight: 700;
         }
-        svg{
+
+        svg {
             color: white;
             margin-right: 5px;
         }
     }
-    &__description{
-        p{
+
+    &__description {
+        p {
             color: white;
             margin-bottom: 20px;
         }
     }
 }
-.name__container{
+
+.name__container {
     margin-bottom: 20px;
-    h2{
+
+    h2 {
         font-size: 25px;
         font-weight: 600;
     }
-    
-    button{
-        background: $buttonGreen;
-        padding: 10px 15px 10px 15px;
-        border: none;
-        font-size: 14px;
-        font-weight: 600 !important;
-        text-transform: uppercase;
-        border-radius: 10px;
-        transition: all 0.2s;
-        &:hover{
-            transform: scale(1.05);
-            box-shadow: 0px 0px 10px $green;
-        }
-        &:first-child{
+
+    button {
+        &:first-child {
             padding: 5px;
             color: $green;
+            width: 40px;
+            height: 40px;
             background: none;
             border-radius: 50px;
             margin-right: 20px;
             border: 1px solid $green;
             box-shadow: none;
-            
-            &:hover{
+            transition: all 0.2s;    
+            &:hover {
+                transform: scale(1.05);
                 box-shadow: 0px 0px 10px $green;
             }
         }
