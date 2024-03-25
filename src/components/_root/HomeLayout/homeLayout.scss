@@ -4,3 +4,8 @@
     background-image: url(../../../assets/background.png);
     background-repeat: round;
 }
+.background__central {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+

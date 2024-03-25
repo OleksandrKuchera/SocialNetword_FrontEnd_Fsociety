@@ -1,7 +1,6 @@
 import { useState } from "react";
 import style from './styles/LofinForm.module.scss'
 import { Link, useNavigate } from "react-router-dom";
-import FastSingIn from "../FastSingIn/FastSingIn";
 import axios from "axios";
 import { Error } from "@mui/icons-material";
 
@@ -55,8 +54,6 @@ const LoginForm = () => {
                             <input type="submit" value="Login" />
                             <a className={style.forgot__password} href="forgot-password">Forgot password?</a>
                         </form>
-
-                        <FastSingIn />
                     </div>
                 </div>
 

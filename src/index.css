@@ -32,6 +32,7 @@ body {
 	line-height: 1;
     font-family: "Rubik", sans-serif;
 	color: white;
+	background-color: black;
 }
 ol, ul {
 	list-style: none;

@@ -4,7 +4,6 @@ import { Link, useNavigate} from "react-router-dom";
 
 import axios from 'axios';
 import { Error } from "@mui/icons-material";
-import FastSingIn from "../FastSingIn/FastSingIn";
 
 const RegistrationForm = () => {
 
@@ -84,8 +83,6 @@ const RegistrationForm = () => {
                 </label>
                 <input type="submit" value="Create an account" />
             </form>
-            <FastSingIn/>
-
             <div className={style.recomendation}>
                 <p>Already have an account? <Link className={style.recomendation__link} to="/login"><strong>Sign In</strong></Link></p>
             </div>
