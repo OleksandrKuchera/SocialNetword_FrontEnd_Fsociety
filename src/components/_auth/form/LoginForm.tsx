@@ -10,7 +10,6 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData({
             ...loginData,
@@ -21,10 +20,10 @@ const LoginForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData); //  POST-запит на сервер Django
+            const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData);
+            localStorage.setItem('accessToken', response.data.accessToken);
+            console.log(response.data);
             navigate('/home');
-            console.log(response.data); //  відповідь сервера у консоль
-            
         } catch (error) {
             setError('Обліковий запис не знайдено')
             if (axios.isAxiosError(error)) {
@@ -33,9 +32,8 @@ const LoginForm = () => {
                 console.error('An unexpected error occurred:', error);
             }
         }
-        
     };
-    
+
 
     return (
         <>
@@ -44,7 +42,7 @@ const LoginForm = () => {
                     <div className="col">
                         <h2 className={style.login__title}>Welcome back!</h2>
                         <form onSubmit={handleSubmit}>
-                        {error && <div  className={style.error} ><Error/><p>{error}</p></div>}
+                            {error && <div className={style.error} ><Error /><p>{error}</p></div>}
                             <label htmlFor="email">
                                 <input type="email" placeholder="Your email" id="email" name="email" required onChange={handleInputChange} />
                             </label>
@@ -63,6 +61,6 @@ const LoginForm = () => {
             </div>
         </>
     );
-    }
+}
 
 export default LoginForm;

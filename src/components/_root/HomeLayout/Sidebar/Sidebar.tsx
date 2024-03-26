@@ -3,15 +3,22 @@ import style from './style.module.scss';
 import { Button, Nav } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person } from '@mui/icons-material';
+import axios from 'axios';
 
 
 
 const Sidebar = () => {
-    const { pathname } = useLocation();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
-    const handdleLogOut = () => {
-        navigate('/login');
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://127.0.0.1:8000/api/logout/');
+            navigate('/login');
+
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
     }
 
     return (
@@ -50,7 +57,7 @@ const Sidebar = () => {
 
                     </Nav>
                     <div className='d-flex align-items-center justify-content-center'>
-                        <Button onClick={handdleLogOut} className={style.log__out}>
+                        <Button onClick={handleLogout} className={style.log__out}>
                             <ExitToAppRounded />
                             Log Out
                         </Button>
