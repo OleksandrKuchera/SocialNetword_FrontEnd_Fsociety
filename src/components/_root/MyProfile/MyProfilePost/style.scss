@@ -1,19 +1,22 @@
 @import '../../../styles/color.scss';
 
-.post__img{
+.post__img {
     border: none !important;
     transition: all 0.2s !important;
     margin-bottom: 24px !important;
     padding: 0 !important;
+
     &:hover {
         border: none !important;
         transform: scale(1.03) !important;
     }
-    img{
+
+    img {
         width: 100%;
     }
 }
-.css-12rl710-MuiPaper-root-MuiDialog-paper{
+
+.css-12rl710-MuiPaper-root-MuiDialog-paper {
     padding: 5px;
     width: 100%;
     box-shadow: 0px 0px 60px black !important;
@@ -21,9 +24,19 @@
     border-radius: 10px !important;
     border: 1px solid $greyBorder;
 }
-.open{
-    &__post{
-        &__img{
+
+.css-1qmc5dd {
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0px 0px 60px black !important;
+    background-color: rgba(0, 0, 0, 0.850) !important;
+    border-radius: 10px !important;
+    border: 1px solid $greyBorder;
+}
+
+.open {
+    &__post {
+        &__img {
             width: 100% !important;
         }
     }
@@ -34,7 +47,8 @@
         width: 100%;
         border-radius: 50px;
     }
-    h2{
+
+    h2 {
         color: white;
         font-size: 20px;
         font-weight: 700;
@@ -47,12 +61,12 @@
     font-weight: 300;
 }
 
-.post__like{
+.post__like {
     background: none;
     border: none;
     color: white;
 
-    svg{
+    svg {
         width: 35px;
         height: 35px;
     }
