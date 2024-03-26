@@ -26,9 +26,9 @@ const MyProfileTop = () => {
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex justify-content-between">
-                            <a className={style.profile__count} href=""><span>3</span>Posts</a>
-                            <a className={style.profile__count} href=""><span>228</span>Friends</a>
-                            <a className={style.profile__count} href=""><span>414</span>Followers</a>
+                            <p className={style.profile__count}><span>3</span>Posts</p>
+                            <p className={style.profile__count}><span>228</span>Friends</p>
+                            <p className={style.profile__count}><span>414</span>Followers</p>
                         </div>
                     </div>
                 </div>
@@ -38,10 +38,10 @@ const MyProfileTop = () => {
                     <div className={style.profile__count__container}>
                         <div className="row">
                             <div className="col-3">
-                                <a className={style.profile__count} href=""><LocationOnOutlined />Otiniya, Ukraine</a>
+                                <p className={style.profile__count}><LocationOnOutlined />Otiniya, Ukraine</p>
                             </div>
                             <div className="col-3">
-                                <a className={style.profile__count} href=""><CalendarMonthOutlined />14.02.2003</a>
+                                <p className={style.profile__count}><CalendarMonthOutlined />14.02.2003</p>
                             </div>
                         </div>
                     </div>

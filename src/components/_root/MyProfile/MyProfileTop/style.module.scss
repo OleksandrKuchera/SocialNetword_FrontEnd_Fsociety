@@ -10,11 +10,6 @@
         text-decoration: none;
         color: $green;
 
-        &:hover {
-            text-decoration: underline;
-            text-decoration-color: $green;
-        }
-
         &__container {
             margin-bottom: 10px;
             margin-top: 20px;

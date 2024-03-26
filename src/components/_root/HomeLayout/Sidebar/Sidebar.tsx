@@ -1,13 +1,18 @@
 import logo from '../../../../assets/FS2D2.png'
 import style from './style.module.scss';
 import { Button, Nav } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person } from '@mui/icons-material';
 
 
 
 const Sidebar = () => {
-    const { pathname } = useLocation(); // Get the current URL path
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+
+    const handdleLogOut = () => {
+        navigate('/login');
+    }
 
     return (
         <aside>
@@ -45,7 +50,7 @@ const Sidebar = () => {
 
                     </Nav>
                     <div className='d-flex align-items-center justify-content-center'>
-                        <Button className={style.log__out}>
+                        <Button onClick={handdleLogOut} className={style.log__out}>
                             <ExitToAppRounded />
                             Log Out
                         </Button>

@@ -123,7 +123,7 @@ const EditMyProfile = () => {
                                                 id="contained-button-file"
                                                 multiple
                                                 type="file"
-                                                style={{display: 'none'}}
+                                                style={{ display: 'none' }}
                                                 onChange={handleFileChange}
                                             />
                                             <label htmlFor="contained-button-file">
@@ -133,19 +133,19 @@ const EditMyProfile = () => {
                                             </label>
                                         </div>
                                     </div>
-                                    <label>
-                                        Bio:
-                                        <textarea name="bio" value={profile.bio} onChange={handleTextareaChange} />
-                                    </label>
-                                    <label>
-                                        Country:
-                                        <input type="text" name="country" value={profile.country} onChange={handleInputChange} />
-                                    </label>
-                                    <label>
-                                        Date:
-                                        <input type="text" name="date" value={profile.date} onChange={handleInputChange} />
-                                    </label>
                                 </div>
+                                <label>
+                                    Bio:
+                                    <textarea name="bio" value={profile.bio} onChange={handleTextareaChange} />
+                                </label>
+                                <label>
+                                    Country:
+                                    <input maxLength={35} type="text" name="country" value={profile.country} onChange={handleInputChange} />
+                                </label>
+                                <label>
+                                    Date:
+                                    <input type="date" min="1900-01-01" max="2040-12-31" name="date" value={profile.date} onChange={handleInputChange} />
+                                </label>
                             </form>
                         </div>
                     </div>

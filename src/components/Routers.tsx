@@ -10,6 +10,7 @@ import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
 import UserProfile from "./_root/MyProfile/MyProfile";
+import FrendList from "./_root/FriendList/FriendList";
 
 
 const AppContainer = () => {
@@ -31,6 +32,7 @@ const AppContainer = () => {
                         <Route path="/game" element={<GameList />} />
                         <Route path="/my-profile" element={<UserProfile />} />
                         <Route path="/game/snake" element={<GameSnake />} />
+                        <Route path="/society" element={<FrendList/>} />
                     </Route>
                 </Routes>
             </main>

@@ -1,0 +1,83 @@
+@import '../../styles/color.scss';
+
+.friends__container {
+    padding: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    border: 1px solid $greyBorder;
+    box-shadow: 0px 0px 30px black;
+    background-color: rgba(0, 0, 0, 0.380);
+    margin: 10px;
+
+    h2 {
+        width: 100%;
+        font-size: 25px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: black;
+        padding: 15px;
+        border-radius: 10px;
+        background: $buttonGreen;
+    }
+}
+
+.friend__item__container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 0px 50px black;
+    background-color: rgba(0, 0, 0, 0.680);
+    border: 1px solid $greyBorder;
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.friend__info {
+    display: flex;
+    align-items: center;
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50px;
+        margin-right: 10px;
+    }
+    h3{
+        font-weight: 600;
+    }
+}
+
+.friend__btn{
+    display: flex;
+    align-items: center;
+
+    button{
+        background: $buttonGreen;
+        margin-right: 10px;
+        padding: 5;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        transition: all 0.2s;
+        font-weight: 600;
+        font-size: 14px;
+        color: black;
+        text-transform: uppercase;
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px $green !important;
+        }
+    }
+}
+
+.friend__btn__folow{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100% !important;
+    height: 40px !important;
+}
