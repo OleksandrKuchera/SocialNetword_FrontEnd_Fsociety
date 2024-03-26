@@ -349,9 +349,9 @@
   "resolved" "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.3.1.tgz"
   "version" "0.3.1"
 
-"@esbuild/darwin-arm64@0.19.12":
-  "integrity" "sha512-B6IeSgZgtEzGC42jsI+YYu9Z3HKRxp8ZT3cqhvliEHovq8HSX2YX8lNocDn79gCKJXOSaEot9MVYky7AKjCs8g=="
-  "resolved" "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.19.12.tgz"
+"@esbuild/win32-x64@0.19.12":
+  "integrity" "sha512-T1QyPSDCyMXaO3pzBkF96E8xMkiRYbUEZADd29SyPGabqxMViNoii+NcK7eWJAEoU6RZyEm5lVSIjTmcdoB9HA=="
+  "resolved" "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.19.12.tgz"
   "version" "0.19.12"
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
@@ -615,9 +615,9 @@
     "uncontrollable" "^8.0.1"
     "warning" "^4.0.3"
 
-"@rollup/rollup-darwin-arm64@4.12.0":
-  "integrity" "sha512-X64tZd8dRE/QTrBIEs63kaOBG0b5GVEd3ccoLtyf6IdXtHdh8h+I56C2yC3PtC9Ucnv0CpNFJLqKFVgCYe0lOQ=="
-  "resolved" "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.12.0.tgz"
+"@rollup/rollup-win32-x64-msvc@4.12.0":
+  "integrity" "sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg=="
+  "resolved" "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.0.tgz"
   "version" "4.12.0"
 
 "@swc/helpers@^0.5.0":
@@ -1478,11 +1478,6 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
-
-"fsevents@~2.3.2", "fsevents@~2.3.3":
-  "integrity" "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  "version" "2.3.3"
 
 "function-bind@^1.1.2":
   "integrity" "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="
