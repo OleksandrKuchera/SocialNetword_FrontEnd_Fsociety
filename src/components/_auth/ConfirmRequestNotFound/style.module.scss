@@ -24,6 +24,10 @@
     img{
         width: 15%;
         margin-bottom: 10px;
+        transition: all 0.5s;
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 
     button {
