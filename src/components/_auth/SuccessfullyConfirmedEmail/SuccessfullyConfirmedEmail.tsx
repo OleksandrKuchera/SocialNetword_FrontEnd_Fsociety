@@ -16,8 +16,8 @@ const SuccessfullyConfirmedEmail = () => {
             <div>
             <div className={style.confirm__container}>
                 <img src={logo} alt="mail" />
-                <h2>Confirm your mail</h2>
-                <p>Go to your email to confirm.</p>
+                <h2>Email successfully confirmed.</h2>
+                <p>Go to login page to sign in.</p>
             </div>
             </div>
             <button onClick={handleClick}>Go to login</button>
