@@ -9,6 +9,8 @@ import Home from "./_root/HomeLayout/Home/Home";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
+import SuccessfullyConfirmedEmail from "./_auth/SuccessfullyConfirmedEmail/SuccessfullyConfirmedEmail";
+import ConfirmRequestNotFound from "./_auth/ConfirmRequestNotFound/ConfirmRequestNotFound";
 import UserProfile from "./_root/MyProfile/MyProfile";
 import FrendList from "./_root/FriendList/FriendList";
 
@@ -25,7 +27,9 @@ const AppContainer = () => {
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/" element={<Navigate to="/register" />} />
                     </Route>
-                    <Route path="/confirm-email" element={<ConfirmEmail/>} />
+                    <Route path="/confirm-email" element={<ConfirmEmail />} />
+                    <Route path="/successfully-confirmed-email" element={<SuccessfullyConfirmedEmail />} />
+                    <Route path="/confirm-request-not-found" element={<ConfirmRequestNotFound/>} />
                     <Route element={<HomeLayout />}>
                         <Route path="/message" element={<Chat />} />
                         <Route path="/home" element={<Home />} />
