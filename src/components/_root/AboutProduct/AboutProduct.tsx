@@ -54,52 +54,7 @@ const AboutProduct = () => {
                 </div>
             </div>
         </div>
-
-
-
-
-
     )
-    
-    // return (
-    //     <div className='d-flex justify-content-between'>
-    //         <div className={style.about__layout}>
-    //             <div className={style.about__container}>
-    //                 <div className={style.about__top__container}>
-    //                     <h1>Hello World!</h1>
-    //                     <div className="row">
-    //                         <div className="col-6 d-flex align-items-center">
-    //                             <div className={style.avatar__info}>
-    //                                 <h3>Mom</h3>
-    //                                 <p>Online</p>
-    //                             </div>
-    //                         </div>              
-    //                     </div>    
-    //                 </div>     
-    //             </div>     
-    //         </div>
-    //         <div className={style.about__layout}>
-    //             <div className={style.about__container}>
-    //                 <div className={style.about__top__container}>
-    //                     <h1>Hello World!</h1>
-    //                     <div className="row">
-    //             <div className="col-6 d-flex align-items-center">
-    //                 <div className={style.avatar__info}>
-    //                     <h3>Mom</h3>
-    //                     <p>Online</p>
-    //                 </div>
-    //                     </div>
-    //                         <div className="col-6 d-flex align-items-center justify-content-end">
-    //                             <p>ya tyt</p>
-    //                       </div>
-    //                     </div>    
-    //                 </div>     
-    //             </div>     
-    //         </div> 
-    //     </div> 
-        
-                
-    // );
 }
 
 export default AboutProduct;
