@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Add, CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
+import { CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
 import avatar from '../../../../assets/avatar.png'
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
+import AddPost from '../AddPost/AddPost';
 
 type userDataType = {
     name: string,
@@ -66,7 +67,7 @@ return (
                                         <h2>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
-                                        <button title='Add post'><Add/></button>
+                                        <AddPost/>
                                         <EditMyProfile/>
                                     </div>
                                 </div>

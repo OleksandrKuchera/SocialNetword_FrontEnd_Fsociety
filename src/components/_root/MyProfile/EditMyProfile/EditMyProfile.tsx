@@ -95,6 +95,9 @@ const EditMyProfile = () => {
                 </IconButton>
                 <DialogContent>
                     <div className="row">
+                        <div className="col-12"><h2 className='edit__profile'>Edit profile</h2></div>
+                    </div>
+                    <div className="row">
                         <div className="col-12">
                             <form className='edit__profile__form' onSubmit={handleSubmit}>
                                 <div className="change__profile__info">
