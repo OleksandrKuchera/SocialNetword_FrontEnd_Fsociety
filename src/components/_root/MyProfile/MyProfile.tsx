@@ -1,11 +1,11 @@
 import { Container } from 'react-bootstrap';
 import MyProfileTop from './MyProfileTop/MyProfileTop';
-import style from './style.module.scss';
+import style from '../MyProfile/style.module.scss';
 import MyProfileDesc from './MyProfileDesc/MyProfileDesc';
 
 
 
-function UserProfile() {
+function MyProfile() {
   return (
     <Container>
       <div className={style.profile__container}>
@@ -16,4 +16,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default MyProfile;

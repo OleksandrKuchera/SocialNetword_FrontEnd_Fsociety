@@ -9,8 +9,9 @@ import Home from "./_root/HomeLayout/Home/Home";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
-import UserProfile from "./_root/MyProfile/MyProfile";
+import UserProfile from "./_root/UserProfile/UserProfile";
 import FrendList from "./_root/FriendList/FriendList";
+import MyProfile from "./_root/MyProfile/MyProfile";
 
 
 const AppContainer = () => {
@@ -30,7 +31,8 @@ const AppContainer = () => {
                         <Route path="/message" element={<Chat />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/game" element={<GameList />} />
-                        <Route path="/my-profile" element={<UserProfile />} />
+                        <Route path="/my-profile" element={<MyProfile />} />
+                        <Route path="/profile" element={<UserProfile />} />
                         <Route path="/game/snake" element={<GameSnake />} />
                         <Route path="/society" element={<FrendList/>} />
                     </Route>
