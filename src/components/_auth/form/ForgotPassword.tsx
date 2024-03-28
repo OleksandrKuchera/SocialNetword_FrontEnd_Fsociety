@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Error } from "@mui/icons-material";
 
-const LoginForm = () => {
+const ForgotPassword = () => {
 
     const [loginData, setLoginData] = useState({ email: '', password: '' });
     const navigate = useNavigate();
@@ -40,17 +40,13 @@ const LoginForm = () => {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <h2 className={style.login__title}>Welcome back!</h2>
+                        <h2 className={style.login__title}>Write your email</h2>
                         <form onSubmit={handleSubmit}>
                             {error && <div className={style.error} ><Error /><p>{error}</p></div>}
                             <label htmlFor="email">
                                 <input type="email" placeholder="Your email" id="email" name="email" required onChange={handleInputChange} />
                             </label>
-                            <label htmlFor="password">
-                                <input type="password" placeholder="Your password" id="password" name="password" required onChange={handleInputChange} />
-                            </label>
-                            <input type="submit" value="Login" />
-                            <a><Link className={style.forgot__password} to="/forgot-password">Forgot password?</Link></a>
+                            <input type="submit" value="Approve" />
                         </form>
                     </div>
                 </div>
@@ -63,4 +59,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default ForgotPassword;
