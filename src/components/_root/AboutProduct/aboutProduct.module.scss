@@ -1,0 +1,94 @@
+@import '../../styles/color.scss';
+
+.about {
+    &__layout {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__container {
+        border-radius: 20px;
+        height: 98vh;
+        width: 95%;
+        border: 1px solid $greyBorder;
+        background: rgba($color: #000000, $alpha: 0.7);
+        background-repeat: round;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+    }
+}
+
+.text{
+    &__layout{
+        height: 60vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: start;
+    }
+
+    &__container__product {
+        width: 50%;
+        height: 45vh;
+        margin-left: 7vh;
+        margin-right: 7vh;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+
+        h2 
+        {
+            font-size: 18px;
+            font-weight: 400;
+        
+        }
+        
+        h3 
+        {
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
+
+    &__container__team {
+        width: 50%;
+        height: 30vh;
+        margin-left: 7vh;
+        margin-right: 7vh;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+
+        h2 {
+            font-size: 18px;
+            font-weight: 400;
+
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
+.logo__container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    img {
+        width: 20vh;
+        height: 20vh;
+        transition: all 0.5s;
+    }
+}

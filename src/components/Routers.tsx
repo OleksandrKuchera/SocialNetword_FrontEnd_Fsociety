@@ -16,6 +16,7 @@ import SuccessfullyConfirmedEmail from "./_auth/SuccessfullyConfirmedEmail/Succe
 import ConfirmRequestNotFound from "./_auth/ConfirmRequestNotFound/ConfirmRequestNotFound";
 import UserProfile from "./_root/MyProfile/MyProfile";
 import FrendList from "./_root/FriendList/FriendList";
+import AboutProduct from "./_root/AboutProduct/AboutProduct";
 
 
 const AppContainer = () => {
@@ -43,6 +44,7 @@ const AppContainer = () => {
                         <Route path="/my-profile" element={<UserProfile />} />
                         <Route path="/game/snake" element={<GameSnake />} />
                         <Route path="/society" element={<FrendList/>} />
+                        <Route path="/about-product" element={<AboutProduct />} />
                     </Route>
                 </Routes>
             </main>
