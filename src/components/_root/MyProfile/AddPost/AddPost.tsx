@@ -94,7 +94,7 @@ const AddPost: React.FC = () => {
                                     <div className="col-9 d-flex align-items-center justify-content-center">
                                         <label className={style.add__post__description}>
                                             Post description:
-                                            <textarea name="bio" value={description} onChange={handleDescriptionChange} />
+                                            <textarea name="description" value={description} onChange={handleDescriptionChange} />
                                         </label>
                                     </div>
                                 </div>
