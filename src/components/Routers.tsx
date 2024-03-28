@@ -2,6 +2,7 @@ import { Navigate, HashRouter as Router } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout/AuthLayout";
 import { Routes, Route } from "react-router-dom";
 import LoginForm from "./_auth/form/LoginForm";
+import ForgotPassword from "./_auth/form/ForgotPassword";
 import RegistrationForm from "./_auth/form/RegistrationForm";
 import HomeLayout from "./_root/HomeLayout/HomeLayout";
 import Chat from "./_root/MessageComponents/Chat/Chat";
@@ -26,6 +27,7 @@ const AppContainer = () => {
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/" element={<Navigate to="/register" />} />
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
                     </Route>
                     <Route path="/confirm-email" element={<ConfirmEmail />} />
                     <Route path="/successfully-confirmed-email" element={<SuccessfullyConfirmedEmail />} />
