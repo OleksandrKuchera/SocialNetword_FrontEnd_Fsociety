@@ -46,7 +46,7 @@ const ForgotPassword = () => {
                             <label htmlFor="email">
                                 <input type="email" placeholder="Your email" id="email" name="email" required onChange={handleInputChange} />
                             </label>
-                            <input type="submit" value="Confirm Email" />
+                            <input type="submit" value="Approve" />
                         </form>
                     </div>
                 </div>
