@@ -3,7 +3,7 @@ import logo from '../../../assets/FSLogo2.png';
 
 const AboutProduct = () => {
     return (
-        <div className='d-flex justify-content-between'>
+        <div className='d-flex justify-content-center'>
             <div className={style.about__layout}>
                 <div className={style.about__container}>
                     <div className='d-flex justify-content-center'>

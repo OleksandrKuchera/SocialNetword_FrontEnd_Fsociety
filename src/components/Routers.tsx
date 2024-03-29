@@ -8,7 +8,7 @@ import SuccessfullyResetPassword from "./_auth/SuccessfullyResetPassword/Success
 import RegistrationForm from "./_auth/form/RegistrationForm";
 import HomeLayout from "./_root/HomeLayout/HomeLayout";
 import Chat from "./_root/MessageComponents/Chat/Chat";
-import Home from "./_root/HomeLayout/Home/Home";
+import Home from "./_root/Home/Home";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";

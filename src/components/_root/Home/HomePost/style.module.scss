@@ -1,0 +1,59 @@
+@import '../../../styles/color.scss';
+
+.post__container{
+    margin: 30px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid $greyBorder;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px black;
+    background-color: rgba(0, 0, 0, 0.700);
+}
+
+.post__top__container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    img{
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+    }
+    h3{
+        margin-right: 10px;
+    }
+    button{
+        background: $buttonGreen;
+        padding: 10px 15px 10px 15px;
+        border: none;
+        border-radius: 50px;
+        transition: all 0.2s;
+        font-weight: 600;
+        font-size: 14px;
+        color: black;
+        text-transform: uppercase;
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px $green;
+        }
+    }
+
+}
+
+.post__profile__info{
+    display: flex;
+    align-items: center;
+    padding: 5px 3px 5px 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.3s;
+    &:hover{
+        transform: scale(0.98);
+    }
+}
+
+.post__img{
+    width: 100%;
+    margin-bottom: 20px;
+}
