@@ -8,21 +8,20 @@ const Home = () => {
         <>
             <div className="row">
                 <div className="col-9">
-                    <Container>
-                        <div className={style.home__layout}>
-                            <div className="row">
-                                <div className="col-12">
-                                    <h2 className={style.home__title}>New Posts</h2>
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-9">
+                            <Container>
+                                <div className={style.home__layout}>
+                                    <div className="row">
+                                        <HomePost />
+                                        <HomePost />
+                                        <HomePost />
+                                        <HomePost />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <HomePost />
-                                <HomePost />
-                                <HomePost />
-                                <HomePost />
-                            </div>
+                            </Container>
                         </div>
-                    </Container>
+                    </div>
                 </div>
                 <div className="col-3 m-0 p-0">
                     <RecomendationList />

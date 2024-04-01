@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
-import avatar from '../../../../assets/avatar.png'
+import { Add, CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
-import AddPost from '../AddPost/AddPost';
 
 type userDataType = {
     name: string,
@@ -14,7 +12,8 @@ type userDataType = {
     followersCount:number,
     located: string,
     birth_date: string,
-    bio: string
+    bio: string,
+    avatar: string
 }
 
 const MyProfileTop = () => {
@@ -27,6 +26,7 @@ const MyProfileTop = () => {
         located: '',
         birth_date: '',
         bio: '',
+        avatar: '',
     });
 
     useEffect(() => {
@@ -58,7 +58,7 @@ return (
                     <div className="row">
                         <div className="col-12"></div>
                         <div className="col-2">
-                            <img className={style.avatar} src={avatar} alt="avatar" />
+                        <img className={style.avatar} src={userData.avatar} alt="avatar" />
                         </div>
                         <div className="col-10 d-flex flex-column justify-content-around">
                             <div className={style.name__container}>
@@ -67,7 +67,7 @@ return (
                                         <h2>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
-                                        <AddPost/>
+                                        <button title='Add post'><Add/></button>
                                         <EditMyProfile/>
                                     </div>
                                 </div>

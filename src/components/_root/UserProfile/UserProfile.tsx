@@ -4,6 +4,7 @@ import UserProfileTop from "./UserProfileTop.tsx/UserProfileTop";
 import MyProfileDesc from "../MyProfile/MyProfileDesc/MyProfileDesc";
 
 const UserProfile = () => {
+
     return ( 
         <Container>
         <div className={style.profile__container}>
