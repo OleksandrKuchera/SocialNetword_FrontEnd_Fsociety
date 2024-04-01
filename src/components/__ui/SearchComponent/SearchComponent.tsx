@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
-import { Search, SearchIconWrapper, StyledInputBase } from './themeSeacrchComponent';
+import { Search, SearchIconWrapper, StyledInputBase } from '../../_root/FriendList/themeSeacrchComponent';
 
 export default function SearchComponent() {
   return (
