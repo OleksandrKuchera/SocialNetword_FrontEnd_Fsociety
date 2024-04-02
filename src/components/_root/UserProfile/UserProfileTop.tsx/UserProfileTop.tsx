@@ -1,56 +1,14 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { CalendarMonthOutlined, LocationOnOutlined, Message } from '@mui/icons-material';
 import avatar from '../../../../assets/avatar.png'
 import style from '../../MyProfile/MyProfileTop/style.module.scss';
 import { Divider } from '@mui/material';
+import { userDataType } from '../UserProfile';
 
-type userDataType = {
-    name: string,
-    postCount: number,
-    friendsCount: number,
-    followersCount: number,
-    located: string,
-    birth_date: string,
-    bio: string,
-    isFollow: boolean,
+type UserProfileTopProps = {
+    userData: userDataType;
 }
 
-const UserProfileTop = () => {
-
-    const [userData, setUserData] = useState<userDataType>({
-        name: '',
-        postCount: 0,
-        friendsCount: 0,
-        followersCount: 0,
-        located: '',
-        birth_date: '',
-        bio: '',
-        isFollow: false
-    });
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-
-                const response = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-
-                setUserData(response.data);
-                console.log('Отримана інформація:', response.data);
-
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-
-        fetchUserData();
-    }, []);
-
+const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     return (
         <div className={style.profile__container}>
             {userData && (
@@ -97,12 +55,14 @@ const UserProfileTop = () => {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <div className="profile__description">
-                                <p>{userData.bio}</p>
-                            </div>
+                            <Divider />
                         </div>
                     </div>
-                    <Divider className={style.divider} />
+                    <div className="row">
+                        <div className="col-12">
+                            <p>{userData.bio}</p>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

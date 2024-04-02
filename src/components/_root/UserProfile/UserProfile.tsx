@@ -1,11 +1,12 @@
-import { Container } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import style from '../MyProfile/style.module.scss';
 import UserProfileTop from "./UserProfileTop.tsx/UserProfileTop";
 import MyProfileDesc from "../MyProfile/MyProfileDesc/MyProfileDesc";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Container } from "@mui/material";
 
-type userDataType = {
+export type userDataType = {
   name: string,
   postCount: number,
   friendsCount: number,
@@ -14,52 +15,39 @@ type userDataType = {
   birth_date: string,
   bio: string,
   avatar: string,
+  isFollow: boolean
 }
- 
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState<userDataType>({
-    name: '',
-    postCount: 0,
-    friendsCount: 0,
-    followersCount:0,
-    located: '',
-    birth_date: '',
-    bio: '',
-    avatar: '',
-});
+  const { userName } = useParams();
+  const [userData, setUserData] = useState<userDataType | null>(null);
 
   useEffect(() => {
-
     const fetchUserData = async () => {
-        try {
-            const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-
-            const response = await axios.get(`http://127.0.0.1:8000/api/profile/${accessToken}`);
-            
-            setUserData(response.data);
-            console.log('Отримана інформація:', response.data);
-            
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/profile/${userName}`);
+        setUserData(response.data);
+        console.log('Отримана інформація:', response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
 
     fetchUserData();
-}, []);
+  }, [userName]);
 
-    return ( 
-        <Container>
-        <div className={style.profile__container}>
-          <UserProfileTop />
-          <MyProfileDesc/>
-        </div>
-      </Container>
-     );
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Container>
+      <div className={style.profile__container}>
+        <UserProfileTop userData={userData} />
+        <MyProfileDesc userData={userData} />
+      </div>
+    </Container>
+  );
 }
- 
+
 export default UserProfile;

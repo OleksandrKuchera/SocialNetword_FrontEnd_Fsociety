@@ -8,9 +8,13 @@ import postImgTitle from '../../../../assets/2ae124d20589cf2442a17ae918acaf3a.pn
 import avatar from '../../../../assets/avatar.png'
 import './style.scss';
 import { Favorite, FavoriteBorder} from '@mui/icons-material';
+import { userDataType } from '../../UserProfile/UserProfile';
 
+type MyProfilePostProps = {
+    userData: userDataType;
+}
 
-const MyProfilePost = () => {
+const MyProfilePost: React.FC<MyProfilePostProps> = ({ userData }) => {
     const [open, setOpen] = useState(false);
     const [islike, setIsLike] = useState(false);
 
@@ -59,7 +63,7 @@ const MyProfilePost = () => {
                                             <img src={avatar} alt="avatar" />
                                         </div>
                                         <div className="col-9">
-                                            <h2>Antodio Banderolka</h2>
+                                            <h2>{userData.name}</h2>
                                         </div>
                                     </div>
                                     <div className="row">
