@@ -11,6 +11,7 @@ import Chat from "./_root/MessageComponents/Chat/Chat";
 import Home from "./_root/Home/Home";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
+import GameMinesweeper from "./_root/GameList/MinesweeperGame/MinesweeperGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
 import MyProfile from "./_root/MyProfile/MyProfile";
 import SuccessfullyConfirmedEmail from "./_auth/SuccessfullyConfirmedEmail/SuccessfullyConfirmedEmail";
@@ -45,6 +46,7 @@ const AppContainer = () => {
                         <Route path="/my-profile" element={<MyProfile />} />
                         <Route path="/profile/:name" element={<UserProfile />} />
                         <Route path="/game/snake" element={<GameSnake />} />
+                        <Route path="/game/minesweeper" element={<GameMinesweeper />} />
                         <Route path="/society" element={<FrendList />} />
                         <Route path="/about-product" element={<AboutProduct />} />
                     </Route>
