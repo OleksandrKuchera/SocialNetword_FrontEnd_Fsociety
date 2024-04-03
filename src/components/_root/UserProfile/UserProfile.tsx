@@ -15,7 +15,8 @@ export type userDataType = {
   birth_date: string,
   bio: string,
   avatar: string,
-  isFollow: boolean
+  isFollow: boolean,
+  friends_count: number,
 }
 
 const UserProfile = () => {

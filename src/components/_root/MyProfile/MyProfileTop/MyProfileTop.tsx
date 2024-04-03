@@ -17,7 +17,8 @@ type userDataType = {
     located: string,
     birth_date: string,
     bio: string,
-    avatar: string
+    avatar: string,
+    friends_count : number,
 }
 
 const MyProfileTop : React.FC<UserProfileTopProps> = ({ userData }) => {
@@ -47,7 +48,7 @@ return (
                             <div className="row">
                                 <div className="col-12 d-flex justify-content-between">
                                     <p className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
-                                    <a className={style.profile__count}><span>{userData.friendsCount}</span>Friends</a>
+                                    <a className={style.profile__count}><span>{userData.friends_count}</span>Friends</a>
                                     <a className={style.profile__count} href=""><span>{userData.followersCount}</span>Followers</a>
                                 </div>
                             </div>

@@ -1,7 +1,8 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import style from './style.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Delete, Message } from '@mui/icons-material';
+import axios from 'axios';
 
 type User = {
     name: string;
@@ -21,11 +22,22 @@ const FriendItem = ({ user }: Props) => {
     const handleClickCard = () => {
         navigate(`/profile/${userName}`);
     }
+
     const handleClickMessage = () => {
-
+        // Додайте логіку для відправлення повідомлення користувачеві
     }
-    const handleClickDelete = () => {
 
+    const handleClickDelete = () => {
+        // Виконати запит на видалення користувача
+        axios.delete(`http://127.0.0.1:8000/friend/remove/`, { data: { friend_name: userName, user_name: 'current_user_name' } })
+            .then(response => {
+                console.log(response.data);
+                // Оновіть стан або виконайте інші дії, які потрібно виконати після успішного видалення користувача
+            })
+            .catch(error => {
+                console.error('Error deleting friend:', error);
+                // Обробка помилки при видаленні користувача
+            });
     }
 
     return (
