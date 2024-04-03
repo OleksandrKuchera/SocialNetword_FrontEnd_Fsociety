@@ -10,7 +10,7 @@ function MyProfile() {
     <Container>
       <div className={style.profile__container}>
         <MyProfileTop />
-        <MyProfileDesc/>
+        <MyProfileDesc />
       </div>
     </Container>
   );
