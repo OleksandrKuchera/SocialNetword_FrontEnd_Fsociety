@@ -43,7 +43,7 @@ const AppContainer = () => {
                         <Route path="/home" element={<Home />} />
                         <Route path="/game" element={<GameList />} />
                         <Route path="/my-profile" element={<MyProfile />} />
-                        <Route path="/profile/:name" element={<UserProfile />} />
+                        <Route path="/profile/:userName" element={<UserProfile />} />
                         <Route path="/game/snake" element={<GameSnake />} />
                         <Route path="/society" element={<FrendList />} />
                         <Route path="/about-product" element={<AboutProduct />} />

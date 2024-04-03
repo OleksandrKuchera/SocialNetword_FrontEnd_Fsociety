@@ -15,7 +15,7 @@ export type User = {
 
 const FrendList = () => {
 
-    const [userList, setUserList] = useState<User[]>([]); // Вказуємо тип масиву та об'єктів, які будуть у ньому
+    const [userList, setUserList] = useState<User[]>([]);
     const [searchQuery, setSearchQuery] = useState(''); 
 
     useEffect(() => {
@@ -29,7 +29,6 @@ const FrendList = () => {
                 }
                 const response = await axios.get(url);
                 setUserList(response.data);
-                // console.log('Отримана інформація:', response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

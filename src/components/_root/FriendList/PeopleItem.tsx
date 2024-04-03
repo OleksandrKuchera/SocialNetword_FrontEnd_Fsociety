@@ -17,14 +17,14 @@ type Props = {
 
 const PeopleItem = ({ user }: Props) => {
     const navigate = useNavigate();
-    const [userData] = useState<User>(user); // Initialize state with the user object passed as props
+    const [userData, setUserData] = useState<User>(user); 
     const userName = userData.name;
 
     const handleClickCard = () => {
         navigate(`/profile/${userName}`);
     }
     const handleFollow = () => {
-        userData.isFollow = !userData.isFollow;
+        setUserData({...userData, isFollow: !userData.isFollow});
     }
 
     return (
