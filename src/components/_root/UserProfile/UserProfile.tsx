@@ -25,7 +25,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/profile/${userName}`);
+        const response = await axios.get(`http://127.0.0.1:8000/friend/profile/${userName}`);
         setUserData(response.data);
         console.log('Отримана інформація:', response.data);
       } catch (error) {
