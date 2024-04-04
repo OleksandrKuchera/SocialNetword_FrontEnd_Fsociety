@@ -36,7 +36,7 @@ const PeopleItem = ({ user }: Props) => {
             const userName = responseUser.data.name; // Отримуємо ім'я користувача з отриманої відповіді
     
             // Відправлення запиту на додавання друга з ім'ям користувача та ім'ям друга
-            const response = await axios.post('http://127.0.0.1:8000/friend/add/', {
+            await axios.post('http://127.0.0.1:8000/friend/add/', {
                 friend_name: user.name, // Використовуємо ім'я користувача, переданого як props
                 user_name: userName, // Використовуємо ім'я користувача, отримане з accessToken
             });

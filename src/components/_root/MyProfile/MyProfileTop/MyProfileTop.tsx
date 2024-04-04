@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Add, CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
+import { NavLink } from 'react-router-dom';
 
 type UserProfileTopProps = {
     userData: userDataType;
@@ -47,9 +46,9 @@ return (
                             </div>
                             <div className="row">
                                 <div className="col-12 d-flex justify-content-between">
-                                    <p className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
-                                    <a className={style.profile__count}><span>{userData.friends_count}</span>Friends</a>
-                                    <a className={style.profile__count} href=""><span>{userData.followersCount}</span>Followers</a>
+                                    <p  className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
+                                    <NavLink to='/friends' className={style.profile__count}><span>{userData.friends_count}</span>Friends</NavLink>
+                                    <NavLink  to='/followers' className={style.profile__count}><span>{userData.followersCount}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>
