@@ -13,6 +13,17 @@ export type User = {
     avatar: string,
     isFollow: boolean,
 }
+type userDataType = {
+    name: string,
+    postCount: number,
+    friendsCount: number,
+    followersCount:number,
+    located: string,
+    birth_date: string,
+    bio: string,
+    avatar: string
+    isFollow : boolean
+  }
 
 const FrendList = () => {
 
@@ -20,31 +31,71 @@ const FrendList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const { type } = useParams<{ type: string }>();
 
+    const [userData, setUserData] = useState<userDataType>({
+        name: '',
+        postCount: 0,
+        friendsCount: 0,
+        followersCount:0,
+        located: '',
+        birth_date: '',
+        bio: '',
+        avatar: '',
+        isFollow : false
+      });
+
+    useEffect(()=>{
+        const fetchUserDataNameMainProfile = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+    
+                const response = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                
+                setUserData(response.data);
+                console.log('Отримана інформація:', response.data);
+                console.log(response.data.name)
+                
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+    
+        fetchUserDataNameMainProfile();
+    },[])
+
     useEffect(() => {
-        console.log(type)
-        let url = '';
-        switch (type) {
-            case 'friends'://за ким ти стежиш
-                url = `http://127.0.0.1:8000/friend/all/`;
-                break;
-            case 'followers'://хто за тобою стжить
-                url = `http://127.0.0.1:8000/followers/search/`;
-                break;
-            case 'society': // всі друзі які існують в системі
-                url = `http://127.0.0.1:8000/society/search/`;
-                break;
-            default:
-                url = `http://127.0.0.1:8000/society/search/`;
-                break;
-        }
+       
         const fetchUserData = async () => {
             try {
-                if (searchQuery.length > 0) {
-                    url += '?search=' + encodeURIComponent(searchQuery);
-                } else {
-                    url += '?search=null';
-                }             
-                const response = await axios.get(url);
+                let url = '';
+                switch (type) {
+                    case 'friends': 
+                        url = `http://127.0.0.1:8000/friend/following/${userData.name}`;
+                        break;
+                    case 'followers':
+                        url = `http://127.0.0.1:8000/friend/followers/${userData.name}`;
+                        break;
+                    case 'society':
+                        url = `http://127.0.0.1:8000/friend/search/${searchQuery}`
+                        break;
+                    default:
+                        url = 'http://127.0.0.1:8000/friend/all';
+                        break;
+                }
+
+                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+                const response = await axios.get(url, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
                 setUserList(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -52,7 +103,7 @@ const FrendList = () => {
         };
 
         fetchUserData();
-    }, [searchQuery, type]);
+    }, [searchQuery, type, userData.name]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
