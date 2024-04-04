@@ -39,11 +39,11 @@ const FrendList = () => {
         }
         const fetchUserData = async () => {
             try {
-                if (searchQuery.length == 0) {
-                    url += searchQuery;
+                if (searchQuery.length > 0) {
+                    url += '?search=' + encodeURIComponent(searchQuery);
                 } else {
-                    url += 'null';
-                }
+                    url += '?search=null';
+                }             
                 const response = await axios.get(url);
                 setUserList(response.data);
             } catch (error) {
