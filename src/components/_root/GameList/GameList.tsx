@@ -1,6 +1,7 @@
 import { Nav } from "react-bootstrap";
 import snakeAvatar from '../../../assets/Snake_OG-logo.jpeg'
 import minesweeperAvatar from '../../../assets/Minesweeper_OG-logo.png'
+import solitaireAvatar from '../../../assets/Solitaire_OG-logo.png'
 import styled from "./style.module.scss";
 import { Link } from "react-router-dom";
 
@@ -26,6 +27,16 @@ const GameList = () => {
                             <div className={styled.game__container}>
                                 <img src={minesweeperAvatar} alt="gameImg" className={styled.game__img} />
                                 <p className={styled.game__name} >Minesweeper</p>
+                            </div>
+                        </Link>
+                    </Nav>
+                </div>
+                <div className="col-4">
+                    <Nav>
+                        <Link to={'/game/solitaire'}>
+                            <div className={styled.game__container}>
+                                <img src={solitaireAvatar} alt="gameImg" className={styled.game__img} />
+                                <p className={styled.game__name} >Solitaire</p>
                             </div>
                         </Link>
                     </Nav>
