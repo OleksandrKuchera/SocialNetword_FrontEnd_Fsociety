@@ -63,7 +63,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                                 <div className="col-12 d-flex justify-content-between">
                                     <p className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
                                     <NavLink to={`${userData.name}/:friend`} className={style.profile__count}><span>{userData.friends_count}</span>Friends</NavLink>
-                                    <NavLink to={`${userData.name}/:followers`} className={style.profile__count}><span>{userData.followersCount}</span>Followers</NavLink>
+                                    <NavLink to={`${userData.name}/:followers`} className={style.profile__count}><span>{userData.subscribers_count}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>

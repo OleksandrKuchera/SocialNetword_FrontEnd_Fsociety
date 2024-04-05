@@ -18,6 +18,7 @@ type userDataType = {
     bio: string,
     avatar: string,
     friends_count : number,
+    subscribers_count : number,
 }
 
 const MyProfileTop : React.FC<UserProfileTopProps> = ({ userData }) => {
@@ -48,7 +49,7 @@ return (
                                 <div className="col-12 d-flex justify-content-between">
                                     <p  className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
                                     <NavLink to='/friends' className={style.profile__count}><span>{userData.friends_count}</span>Friends</NavLink>
-                                    <NavLink  to='/followers' className={style.profile__count}><span>{userData.followersCount}</span>Followers</NavLink>
+                                    <NavLink  to='/followers' className={style.profile__count}><span>{userData.subscribers_count}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>
