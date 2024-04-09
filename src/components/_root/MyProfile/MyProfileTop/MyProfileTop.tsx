@@ -18,6 +18,7 @@ type userDataType = {
     bio: string,
     avatar: string,
     friends_count : number,
+    subscribers_count : number,
 }
 
 const MyProfileTop : React.FC<UserProfileTopProps> = ({ userData }) => {
