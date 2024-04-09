@@ -20,6 +20,8 @@
     }
     &__list{
         border: 1px solid $greyBorder;
+        height: 95%;
+        overflow-y: scroll;
     }
     &__message{
         font-size: 13px;

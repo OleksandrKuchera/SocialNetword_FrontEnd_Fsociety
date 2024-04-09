@@ -15,6 +15,8 @@ type userDataType = {
   bio: string,
   avatar: string
   isFollow : boolean
+  friends_count: number
+
 }
 
 function MyProfile() {
@@ -27,7 +29,8 @@ function MyProfile() {
     birth_date: '',
     bio: '',
     avatar: '',
-    isFollow : false
+    isFollow : false,
+    friends_count:0
   });
 
   useEffect(() => {

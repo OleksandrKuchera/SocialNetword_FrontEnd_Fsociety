@@ -10,7 +10,7 @@ export type userDataType = {
   name: string,
   postCount: number,
   friendsCount: number,
-  followersCount:number,
+  followersCount: number,
   located: string,
   birth_date: string,
   bio: string,
@@ -27,15 +27,18 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/friend/profile/${userName}`);
-        setUserData(response.data);
-        console.log('Отримана інформація:', response.data);
+        setUserData(response.data.user_info);
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
     fetchUserData();
   }, [userName]);
+
+  useEffect(() => {
+
+  },[])
 
   if (!userData) {
     return <div>Loading...</div>;
@@ -44,7 +47,7 @@ const UserProfile = () => {
   return (
     <Container>
       <div className={style.profile__container}>
-        <UserProfileTop userData={userData} />
+        <UserProfileTop userData={userData}/>
         <MyProfileDesc userData={userData} />
       </div>
     </Container>

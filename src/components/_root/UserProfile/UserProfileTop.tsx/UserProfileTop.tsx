@@ -3,7 +3,7 @@ import avatar from '../../../../assets/avatar.png';
 import style from '../../MyProfile/MyProfileTop/style.module.scss';
 import { Divider } from '@mui/material';
 import { userDataType } from '../UserProfile';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from '../../FriendList/FriendList';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -14,9 +14,41 @@ type UserProfileTopProps = {
 
 const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
 
-    const [userDataState, setUserDataState] = useState<User>(userData); 
+    const [userDataState] = useState<User>(userData);
+    const [isFollow, setIsFollow] = useState<boolean>(false);
+    const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
 
-    const handleFollow = async () => {
+
+    useEffect(() => {
+        const getMyFriendList = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+    
+                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const response = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseUser.data.name}`);
+                setMyFriendList(response.data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+    
+        getMyFriendList();
+    }, []); 
+    
+    useEffect(() => {
+        if (myFriendList.length !== 0) {
+            setIsFollow(myFriendList.some(friend => friend.name === userDataState.name));
+
+        }
+    }, [myFriendList, userDataState.name]);
+    
+
+    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         try {
             const accessToken = localStorage.getItem('accessToken');
             if (!accessToken) {
@@ -31,12 +63,40 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                 friend_name: userData.name,
                 user_name: userName,
             });
-
-            setUserDataState({ ...userDataState, isFollow: !userDataState.isFollow });
+            setIsFollow(true);
         } catch (error) {
             console.error('Error adding friend:', error);
         }
     }
+    const handleClickDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+    
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                console.error('Access token not found in localStorage');
+                return;
+            }
+    
+            // Отримуємо ім'я користувача з accessToken
+            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            const userName = responseUser.data.name;
+    
+            // Відправляємо запит DELETE з використанням параметрів у URL
+            await axios.delete(`http://127.0.0.1:8000/friend/remove/`, {
+                data: {
+                    friend_name: userData.name,
+                    user_name: userName
+                }
+            });
+    
+            setIsFollow(false);
+        } catch (error) {
+            console.error('Помилка при видаленні друга:', error);
+        }
+    };
+    
+    
 
     return (
         <div className={style.profile__container}>
@@ -55,15 +115,15 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
                                         <button><Message /></button>
-                                        {userData.isFollow ? <button onClick={handleFollow}>Unfollow</button> : <button onClick={handleFollow} className={style.unfollow__btn}>Follow</button>}
+                                        {isFollow ? <button className={style.unfollow__btn} onClick={handleClickDelete}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12 d-flex justify-content-between">
-                                    <p className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
-                                    <NavLink to={`${userData.name}/:friend`} className={style.profile__count}><span>{userData.friends_count}</span>Friends</NavLink>
-                                    <NavLink to={`${userData.name}/:followers`} className={style.profile__count}><span>{userData.followersCount}</span>Followers</NavLink>
+                                    <p className={style.profile__count}><span>{userData.postCount || 0}</span>Posts</p>
+                                    <NavLink to={`/${userData.name}/friends`} className={style.profile__count}><span>{userData.friends_count || 0}</span>Friends</NavLink>
+                                    <NavLink to={`/${userData.name}/followers`} className={style.profile__count}><span>{userData.followersCount || 0}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +149,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <p>{userData.bio}</p>
+                            <div className={style.profile__description}>
+                                <p> {userData.bio}</p>
+                            </div>
                         </div>
                     </div>
                 </>

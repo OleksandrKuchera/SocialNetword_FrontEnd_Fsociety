@@ -28,7 +28,7 @@ const Chat = () => {
               </div>
               <div className={style.messages__container}>
 
-                <div className="row d-flex justify-content-end">
+               <div className="row d-flex justify-content-end">
                   <div className="col-5 d-flex justify-content-end">
                     <p className={style.message__sender}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, commodi, sed amet minus numquam, quis tempora beatae natus incidunt autem accusamus deleniti eos veniam nobis. Esse minus assumenda mollitia itaque.</p>
                   </div>

@@ -46,9 +46,9 @@ return (
                             </div>
                             <div className="row">
                                 <div className="col-12 d-flex justify-content-between">
-                                    <p  className={style.profile__count}><span>{userData.postCount}</span>Posts</p>
-                                    <NavLink to='/friends' className={style.profile__count}><span>{userData.friends_count}</span>Friends</NavLink>
-                                    <NavLink  to='/followers' className={style.profile__count}><span>{userData.followersCount}</span>Followers</NavLink>
+                                    <p  className={style.profile__count}><span>{userData.postCount || 0}</span>Posts</p>
+                                    <NavLink to='/friends' className={style.profile__count}><span>{userData.friends_count ||0}</span>Friends</NavLink>
+                                    <NavLink  to='/followers' className={style.profile__count}><span>{userData.followersCount ||0}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@ return (
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <div className="profile__description">
+                            <div className={style.profile__description}>
                                 <p>{userData.bio}</p>
                             </div>
                         </div>
