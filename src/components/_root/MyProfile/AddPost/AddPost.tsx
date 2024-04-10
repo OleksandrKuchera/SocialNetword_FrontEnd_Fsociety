@@ -32,15 +32,21 @@ const AddPost: React.FC = () => {
     const handleSubmit = async () => {
         const formData = new FormData();
         if (selectedFile) {
-            formData.append('file', selectedFile);
+            formData.append('image', selectedFile); // Append selected file to 'image' key
         }
         formData.append('description', description);
+        formData.append('author', 'Bogdan'); // Hard-coded author value
 
         try {
-            const response = await axios.post('/api/posts', formData);
+            const response = await axios.post("http://127.0.0.1:8000/posts/create/", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data' // Ensure proper headers for FormData
+                }
+            });
             console.log(response.data);
+            handleClose(); // Close dialog on successful submit
         } catch (error) {
-            console.error(error);
+            console.error("Error adding post:", error);
         }
     };
 

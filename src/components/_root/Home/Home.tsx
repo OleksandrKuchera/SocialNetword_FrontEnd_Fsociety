@@ -47,21 +47,27 @@ const Home = () => {
                             <Container>
                                 <div className={style.home__layout}>
                                     <div className="row">
-                                        {userPosts.map((userPost, index) => (
-                                            <div key={index} className="col-12">
-                                                <h3>{userPost.author.name}</h3>
-                                                {userPost.posts.map((post, postIndex) => (
-                                                    <HomePost
-                                                        key={postIndex}
-                                                        author={userPost.author.name}
-                                                        image={post.image}
-                                                        description={post.description}
-                                                        avatar={userPost.author.avatar}
-                                                        likes={post.likes}
-                                                    />
-                                                ))}
+                                        {userPosts.length > 0 ? (
+                                            userPosts.map((userPost, index) => (
+                                                <div key={index} className="col-12">
+                                                    <h3>{userPost.author.name}</h3>
+                                                    {userPost.posts.map((post, postIndex) => (
+                                                        <HomePost
+                                                            key={postIndex}
+                                                            author={userPost.author.name}
+                                                            image={post.image}
+                                                            description={post.description}
+                                                            avatar={userPost.author.avatar}
+                                                            likes={post.likes}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="col-12">
+                                                <p>Loading...</p>
                                             </div>
-                                        ))}
+                                        )}
                                     </div>
                                 </div>
                             </Container>
