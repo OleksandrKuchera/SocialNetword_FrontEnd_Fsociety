@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import InputEmoji from 'react-input-emoji'
 
-export default function InputChat() {
+interface InputChatProps {
+  onEnter: (text: string) => void;
+}
+
+export default function InputChat({ onEnter }: InputChatProps) {
   const [text, setText] = useState('')
 
   function handleOnEnter(text: string) {
     console.log('enter', text)
+    onEnter(text);
   }
 
   return (

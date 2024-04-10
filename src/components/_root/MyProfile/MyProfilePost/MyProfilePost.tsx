@@ -1,37 +1,44 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import postImgTitle from '../../../../assets/2ae124d20589cf2442a17ae918acaf3a.png'
-import avatar from '../../../../assets/avatar.png'
 import './style.scss';
-import { Favorite, FavoriteBorder} from '@mui/icons-material';
-import { userDataType } from '../../UserProfile/UserProfile';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+
+type Post = {
+    author: string;
+    image: string;
+    description: string;
+    likes: number
+};
 
 type MyProfilePostProps = {
-    userData: userDataType;
-}
+    post: Post;
+};
 
-const MyProfilePost: React.FC<MyProfilePostProps> = ({ userData }) => {
+const MyProfilePost: React.FC<MyProfilePostProps> = ({ post }) => {
     const [open, setOpen] = useState(false);
-    const [islike, setIsLike] = useState(false);
+    const [isLike, setIsLike] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleLike = () => {
-        setIsLike(!islike)
-    }
+        setIsLike(!isLike);
+    };
+
     return (
         <div className="col-4">
             <React.Fragment>
                 <Button className='post__img' variant="outlined" onClick={handleClickOpen}>
-                    <img src={postImgTitle} alt="postImgTitle" />
+                    <img src={post.image} alt="postImgTitle" />
                 </Button>
                 <Dialog
                     onClose={handleClose}
@@ -54,27 +61,28 @@ const MyProfilePost: React.FC<MyProfilePostProps> = ({ userData }) => {
                     <DialogContent dividers>
                         <div className="row">
                             <div className="col-6">
-                                <img className='open__post__img' src={postImgTitle} alt="postImgTitle" />
+                                <img className='open__post__img' src={post.image} alt="postImgTitle" />
                             </div>
                             <div className="col-6 d-flex flex-column justify-content-between">
                                 <div className="profile__container">
                                     <div className="row">
                                         <div className="col-3">
-                                            <img src={avatar} alt="avatar" />
+                                            <img src={post.image} alt="avatar" />
                                         </div>
                                         <div className="col-9">
-                                            <h2>{userData.name}</h2>
+                                            <h2>{post.author}</h2>
                                         </div>
                                     </div>
                                     <div className="row">
-                                    <div className="col-12">
-                                        <p className='post__description'>There are so many beautiful squirrels in the park</p>
+                                        <div className="col-12">
+                                            <p className='post__description'>{post.description}</p>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-3">
-                                        <button className='post__like' onClick={handleLike}>{!islike ? <FavoriteBorder/> : <Favorite style={{color: 'red'}}/>}</button>
+                                        <button className='post__like' onClick={handleLike}>{!isLike ? <FavoriteBorder /> : <Favorite style={{ color: 'red' }} />}</button>
+                                        <p>{post.likes}</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +92,6 @@ const MyProfilePost: React.FC<MyProfilePostProps> = ({ userData }) => {
             </React.Fragment>
         </div>
     );
-}
+};
 
 export default MyProfilePost;

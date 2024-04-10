@@ -13,10 +13,10 @@ type userDataType = {
   located: string,
   birth_date: string,
   bio: string,
-  avatar: string
-  isFollow : boolean
-  friends_count: number
-
+  avatar: string,
+  isFollow : boolean,
+  friends_count: number,
+  subscribers_count: number,
 }
 
 function MyProfile() {
@@ -30,7 +30,8 @@ function MyProfile() {
     bio: '',
     avatar: '',
     isFollow : false,
-    friends_count:0
+    friends_count:0,
+    subscribers_count:0,
   });
 
   useEffect(() => {

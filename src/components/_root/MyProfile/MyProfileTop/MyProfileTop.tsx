@@ -1,8 +1,9 @@
-import { Add, CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
+import { CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
 import { NavLink } from 'react-router-dom';
+import AddPost from '../AddPost/AddPost';
 
 type UserProfileTopProps = {
     userData: userDataType;
@@ -40,7 +41,7 @@ return (
                                         <h2>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
-                                        <button title='Add post'><Add/></button>
+                                        <AddPost/>
                                         <EditMyProfile/>
                                     </div>
                                 </div>
