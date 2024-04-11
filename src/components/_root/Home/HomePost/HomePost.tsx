@@ -1,6 +1,7 @@
 import style from './style.module.scss';
 import { useState } from 'react';
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
 interface HomePostProps {
     author: string;
@@ -12,17 +13,22 @@ interface HomePostProps {
 
 const HomePost: React.FC<HomePostProps> = ({ author, image, description, avatar, likes }) => {
     const [isLike, setIsLike] = useState(false);
+    const navigate = useNavigate();
 
     const handleLike = () => {
         setIsLike(!isLike);
     };
+
+    const handleToProfile = () => {
+        navigate(`/profile/${author}`);
+    }
 
     return (
         <div className="col-12">
             <div className={style.post__container}>
                 <div className="row">
                     <div className="col-5">
-                        <div className={style.post__top__container}>
+                        <div onClick={handleToProfile} className={style.post__top__container}>
                             <div className={style.post__profile__info}>
                                 <img src={avatar} alt="avatar" />
                                 <h3>{author}</h3>
@@ -37,7 +43,10 @@ const HomePost: React.FC<HomePostProps> = ({ author, image, description, avatar,
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <p>{description}</p>
+                        <div className={style.post__text}>
+                            <h3>{author}:</h3>
+                            <p>{description}</p>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

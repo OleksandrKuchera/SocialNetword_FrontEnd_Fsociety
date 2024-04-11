@@ -4,7 +4,7 @@ import axios from "axios";
 import style from '../MyProfile/style.module.scss';
 import UserProfileTop from "./UserProfileTop.tsx/UserProfileTop";
 import MyProfileDesc from "../MyProfile/MyProfileDesc/MyProfileDesc";
-import { Container } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 
 export type userDataType = {
   name: string,
@@ -17,7 +17,7 @@ export type userDataType = {
   avatar: string,
   isFollow: boolean,
   friends_count: number,
-  subscribers_count : number,
+  subscribers_count: number,
 }
 
 const UserProfile = () => {
@@ -39,18 +39,23 @@ const UserProfile = () => {
 
   useEffect(() => {
 
-  },[])
+  }, [])
 
-  if (!userData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Container>
-      <div className={style.profile__container}>
-        <UserProfileTop userData={userData}/>
-        <MyProfileDesc userData={userData} />
-      </div>
+
+      {userData ? (
+        <div className={style.profile__container}>
+          <UserProfileTop userData={userData} />
+          <MyProfileDesc userData={userData} />
+        </div>
+      ) :
+        <div style={{width:'100%',height:'100vh', display: 'flex', alignItems:'center', justifyContent:'center'}}>
+          <CircularProgress color="success" />
+        </div>
+      }
+
     </Container>
   );
 }

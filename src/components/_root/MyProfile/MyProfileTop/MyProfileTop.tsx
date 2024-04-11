@@ -41,7 +41,7 @@ return (
                                         <h2>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
-                                        <AddPost/>
+                                        <AddPost userName={userData.name}/>
                                         <EditMyProfile/>
                                     </div>
                                 </div>

@@ -1,7 +1,7 @@
 @import '../../styles/color.scss';
 
 .home__layout {
-    background-image: url(../../../assets/background.png);
+    background-image: url(../../../assets/background.png) !important;
     background-repeat: round;
 }
 .background__central {

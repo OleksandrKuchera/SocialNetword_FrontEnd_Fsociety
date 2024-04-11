@@ -6,9 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import './style.scss';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { userDataType } from '../../UserProfile/UserProfile';
 
 type Post = {
-    author: string;
     image: string;
     description: string;
     likes: number
@@ -16,9 +16,10 @@ type Post = {
 
 type MyProfilePostProps = {
     post: Post;
+    userInfo: userDataType
 };
 
-const MyProfilePost: React.FC<MyProfilePostProps> = ({ post }) => {
+const MyProfilePost: React.FC<MyProfilePostProps> = ({ post, userInfo }) => {
     const [open, setOpen] = useState(false);
     const [isLike, setIsLike] = useState(false);
 
@@ -38,7 +39,7 @@ const MyProfilePost: React.FC<MyProfilePostProps> = ({ post }) => {
         <div className="col-4">
             <React.Fragment>
                 <Button className='post__img' variant="outlined" onClick={handleClickOpen}>
-                    <img src={post.image} alt="postImgTitle" />
+                    <img className='post__img__label)' src={post.image} alt="postImgTitle" />
                 </Button>
                 <Dialog
                     onClose={handleClose}
@@ -67,10 +68,10 @@ const MyProfilePost: React.FC<MyProfilePostProps> = ({ post }) => {
                                 <div className="profile__container">
                                     <div className="row">
                                         <div className="col-3">
-                                            <img src={post.image} alt="avatar" />
+                                            <img src={userInfo.avatar} alt="avatar" />
                                         </div>
                                         <div className="col-9">
-                                            <h2>{post.author}</h2>
+                                            <h2>{userInfo.name}</h2>
                                         </div>
                                     </div>
                                     <div className="row">

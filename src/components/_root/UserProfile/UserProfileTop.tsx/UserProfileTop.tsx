@@ -154,6 +154,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             </div>
                         </div>
                     </div>
+                    <Divider className={style.divider}/>
                 </>
             )}
         </div>

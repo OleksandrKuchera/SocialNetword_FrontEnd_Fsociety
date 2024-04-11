@@ -4,6 +4,7 @@ import HomePost from "./HomePost/HomePost";
 import RecomendationList from "./RecomendationList/RecomendationList";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { CircularProgress } from "@mui/material";
 
 interface Author {
     name: string;
@@ -12,24 +13,22 @@ interface Author {
 }
 
 interface Post {
+    author: Author;
     image: string;
     description: string;
     likes: number;
 }
 
-interface UserPosts {
-    author: Author;
-    posts: Post[];
-}
 
 const Home = () => {
-    const [userPosts, setUserPosts] = useState<UserPosts[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get<UserPosts[]>("http://127.0.0.1:8000/posts/look/");
-                setUserPosts(response.data);
+                const response = await axios.get<Post[]>("http://127.0.0.1:8000/posts/look/");
+                setPosts(response.data.reverse());
+                console.log(response.data)
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
@@ -47,27 +46,27 @@ const Home = () => {
                             <Container>
                                 <div className={style.home__layout}>
                                     <div className="row">
-                                        {userPosts.length > 0 ? (
-                                            userPosts.map((userPost, index) => (
+                                        {posts.length > 0 ? (
+                                            posts.map((post, index) => (
                                                 <div key={index} className="col-12">
-                                                    <h3>{userPost.author.name}</h3>
-                                                    {userPost.posts.map((post, postIndex) => (
-                                                        <HomePost
-                                                            key={postIndex}
-                                                            author={userPost.author.name}
-                                                            image={post.image}
-                                                            description={post.description}
-                                                            avatar={userPost.author.avatar}
-                                                            likes={post.likes}
-                                                        />
-                                                    ))}
+                                                    <HomePost
+                                                        key={index}
+                                                        author={post.author.name}
+                                                        image={post.image}
+                                                        description={post.description}
+                                                        avatar={post.author.avatar}
+                                                        likes={post.likes}
+                                                    />
                                                 </div>
                                             ))
                                         ) : (
                                             <div className="col-12">
-                                                <p>Loading...</p>
+                                                <div style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <CircularProgress color="success" />
+                                                </div>
                                             </div>
                                         )}
+
                                     </div>
                                 </div>
                             </Container>
