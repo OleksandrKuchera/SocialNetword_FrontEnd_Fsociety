@@ -20,20 +20,22 @@ const EditMyProfile: React.FC = () => {
     const [profile, setProfile] = useState<Profile>({
         name: '',
         bio: '',
-        country: '', 
-        date: '', 
+        country: '',
+        date: '',
         profileImg: null,
     });
     const [isEditingName, setIsEditingName] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         const fetchProfileData = async () => {
-            const accessToken = localStorage.getItem('accessToken'); 
+            const accessToken = localStorage.getItem('accessToken');
             if (!accessToken) {
                 console.error('Access token not found in localStorage');
                 return;
             }
-        
+
             try {
                 const response = await axios.patch(`http://127.0.0.1:8000/api/update-profile/${accessToken}/`, {
                 });
@@ -69,6 +71,7 @@ const EditMyProfile: React.FC = () => {
     };
 
     const handleSubmit = async () => {
+        setIsLoading(true);
         try {
             const formData = new FormData();
             const accessToken = localStorage.getItem('accessToken');
@@ -84,14 +87,18 @@ const EditMyProfile: React.FC = () => {
                 formData.append('profileImg', profile.profileImg);
             }
 
-            const response = await axios.patch(`http://127.0.0.1:8000/api/update-profile/${accessToken}/`, formData, {
+            await axios.patch(`http://127.0.0.1:8000/api/update-profile/${accessToken}/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response.data);
+
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
+            handleClose();
+            window.location.reload();
         }
     };
 
@@ -101,6 +108,10 @@ const EditMyProfile: React.FC = () => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+    const handleSubmitName = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setIsEditingName(!isEditingName);
     };
 
     return (
@@ -137,7 +148,7 @@ const EditMyProfile: React.FC = () => {
                                         <h2>{profile.name}</h2>
                                     }
                                 </label>
-                                <button className='edit__profile__btn' onClick={() => setIsEditingName(!isEditingName)}>
+                                <button className='edit__profile__btn' onClick={(e) => handleSubmitName(e)}>
                                     {isEditingName ?
                                         'Save name' : 'Change name'
                                     }
@@ -154,7 +165,7 @@ const EditMyProfile: React.FC = () => {
                             <div className="col-6">
                                 <label>
                                     Country:
-                                    <input maxLength={35} type="text" name="country" value={profile.country} onChange={handleInputChange} />
+                                    <input maxLength={35} type="text" name="country" value={profile.country || ''} onChange={handleInputChange} />
                                 </label>
                             </div>
                             <div className="col-6">
@@ -184,7 +195,10 @@ const EditMyProfile: React.FC = () => {
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <button className='edit__profile__btn' type="submit" onClick={handleSubmit}>Submit</button>
+                    <button className='edit__profile__btn' type="submit" onClick={handleSubmit}>
+                        {isLoading ? 'Loading...' : 'Submit'}
+                    </button>
+
                 </DialogActions>
             </Dialog>
         </Fragment>

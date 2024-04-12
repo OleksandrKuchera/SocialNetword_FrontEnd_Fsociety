@@ -58,6 +58,8 @@
 
 .post__img{
     width: 100%;
+    object-fit: contain;
+    height: 50vh;
     margin-bottom: 20px;
 }
 .post__text{

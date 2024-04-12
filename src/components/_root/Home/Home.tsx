@@ -28,7 +28,6 @@ const Home = () => {
             try {
                 const response = await axios.get<Post[]>("http://127.0.0.1:8000/posts/look/");
                 setPosts(response.data.reverse());
-                console.log(response.data)
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
