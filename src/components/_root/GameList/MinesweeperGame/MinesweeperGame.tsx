@@ -1,4 +1,4 @@
-import Game from './minesweeper-react-typescript/src/components/Game/index';
+import Game from './minesweeper/src/App';
 import './style.scss';
 
 
