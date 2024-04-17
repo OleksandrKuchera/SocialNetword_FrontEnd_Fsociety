@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 export type User = {
     name: string,
     avatar: string,
+    isFollow: boolean,
 }
 type userDataType = {
     name: string,

@@ -1,11 +1,13 @@
 @import '../../styles/color.scss';
 
-.home__layout {
+// .home__layout {
+
+// }
+.background__central {
     background-image: url(../../../assets/background.png) !important;
     background-repeat: round;
-}
-.background__central {
     max-height: 100vh;
     overflow-y: auto;
+    overflow-x:hidden;
 }
 

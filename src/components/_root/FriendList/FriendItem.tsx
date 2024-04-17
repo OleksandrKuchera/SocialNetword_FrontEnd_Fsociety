@@ -105,7 +105,7 @@ const FriendItem = ({ user }: Props) => {
         <div key={user.name} className="col-12">
             <div onClick={handleClickCard} className={style.friend__item__container}>
                 <div className={style.friend__info}>
-                    <img src={user.avatar} alt="avatar" />
+                    <img src={user.avatar.slice(13)} alt="avatar" />
                     <h3>{user.name}</h3>
                 </div>
                 <div className={style.friend__btn}>

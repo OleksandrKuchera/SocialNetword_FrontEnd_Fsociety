@@ -11,8 +11,8 @@ interface Profile {
     profileImg: File | null;
     name: string;
     bio: string;
-    country: string;
-    date: string;
+    located: string;
+    birth_date: string;
 }
 
 const EditMyProfile: React.FC = () => {
@@ -20,8 +20,8 @@ const EditMyProfile: React.FC = () => {
     const [profile, setProfile] = useState<Profile>({
         name: '',
         bio: '',
-        country: '',
-        date: '',
+        located: '',
+        birth_date: '',
         profileImg: null,
     });
     const [isEditingName, setIsEditingName] = useState(false);
@@ -70,37 +70,45 @@ const EditMyProfile: React.FC = () => {
         });
     };
 
-    const handleSubmit = async () => {
-        setIsLoading(true);
-        try {
-            const formData = new FormData();
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-            formData.append('name', profile.name);
-            formData.append('bio', profile.bio);
-            formData.append('country', profile.country);
-            formData.append('date', profile.date);
-            if (profile.profileImg) {
-                formData.append('profileImg', profile.profileImg);
-            }
+   const handleSubmit = async () => {
+    setIsLoading(true);
 
-            await axios.patch(`http://127.0.0.1:8000/api/update-profile/${accessToken}/`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-            handleClose();
-            window.location.reload();
+    try {
+        const formData = new FormData();
+        formData.append('name', profile.name);
+        formData.append('bio', profile.bio);
+        formData.append('located', profile.located);
+        formData.append('birth_date', profile.birth_date);
+        
+        if (profile.profileImg) {
+            formData.append('avatar', profile.profileImg); // Ensure the key matches your backend expectation (e.g., 'profileImg')
         }
-    };
+
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            console.error('Access token not found in localStorage');
+            return;
+        }
+
+        const response = await axios.patch(
+            `http://127.0.0.1:8000/api/update-profile/${accessToken}/`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+
+        console.log('Profile update response:', response.data);
+    } catch (error) {
+        console.error('Error updating profile:', error);
+    } finally {
+        setIsLoading(false);
+        handleClose();
+        // window.location.reload();
+    }
+};
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -165,14 +173,12 @@ const EditMyProfile: React.FC = () => {
                             <div className="col-6">
                                 <label>
                                     Country:
-                                    <input maxLength={35} type="text" name="country" value={profile.country || ''} onChange={handleInputChange} />
-                                </label>
+                                    <input maxLength={35} type="text" name="located" value={profile.located} onChange={handleInputChange} />                                </label>
                             </div>
                             <div className="col-6">
                                 <label>
                                     Date:
-                                    <input type="date" min="1900-01-01" max="2040-12-31" name="date" value={profile.date} onChange={handleInputChange} />
-                                </label>
+                                    <input type="date" min="1900-01-01" max="2040-12-31" name="birth_date" value={profile.birth_date} onChange={handleInputChange} />                                </label>
                             </div>
                         </div>
                         <div className="row">

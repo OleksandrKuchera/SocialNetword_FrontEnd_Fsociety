@@ -32,7 +32,7 @@ return (
                     <div className="row">
                         <div className="col-12"></div>
                         <div className="col-2">
-                        <img className={style.avatar} src={userData.avatar} alt="avatar" />
+                        <img className={style.avatar} src={userData.avatar.slice(13)} alt="avatar" />
                         </div>
                         <div className="col-10 d-flex flex-column justify-content-around">
                             <div className={style.name__container}>

@@ -1,5 +1,4 @@
 import { CalendarMonthOutlined, LocationOnOutlined, Message } from '@mui/icons-material';
-import avatar from '../../../../assets/avatar.png';
 import style from '../../MyProfile/MyProfileTop/style.module.scss';
 import { Divider } from '@mui/material';
 import { userDataType } from '../UserProfile';
@@ -18,7 +17,6 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     const [isFollow, setIsFollow] = useState<boolean>(false);
     const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
 
-
     useEffect(() => {
         const getMyFriendList = async () => {
             try {
@@ -27,7 +25,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     console.error('Access token not found in localStorage');
                     return;
                 }
-    
+
                 const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
                 const response = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseUser.data.name}`);
                 setMyFriendList(response.data);
@@ -35,17 +33,17 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                 console.error('Error fetching user data:', error);
             }
         };
-    
+
         getMyFriendList();
-    }, []); 
-    
+    }, []);
+
     useEffect(() => {
         if (myFriendList.length !== 0) {
             setIsFollow(myFriendList.some(friend => friend.name === userDataState.name));
 
         }
     }, [myFriendList, userDataState.name]);
-    
+
 
     const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -70,18 +68,18 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     }
     const handleClickDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-    
+
         try {
             const accessToken = localStorage.getItem('accessToken');
             if (!accessToken) {
                 console.error('Access token not found in localStorage');
                 return;
             }
-    
+
             // Отримуємо ім'я користувача з accessToken
             const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const userName = responseUser.data.name;
-    
+
             // Відправляємо запит DELETE з використанням параметрів у URL
             await axios.delete(`http://127.0.0.1:8000/friend/remove/`, {
                 data: {
@@ -89,14 +87,14 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     user_name: userName
                 }
             });
-    
+
             setIsFollow(false);
         } catch (error) {
             console.error('Помилка при видаленні друга:', error);
         }
     };
-    
-    
+
+
 
     return (
         <div className={style.profile__container}>
@@ -105,7 +103,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     <div className="row">
                         <div className="col-12"></div>
                         <div className="col-2">
-                            <img className={style.avatar} src={avatar} alt="avatar" />
+                            {userData.avatar && userData.avatar.length >= 11 && (
+                                <img className={style.avatar} src={userData.avatar.slice(13)} alt="avatar" />
+                            )}
                         </div>
                         <div className="col-10 d-flex flex-column justify-content-around">
                             <div className={style.follow__btn}>
@@ -154,7 +154,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             </div>
                         </div>
                     </div>
-                    <Divider className={style.divider}/>
+                    <Divider className={style.divider} />
                 </>
             )}
         </div>
