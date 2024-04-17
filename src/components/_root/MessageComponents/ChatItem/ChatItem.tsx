@@ -7,7 +7,7 @@ type chatItemType = {
    user: User,
 }
 
-const ChatItem = ({isActive, onClick, user} : chatItemType) => {
+const ChatItem = ({isActive, onClick, user, } : chatItemType) => {
 
 
     return (

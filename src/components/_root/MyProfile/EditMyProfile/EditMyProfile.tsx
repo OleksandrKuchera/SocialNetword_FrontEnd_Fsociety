@@ -106,7 +106,7 @@ const EditMyProfile: React.FC = () => {
     } finally {
         setIsLoading(false);
         handleClose();
-        // window.location.reload();
+        window.location.reload();
     }
 };
 

@@ -26,8 +26,10 @@ export type Message = {
 
 
 const Chat = () => {
-  const [senderName, setSenderName] = useState('');
+  const [myName, setMyName] = useState<string>('');
   const [userChatList, setUserChatList] = useState<Message[] | []>([]);
+  const [activeUser, setActiveUser] = useState<User | null>(null);
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -40,27 +42,34 @@ const Chat = () => {
 
         const response = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
 
-        setSenderName(response.data.name);
+        setMyName(response.data.name);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/chat/user_chat_rooms/${senderName}`);
+        const response = await axios.get(`http://127.0.0.1:8000/chat/user_chat_rooms/${myName}`);
         setUserChatList(response.data);
+        if (response.data.length > 0) {
+          setActiveUser(response.data[0].receiver); // Встановлюємо першого користувача в списку як активного
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
 
-
     fetchUserData();
-  }, [senderName]);
+  }, [myName]);
+
+  const handleUserClick = (user: User) => {
+    setActiveUser(user);
+  };
 
   return (
     <div className='d-flex justify-content-between'>
-      <ChatCloud />
+      {activeUser ? <ChatCloud activUser={activeUser} /> : null}
       <div className='col-3'>
-        <ChatList chatList={userChatList}/>
+       {myName ? <ChatList myName={myName} chatList={userChatList} onUserClick={handleUserClick} /> : null} 
+
       </div>
     </div>
   );

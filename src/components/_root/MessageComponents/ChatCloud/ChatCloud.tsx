@@ -1,9 +1,14 @@
-import avatar from '../../../../assets/avatar.png'
 import DropMenu from '../../../__ui/DropMenu/DropMenu';
+import { User } from '../Chat/Chat';
 import InputChat from '../InputChat/InputChat';
 import style from './chat.module.scss'
 
-const ChatCloud = () => {
+type ChatCloudProps = {
+    activUser: User,
+}
+
+const ChatCloud = ({activUser} : ChatCloudProps) => {
+
     const sendMessage = () => {
 
     }
@@ -15,12 +20,11 @@ const ChatCloud = () => {
                     <div className="row">
                         <div className="col-6 d-flex align-items-center">
                             <div className={style.avatar}>
-                                <img src={avatar} alt="avatar" />
+                                <img src={activUser.avatar} alt="avatar" />
                                 <span></span>
                             </div>
                             <div className={style.avatar__info}>
-                                <h3>Mom</h3>
-                                <p>Online</p>
+                                <h3>{activUser.name}</h3>
                             </div>
                         </div>
                         <div className="col-6 d-flex align-items-center justify-content-end">

@@ -39,7 +39,7 @@ const AppContainer = () => {
                     <Route path="/confirm-request-not-found" element={<ConfirmRequestNotFound />} />
                     <Route path="/successfully-reset-password" element={<SuccessfullyResetPassword />} />
                     <Route element={<HomeLayout />}>
-                        <Route path="/message" element={<Chat />} />
+                        <Route path="/message/" element={<Chat />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/game" element={<GameList />} />
                         <Route path="/my-profile" element={<MyProfile />} />

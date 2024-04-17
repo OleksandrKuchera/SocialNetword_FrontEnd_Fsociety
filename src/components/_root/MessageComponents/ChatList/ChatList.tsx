@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import ChatItem from '../ChatItem/ChatItem';
 import style from './chatList.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { Message } from '../Chat/Chat';
+import { Message, User } from '../Chat/Chat';
 
 interface ChatListProps {
     chatList: Message[]; // Визначте тип пропсу chatList
+    myName: string
 }
 
-const ChatList = ({chatList} : ChatListProps) => {
+const ChatList = ({ chatList, onUserClick, myName }: ChatListProps & { onUserClick: (user: User) => void }) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
-    const navigate = useNavigate();
 
     const handleSetActive = (index: number) => {
         setActiveIndex(index); // Встановлюємо індекс активної картки
-        navigate(`/message/${name}`);
     };
 
     return (
@@ -24,10 +22,14 @@ const ChatList = ({chatList} : ChatListProps) => {
                 {chatList.map((userItem, index) => (
                     <ChatItem
                         key={index}
-                        isActive={index === activeIndex} // Перевіряємо, чи поточний індекс співпадає з активним
-                        onClick={() => handleSetActive(index)} // Передаємо функцію для зміни стану активності
-                        user = {userItem.receiver}
+                        isActive={index === activeIndex}
+                        onClick={() => {
+                            handleSetActive(index);
+                            onUserClick(userItem.receiver.name === myName ? userItem.sender : userItem.receiver);
+                        }}
+                        user={userItem.receiver.name === myName ? userItem.sender : userItem.receiver}
                     />
+
                 ))}
             </div>
         </div>
