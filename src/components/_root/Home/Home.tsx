@@ -6,27 +6,40 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from "@mui/material";
 
-interface Author {
+export type Author = {
     name: string;
     email: string;
     avatar: string;
 }
 
-interface Post {
+export type PostData = {
+    id: number,
     author: Author;
+    post: Post;
+}
+
+export type Post = {
     image: string;
     description: string;
     likes: number;
+    comments: string[]; // Assuming comments are of any type
 }
 
 
 const Home = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostData[]>([]);
 
     useEffect(() => {
+
         const fetchPosts = async () => {
             try {
-                const response = await axios.get<Post[]>("http://127.0.0.1:8000/posts/look/");
+                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+                const responseMyProfile = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/look/${responseMyProfile.data.name}`);
                 setPosts(response.data.reverse());
             } catch (error) {
                 console.error("Error fetching posts:", error);
@@ -45,16 +58,12 @@ const Home = () => {
                             <Container>
                                 <div className={style.home__layout}>
                                     <div className="row">
-                                        {posts.length > 0 ? (
+                                        {posts ? (
                                             posts.map((post, index) => (
                                                 <div key={index} className="col-12">
                                                     <HomePost
                                                         key={index}
-                                                        author={post.author.name}
-                                                        image={post.image}
-                                                        description={post.description}
-                                                        avatar={post.author.avatar}
-                                                        likes={post.likes}
+                                                        postData={post}
                                                     />
                                                 </div>
                                             ))

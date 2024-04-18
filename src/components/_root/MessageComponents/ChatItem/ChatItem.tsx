@@ -15,7 +15,7 @@ const ChatItem = ({isActive, onClick, user, } : chatItemType) => {
             <div className="d-flex justify-content-between">
                 <div>
                     <div className={style.avatar__info}>
-                        <img src={user.avatar} alt="avatar" />
+                        <img src={user.avatar.slice(13)} alt="avatar" />
                         <div>
                             <h4>{user.name}</h4>
                         </div>

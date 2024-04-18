@@ -60,10 +60,10 @@ return (
                             <div className={style.profile__count__container}>
                                 <div className="row">
                                     <div className="col-3">
-                                        <a className={style.profile__count} href=""><LocationOnOutlined />{userData.located}</a>
+                                        <p className={style.profile__count}><LocationOnOutlined />{userData.located}</p>
                                     </div>
                                     <div className="col-3">
-                                        <a className={style.profile__count} href=""><CalendarMonthOutlined />{userData.birth_date}</a>
+                                        <p className={style.profile__count}><CalendarMonthOutlined />{userData.birth_date}</p>
                                     </div>
                                 </div>
                             </div>

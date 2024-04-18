@@ -103,7 +103,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     <div className="row">
                         <div className="col-12"></div>
                         <div className="col-2">
-                            {userData.avatar && userData.avatar.length >= 11 && (
+                            {userData.avatar && userData.avatar.length >= 13 && (
                                 <img className={style.avatar} src={userData.avatar.slice(13)} alt="avatar" />
                             )}
                         </div>
@@ -111,7 +111,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             <div className={style.follow__btn}>
                                 <div className="row d-flex justify-content-between">
                                     <div className="col-4">
-                                        <h2>{userData.name}</h2>
+                                        <h2 className={style.user__name}>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
                                         <button><Message /></button>
@@ -133,10 +133,10 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             <div className={style.profile__count__container}>
                                 <div className="row">
                                     <div className="col-3">
-                                        <a className={style.profile__count} href=""><LocationOnOutlined />{userData.located}</a>
+                                        <p className={style.profile__count}><LocationOnOutlined />{userData.located}</p>
                                     </div>
                                     <div className="col-3">
-                                        <a className={style.profile__count} href=""><CalendarMonthOutlined />{userData.birth_date}</a>
+                                        <p className={style.profile__count}><CalendarMonthOutlined />{userData.birth_date}</p>
                                     </div>
                                 </div>
                             </div>

@@ -4,44 +4,40 @@ import style from './style.module.scss';
 import axios from 'axios';
 import { userDataType } from '../../UserProfile/UserProfile';
 
-type PostDeclarate = {
-    author: userDataType;
-    posts:Post[]
+export type Author = {
+    name: string;
+    email: string;
+    avatar: string;
+}
 
-};
-type Post = {
+type PostData = {
+    id: number,
+    author: Author;
+    post: Post;
+}
+
+export type Post = {
     image: string;
     description: string;
     likes: number;
+    comments: string[]; // Assuming comments are of any type
 }
+
 type MyProfileDescProps = {
     userData: userDataType;
 };
 
+
+
+
 const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
-    const [userPosts, setUserPosts] = useState<Post[]>([]); 
-    const [userInfo, setUserInfo] = useState<userDataType>({
-        name: '',
-        postCount: 0,
-        friendsCount: 0,
-        followersCount: 0,
-        located: '',
-        birth_date: '',
-        bio: '',
-        avatar: '',
-        isFollow: false,
-        friends_count: 0,
-        subscribers_count : 0,
-    }); 
+    const [userPosts, setUserPosts] = useState<PostData[]>()
 
     useEffect(() => {
         const fetchUserPosts = async () => {
             try {
-                const response = await axios.get<PostDeclarate[]>(`http://127.0.0.1:8000/posts/lookPostUser/${userData.name}`);
-                const autor = response.data[0].author;
-                const posts = response.data[0].posts
-                setUserPosts(posts.reverse());
-                setUserInfo(autor)
+                const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/lookPostUser/${userData.name}`);
+                setUserPosts(response.data.reverse());
             } catch (error) {
                 console.error("Error fetching user posts:", error);
             }
@@ -53,9 +49,9 @@ const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
     return (
         <div className={style.desc__container}>
             <div className="row">
-                {userPosts.length > 0 ? (
+                {userPosts ? (
                     userPosts.map((post, index) => (
-                        <MyProfilePost key={index} post={post} userInfo={userInfo}/>
+                        <MyProfilePost key={index} id={post.id} autor= {post.author} post = {post.post}/>
                     ))
                 ) : (
                     <div className="col-12">

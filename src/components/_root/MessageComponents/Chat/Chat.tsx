@@ -29,6 +29,7 @@ const Chat = () => {
   const [myName, setMyName] = useState<string>('');
   const [userChatList, setUserChatList] = useState<Message[] | []>([]);
   const [activeUser, setActiveUser] = useState<User | null>(null);
+  const [roomId, setRoomId] = useState<number>(0);
 
 
   useEffect(() => {
@@ -60,13 +61,14 @@ const Chat = () => {
     fetchUserData();
   }, [myName]);
 
-  const handleUserClick = (user: User) => {
+  const handleUserClick = (user: User, roomId : number) => {
     setActiveUser(user);
+    setRoomId(roomId)
   };
 
   return (
     <div className='d-flex justify-content-between'>
-      {activeUser ? <ChatCloud activUser={activeUser} /> : null}
+      {activeUser ? <ChatCloud activUser={activeUser} roomId = {roomId}/> : null}
       <div className='col-3'>
        {myName ? <ChatList myName={myName} chatList={userChatList} onUserClick={handleUserClick} /> : null} 
 

@@ -1,8 +1,10 @@
 @import '../../../styles/color.scss';
 
 .avatar {
-    width: 100%;
-    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50px;
 }
 
 .profile {
@@ -109,7 +111,12 @@
     }
 }
 
-.unfollow__btn{
+.unfollow__btn {
     color: $green !important;
     background: none !important;
+}
+
+.user__name {
+    font-size: 25px;
+    font-weight: 600;
 }

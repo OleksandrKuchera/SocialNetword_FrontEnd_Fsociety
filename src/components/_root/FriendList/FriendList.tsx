@@ -79,10 +79,10 @@ const FrendList = () => {
                 let url = '';
                 switch (type) {
                     case 'friends': 
-                        url = `http://127.0.0.1:8000/friend/following/${urlName}`;
+                        url = `http://127.0.0.1:8000/friend/followers/${urlName}`;
                         break;
                     case 'followers':
-                        url = `http://127.0.0.1:8000/friend/followers/${urlName}`;
+                        url = `http://127.0.0.1:8000/friend/following/${urlName}`;
                         break;
                     case 'society':
                         url = `http://127.0.0.1:8000/friend/search/${searchQuery}`

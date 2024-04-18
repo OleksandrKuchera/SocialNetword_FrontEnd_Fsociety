@@ -54,6 +54,12 @@
     h3{
         font-weight: 700;
     }
+    img{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50px;
+    }
 }
 
 .post__img{
@@ -71,5 +77,13 @@
     }
     p{
         font-weight: 300;
+    }
+}
+
+.like__container {
+    display: flex;
+    align-items: center;
+    button{
+        margin-right: 3px;
     }
 }

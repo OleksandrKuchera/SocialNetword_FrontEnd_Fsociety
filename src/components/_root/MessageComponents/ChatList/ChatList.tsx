@@ -5,10 +5,13 @@ import { Message, User } from '../Chat/Chat';
 
 interface ChatListProps {
     chatList: Message[]; // Визначте тип пропсу chatList
-    myName: string
+    myName: string;
+    onUserClick: (user: User, id: number) => void;
+
+
 }
 
-const ChatList = ({ chatList, onUserClick, myName }: ChatListProps & { onUserClick: (user: User) => void }) => {
+const ChatList = ({ chatList, onUserClick, myName }: ChatListProps) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const handleSetActive = (index: number) => {
@@ -25,7 +28,7 @@ const ChatList = ({ chatList, onUserClick, myName }: ChatListProps & { onUserCli
                         isActive={index === activeIndex}
                         onClick={() => {
                             handleSetActive(index);
-                            onUserClick(userItem.receiver.name === myName ? userItem.sender : userItem.receiver);
+                            onUserClick(userItem.receiver.name === myName ? userItem.sender : userItem.receiver, userItem.id);
                         }}
                         user={userItem.receiver.name === myName ? userItem.sender : userItem.receiver}
                     />
