@@ -22,6 +22,7 @@ export type Post = {
     image: string;
     description: string;
     likes: number;
+    isLiked: boolean;
     comments: string[]; // Assuming comments are of any type
 }
 

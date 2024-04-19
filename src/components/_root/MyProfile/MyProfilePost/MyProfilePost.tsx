@@ -8,12 +8,13 @@ import './style.scss';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Author } from '../MyProfileDesc/MyProfileDesc';
 import axios from 'axios';
-import { userDataType } from '../../UserProfile/UserProfile';
 
 type Post = {
     image: string;
     description: string;
-    likes: number
+    likes: number,
+    isLiked: boolean,
+
 };
 
 type MyProfilePostProps = {
@@ -24,21 +25,9 @@ type MyProfilePostProps = {
 
 const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     const [open, setOpen] = useState(false);
-    const [isLike, setIsLike] = useState(false);
+    const [isLike, setIsLike] = useState(post.isLiked);
     const [likeCount, setLikeCount] = useState<number>(0);
-    const [myProfile, setMyProfile] = useState<userDataType>({
-        name: '',
-        postCount: 0,
-        friendsCount: 0,
-        followersCount: 0,
-        located: '',
-        birth_date: '',
-        bio: '',
-        avatar: '',
-        isFollow: false,
-        friends_count: 0,
-        subscribers_count: 0,
-    })
+    console.log(isLike);
 
     useEffect(() => {
         setLikeCount(post.likes);
@@ -46,47 +35,49 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
 
     const handleClickOpen = () => {
         setOpen(true);
-        console.log(id)
     };
 
     const handleClose = () => {
         setOpen(false);
     };
 
-    useEffect(() => {
-        const getMyFriendList = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-                setMyProfile(responseUser.data);
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-
-        getMyFriendList();
-        console.log(myProfile.name, id)
-    }, []);
-
     const addLike = async () => {
         try {
-            await axios.post('http://127.0.0.1:8000/posts/like/', {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                console.error('Access token not found in localStorage');
+                return;
+            }
 
-                post_id: id,
-                name: myProfile.name,
-            });
+            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            const formData = new FormData();
+            formData.append('name_user', responseUser.data.name);
+            formData.append('post_id', id.toString());
+            await axios.post('http://127.0.0.1:8000/posts/like/', formData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const removeLike = async () => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                console.error('Access token not found in localStorage');
+                return;
+            }
+
+            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            const formData = new FormData();
+            formData.append('name_user', responseUser.data.name);
+            formData.append('post_id', id.toString());
+            await axios.post('http://127.0.0.1:8000/posts/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
     }
 
     const handleLike = () => {
-        addLike();
+        isLike ? removeLike() : addLike();
         isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
         setIsLike(!isLike);
     };
