@@ -26,6 +26,7 @@ const EditMyProfile: React.FC = () => {
     });
     const [isEditingName, setIsEditingName] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [avatar, setAvatar] = useState<string>('');
 
 
     useEffect(() => {
@@ -68,47 +69,57 @@ const EditMyProfile: React.FC = () => {
             ...profile,
             profileImg: e.target.files ? e.target.files[0] : null,
         });
+        const file = e.target.files ? e.target.files[0] : null;
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const imageDataUrl = reader.result as string;
+                setAvatar(imageDataUrl);
+            };
+            reader.readAsDataURL(file); // Читаємо файл як URL або base64
+        }
     };
 
-   const handleSubmit = async () => {
-    setIsLoading(true);
+    const handleSubmit = async () => {
+        setIsLoading(true);
 
-    try {
-        const formData = new FormData();
-        formData.append('name', profile.name);
-        formData.append('bio', profile.bio);
-        formData.append('located', profile.located);
-        formData.append('birth_date', profile.birth_date);
-        
-        if (profile.profileImg) {
-            formData.append('avatar', profile.profileImg); // Ensure the key matches your backend expectation (e.g., 'profileImg')
-        }
+        try {
+            const formData = new FormData();
+            formData.append('name', profile.name);
+            formData.append('bio', profile.bio);
+            formData.append('located', profile.located);
+            formData.append('birth_date', profile.birth_date);
 
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
-            console.error('Access token not found in localStorage');
-            return;
-        }
-
-        const response = await axios.patch(
-            `http://127.0.0.1:8000/api/update-profile/${accessToken}/`,
-            formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            if (profile.profileImg) {
+                formData.append('avatar', profile.profileImg); // Ensure the key matches your backend expectation (e.g., 'profileImg')
             }
-        );
 
-        console.log('Profile update response:', response.data);
-    } catch (error) {
-        console.error('Error updating profile:', error);
-    } finally {
-        setIsLoading(false);
-        handleClose();
-        window.location.reload();
-    }
-};
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                console.error('Access token not found in localStorage');
+                return;
+            }
+
+            const response = await axios.patch(
+                `http://127.0.0.1:8000/api/update-profile/${accessToken}/`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+
+            console.log('Profile update response:', response.data);
+        } catch (error) {
+            console.error('Error updating profile:', error);
+        } finally {
+            setIsLoading(false);
+            handleClose();
+            window.location.reload();
+        }
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -173,12 +184,12 @@ const EditMyProfile: React.FC = () => {
                             <div className="col-6">
                                 <label>
                                     Country:
-                                    <input maxLength={35} type="text" name="located" value={profile.located} onChange={handleInputChange} />                                </label>
+                                    <input required maxLength={35} type="text" name="located" value={profile.located} onChange={handleInputChange} />                                </label>
                             </div>
                             <div className="col-6">
                                 <label>
                                     Date:
-                                    <input type="date" min="1900-01-01" max="2040-12-31" name="birth_date" value={profile.birth_date} onChange={handleInputChange} />                                </label>
+                                    <input required type="date" min="1900-01-01" max="2040-12-31" name="birth_date" value={profile.birth_date} onChange={handleInputChange} />                                </label>
                             </div>
                         </div>
                         <div className="row">
@@ -198,13 +209,21 @@ const EditMyProfile: React.FC = () => {
                                 </label>
                             </div>
                         </div>
+                        {avatar.length > 0 ?
+                            <div className="row">
+                                <div className="col-12 d-flex justify-content-center">
+                                    <img className='upload__img' src={avatar} alt="" />
+                                </div>
+                            </div>
+                            : null
+                        }
+
                     </form>
                 </DialogContent>
                 <DialogActions>
                     <button className='edit__profile__btn' type="submit" onClick={handleSubmit}>
                         {isLoading ? 'Loading...' : 'Submit'}
                     </button>
-
                 </DialogActions>
             </Dialog>
         </Fragment>

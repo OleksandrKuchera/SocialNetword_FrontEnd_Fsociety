@@ -104,7 +104,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                         <div className="col-12"></div>
                         <div className="col-2">
                             {userData.avatar && userData.avatar.length >= 13 && (
-                                <img className={style.avatar} src={userData.avatar.slice(13)} alt="avatar" />
+                                <div className={style.avatar__container}>
+                                    <img className={style.avatar} src={userData.avatar.slice(13)} alt="avatar" />
+                                </div>
                             )}
                         </div>
                         <div className="col-10 d-flex flex-column justify-content-around">
@@ -121,9 +123,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             </div>
                             <div className="row">
                                 <div className="col-12 d-flex justify-content-between">
-                                    <p className={style.profile__count}><span>{userData.postCount || 0}</span>Posts</p>
+                                    <p className={style.profile__count}><span>{userData.post_count || 0}</span>Posts</p>
                                     <NavLink to={`/${userData.name}/friends`} className={style.profile__count}><span>{userData.friends_count || 0}</span>Friends</NavLink>
-                                    <NavLink to={`/${userData.name}/followers`} className={style.profile__count}><span>{userData.followersCount || 0}</span>Followers</NavLink>
+                                    <NavLink to={`/${userData.name}/followers`} className={style.profile__count}><span>{userData.subscribers_count || 0}</span>Followers</NavLink>
                                 </div>
                             </div>
                         </div>

@@ -1,17 +1,17 @@
 import { User } from '../Chat/Chat';
 import style from '../ChatList/chatList.module.scss'
 
+
 type chatItemType = {
     isActive?: boolean,
-   onClick: () => void,
-   user: User,
+    onClick: () => void,
+    user: User,
 }
 
-const ChatItem = ({isActive, onClick, user, } : chatItemType) => {
-
+const ChatItem = ({ isActive, onClick, user, }: chatItemType) => {
 
     return (
-        <div  className={isActive? `${style.active} ${style.chat__item}}` : `${style.chat__item}`} onClick={onClick}>
+        <div className={isActive ? `${style.active} ${style.chat__item}}` : `${style.chat__item}`} onClick={onClick}>
             <div className="d-flex justify-content-between">
                 <div>
                     <div className={style.avatar__info}>
@@ -22,7 +22,7 @@ const ChatItem = ({isActive, onClick, user, } : chatItemType) => {
                     </div>
                 </div>
                 <div className='d-flex align-items-center'>
-                    <p className={style.chat__message}>{user.bio}</p>
+                    {user.bio.trim().length > 0 ? <p className={style.chat__message}>{user.bio}</p> : null}
                 </div>
             </div>
         </div>

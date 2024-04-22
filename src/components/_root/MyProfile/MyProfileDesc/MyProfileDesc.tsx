@@ -50,8 +50,8 @@ const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
     return (
         <div className={style.desc__container}>
             <div className="row">
-                {userPosts ? (
-                    userPosts.map((post, index) => (
+                {userPosts?.length !== 0 ? (
+                    userPosts?.map((post, index) => (
                         <MyProfilePost key={index} id={post.id} autor= {post.author} post = {post.post}/>
                     ))
                 ) : (

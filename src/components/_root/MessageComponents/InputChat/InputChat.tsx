@@ -9,8 +9,7 @@ export default function InputChat({ onEnter }: InputChatProps) {
   const [text, setText] = useState('')
 
   function handleOnEnter(text: string) {
-    console.log('enter', text)
-    onEnter(text);
+    text.trim().length > 0 ? onEnter(text): null;
   }
 
   return (

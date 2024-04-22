@@ -97,8 +97,20 @@ const FriendItem = ({ user }: Props) => {
         }
     };
 
-    const handleClickMessage = () => {
-
+    const handleClickMessage = async(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); 
+        e.preventDefault();
+        console.log(myProfileName, user.name)
+        try{
+            const dataForm = new FormData();
+            dataForm.append('sender_name', myProfileName);
+            dataForm.append('receiver_name', user.name);
+            await axios.post('http://127.0.0.1:8000/chat/create_chat_room/', dataForm);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            navigate('message/');
+        }
     };
 
     return (

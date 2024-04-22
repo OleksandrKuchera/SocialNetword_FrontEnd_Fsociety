@@ -8,9 +8,7 @@ import { CircularProgress, Container } from "@mui/material";
 
 export type userDataType = {
   name: string,
-  postCount: number,
-  friendsCount: number,
-  followersCount: number,
+  post_count: number,
   located: string,
   birth_date: string,
   bio: string,
