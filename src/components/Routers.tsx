@@ -9,6 +9,7 @@ import RegistrationForm from "./_auth/form/RegistrationForm";
 import HomeLayout from "./_root/HomeLayout/HomeLayout";
 import Chat from "./_root/MessageComponents/Chat/Chat";
 import Home from "./_root/Home/Home";
+import Music from "./_root/Music/Music";
 import GameList from "./_root/GameList/GameList";
 import GameSnake from "./_root/GameList/SnakeGame/SnakeGame";
 import ConfirmEmail from "./_auth/ConfirmEmail/ConfirmEmail";
@@ -41,6 +42,7 @@ const AppContainer = () => {
                     <Route element={<HomeLayout />}>
                         <Route path="/message/" element={<Chat />} />
                         <Route path="/home" element={<Home />} />
+                        <Route path="/music" element={<Music />} />
                         <Route path="/game" element={<GameList />} />
                         <Route path="/my-profile" element={<MyProfile />} />
                         <Route path="/profile/:userName" element={<UserProfile />} />

@@ -2,7 +2,7 @@ import logo from '../../../../assets/FS2D2.png'
 import style from './style.module.scss';
 import { Button, Nav } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person } from '@mui/icons-material';
+import { Error, ExitToAppRounded, Gamepad, Home, Message, MusicNote, People, Person } from '@mui/icons-material';
 import axios from 'axios';
 
 
@@ -52,6 +52,10 @@ const Sidebar = () => {
                         <Link to="/message" className={pathname === '/message' ? style.activeLink : ''}>
                             <Message className={style.nav__icon} />
                             Message
+                        </Link>
+                        <Link to="/music" className={pathname === '/music' ? style.activeLink : ''}>
+                            <MusicNote className={style.nav__icon} />
+                            Music
                         </Link>
                         <Link to="/game" className={pathname.startsWith('/game') ? style.activeLink : ''}>
                             <Gamepad className={style.nav__icon} />
