@@ -1,18 +1,24 @@
-import style from './music.module.scss'
+import style from './style.module.scss'
+import { Search } from '@mui/icons-material';
 //import logo from '../../../assets/FSLogo2.png';
 
 const Music = () => {
     return (
         <div className='d-flex justify-content-center'>
-            <div className={style.about__layout}>
-                <div className={style.about__container}>
-                    Music page
-                    {/* <div className='d-flex justify-content-center'>
-                        <div className={style.logo__container}>
-                            <img src={logo} alt="logo" />
+            <div className={style.page__layout}>
+                <div className={style.page__container}>
+                    <div className='d-flex justify-content-center'>
+                        <div className={style.search__layout}>
+                            <div className={style.search__container}>
+                                <div className={style.search__icon}>
+                                    <Search/>
+                                </div>
+                                <input className={style.search__bar} placeholder="Search"/>
+                            </div>
                         </div>
                     </div>
-                    <div className="row">
+                    Music page
+                    {/* <div className="row">
                         <div className="d-flex align-items-center">
                             <div className={style.text__layout}>
                                 <div className={style.text__container__product}>
