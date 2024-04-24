@@ -51,7 +51,10 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
         return num.toString().padStart(2, '0');
     }
 
-
+    const formatDate = (timestamp: string) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString();
+    };
 
     const getChat = async () => {
         try {
@@ -130,24 +133,42 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
                 <div className={style.messages__container}>
 
                     {myUser ?
-                        chatHistory.map((message, index) =>
-                            message.sender.name != myUser.name ? (
+                        chatHistory.map((message, index) => {
+                            return (
+                                <>
+                                    {index === 0 || formatDate(message.timestamp) !== formatDate(chatHistory[index - 1].timestamp) ? (
+                                        <div className="row">
+                                            <div className="col-12 d-flex align-items-center">
+                                                <hr style={{ border: '1px solid grey', width:'50%' }} />
+                                                <p className={style.date__separator }>
+                                                    {formatDate(message.timestamp)}
+                                                </p>
+                                                <hr style={{ border: '1px solid grey',width:'50%'  }} />
+                                            </div>
+                                        </div>
 
-                                <div key={index} className="row d-flex justify-content-start">
-                                    <div className="col-12 d-flex align-items-center">
-                                        <p className={style.message__received}>{message.text}</p>
-                                        <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
-                                    </div>
-                                </div>
+                                    ) : null}
 
-                            ) : <div key={index} className="row d-flex justify-content-end">
-                                <div className="col-12 d-flex justify-content-end align-items-center">
-                                    <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
-                                    <p className={style.message__sender}>{message.text}</p>
-                                </div>
-                            </div>
-                        ) : null
+                                    {message.sender.name != myUser.name ? (
+                                        <div key={index} className="row d-flex justify-content-start">
+                                            <div className="col-12 d-flex align-items-center">
+                                                <p className={style.message__received}>{message.text}</p>
+                                                <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div key={index} className="row d-flex justify-content-end">
+                                            <div className="col-12 d-flex justify-content-end align-items-center">
+                                                <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
+                                                <p className={style.message__sender}>{message.text}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            );
+                        }) : null
                     }
+
                     <div ref={messagesEndRef} />
                 </div>
                 <div className="input__message">
