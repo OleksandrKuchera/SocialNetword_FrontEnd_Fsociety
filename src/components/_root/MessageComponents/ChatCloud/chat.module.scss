@@ -116,7 +116,7 @@
     word-wrap: break-word;
     background: $buttonGreen;
     font-size: 15px;
-    margin: 10px;
+    margin: 5px 10px 5px 10px;
     border-radius: 20px;
     text-align: start;
 }
@@ -125,8 +125,19 @@
     height: 100vh;
 }
 .date__separator{
-    font-size: 15px;
+    font-size: 13px;
     color: grey;
     padding-right: 10px;
     padding-left: 10px;
+    &__container{
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        hr{
+            width: 50%;
+            opacity: 1;
+            border: 1px solid grey;
+        }
+    }
 }

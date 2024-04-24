@@ -138,12 +138,14 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
                                 <>
                                     {index === 0 || formatDate(message.timestamp) !== formatDate(chatHistory[index - 1].timestamp) ? (
                                         <div className="row">
-                                            <div className="col-12 d-flex align-items-center">
-                                                <hr style={{ border: '1px solid grey', width:'50%' }} />
-                                                <p className={style.date__separator }>
-                                                    {formatDate(message.timestamp)}
-                                                </p>
-                                                <hr style={{ border: '1px solid grey',width:'50%'  }} />
+                                            <div className="col-12">
+                                                <div className={style.date__separator__container}>
+                                                    <hr />
+                                                    <p className={style.date__separator}>
+                                                        {formatDate(message.timestamp)}
+                                                    </p>
+                                                    <hr />
+                                                </div>
                                             </div>
                                         </div>
 
