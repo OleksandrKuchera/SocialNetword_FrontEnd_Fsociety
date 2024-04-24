@@ -83,7 +83,7 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     };
 
     return (
-        <div className="col-4">
+        <div className="col-4 d-flex justify-content-center">
             <React.Fragment>
                 <Button className='post__img' variant="outlined" onClick={handleClickOpen}>
                     <img className='post__img__label)' src={post.image} alt="postImgTitle" />
@@ -108,7 +108,7 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
                     </IconButton>
                     <DialogContent dividers>
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-6 d-flex justify-content-center">
                                 <img className='open__post__img' src={post.image} alt="postImgTitle" />
                             </div>
                             <div className="col-6 d-flex flex-column justify-content-between">

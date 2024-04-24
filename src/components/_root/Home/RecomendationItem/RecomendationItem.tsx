@@ -3,6 +3,7 @@ import { User } from '../../FriendList/FriendList';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { userDataType } from '../../UserProfile/UserProfile';
+import { shortenText } from '../../functions/shortText';
 
 type RecomendationItemType = {
     user: User,
@@ -91,7 +92,7 @@ const RecomendationItem = ({user, handleClickCard} : RecomendationItemType) => {
                 <div onClick={() => handleClickCard(user.name)} className={style.recomendation__item}>
                     <div className='d-flex align-items-center'>
                         <img src={user.avatar.slice(13)} alt="avatar" />
-                        <h3>{user.name}</h3>
+                        <h3>{shortenText(user.name, 11)}</h3>
                     </div>
                     {isFollow ? <button className={style.friend__btn__unfolow} onClick={handleClickDelete}>Unfollow</button> : <button className={style.friend__btn__folow} onClick={handleFollow}>Follow</button>}
                 </div>

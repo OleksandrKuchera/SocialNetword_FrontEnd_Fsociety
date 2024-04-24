@@ -122,7 +122,7 @@ const FriendItem = ({ user }: Props) => {
                 </div>
                 <div className={style.friend__btn}>
                     <button onClick={handleClickMessage}><Message /></button>
-                    {isFollow ? <button className={style.friend__btn__unfolow} onClick={handleClickDelete}>Unfollow</button> : <button className={style.friend__btn__folow} onClick={handleFollow}>Follow</button>}
+                    {user.name !== myProfileName ? isFollow ? <button className={style.friend__btn__unfolow} onClick={handleClickDelete}>Unfollow</button> : <button className={style.friend__btn__folow} onClick={handleFollow}>Follow</button> : null}
                 </div>
             </div>
         </div>

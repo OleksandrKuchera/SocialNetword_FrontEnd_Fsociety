@@ -28,17 +28,15 @@ type MyProfileDescProps = {
     userData: userDataType;
 };
 
-
-
-
 const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
-    const [userPosts, setUserPosts] = useState<PostData[]>()
+    const [userPosts, setUserPosts] = useState<PostData[]>([]);
 
     useEffect(() => {
         const fetchUserPosts = async () => {
             try {
                 const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/lookPostUser/${userData.name}`);
-                setUserPosts(response.data.reverse());
+                const sortedPosts = response.data.sort((a, b) => b.id - a.id);
+                setUserPosts(sortedPosts);
             } catch (error) {
                 console.error("Error fetching user posts:", error);
             }
@@ -50,9 +48,9 @@ const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
     return (
         <div className={style.desc__container}>
             <div className="row">
-                {userPosts?.length !== 0 ? (
-                    userPosts?.map((post, index) => (
-                        <MyProfilePost key={index} id={post.id} autor= {post.author} post = {post.post}/>
+                {userPosts.length !== 0 ? (
+                    userPosts.map((post) => (
+                        <MyProfilePost key={post.id} id={post.id} autor={post.author} post={post.post} />
                     ))
                 ) : (
                     <div className="col-12">

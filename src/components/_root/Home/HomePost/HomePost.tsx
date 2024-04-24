@@ -4,6 +4,7 @@ import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import { PostData } from '../Home';
 import axios from 'axios';
+import { TextPreview } from '../../functions/showText';
 
 type HomePostType = {
     postData:PostData,
@@ -85,7 +86,7 @@ const HomePost = ({postData} : HomePostType) => {
                     <div className="col-12">
                         <div className={style.post__text}>
                             <h3>{postData.author.name}:</h3>
-                            <p>{postData.post.description}</p>
+                            <p><TextPreview text={postData.post.description}/></p>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Dialog } from '@mui/material';
+import { Alert, Button, Dialog } from '@mui/material';
 import './style.scss';
 import axios from 'axios';
 
@@ -27,7 +27,7 @@ const EditMyProfile: React.FC = () => {
     const [isEditingName, setIsEditingName] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [avatar, setAvatar] = useState<string>('');
-
+    const [errorMessage, setErrorMessage] = useState<string>(''); // Додайте стан для повідомлення про помилку
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -43,7 +43,7 @@ const EditMyProfile: React.FC = () => {
                 const profileData: Profile = response.data;
                 setProfile(profileData);
             } catch (error) {
-                console.error(error);
+                setErrorMessage('Error fetching profile data.'); // Встановлюємо повідомлення про помилку
             }
         };
 
@@ -101,7 +101,7 @@ const EditMyProfile: React.FC = () => {
                 return;
             }
 
-            const response = await axios.patch(
+            await axios.patch(
                 `http://127.0.0.1:8000/api/update-profile/${accessToken}/`,
                 formData,
                 {
@@ -110,14 +110,12 @@ const EditMyProfile: React.FC = () => {
                     },
                 }
             );
-
-            console.log('Profile update response:', response.data);
-        } catch (error) {
-            console.error('Error updating profile:', error);
-        } finally {
             setIsLoading(false);
             handleClose();
             window.location.reload();
+        } catch (error) {
+            setIsLoading(false);
+            setErrorMessage(`Помилка зміни профілю: такий нікнейм уже зайнято оберіть інший`); 
         }
     };
 
@@ -157,6 +155,11 @@ const EditMyProfile: React.FC = () => {
                 </IconButton>
                 <DialogContent>
                     <form className='edit__profile__form'>
+                        {errorMessage &&
+                            <Alert style={{color: 'orange'}} className='mb-3' variant="outlined" severity="warning">
+                                {errorMessage}
+                            </Alert>
+                        }
                         <div className="row">
                             <div className="col-6">
                                 <label>

@@ -29,7 +29,7 @@ const ChatList = ({ chatList, onUserClick, myName }: ChatListProps) => {
         <div className={style.chat__container}>
             <h2 className={style.chat__title}>Chats</h2>
             <div className={style.chat__list}>
-                {chatList.reverse().map((userItem, index) => (
+                {chatList.map((userItem, index) => (
                     <ChatItem
                         key={index}
                         isActive={index === activeIndex}

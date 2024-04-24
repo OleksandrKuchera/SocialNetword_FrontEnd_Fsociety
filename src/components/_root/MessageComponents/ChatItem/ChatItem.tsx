@@ -1,3 +1,4 @@
+import { shortenText } from '../../functions/shortText';
 import { User } from '../Chat/Chat';
 import style from '../ChatList/chatList.module.scss'
 
@@ -22,7 +23,7 @@ const ChatItem = ({ isActive, onClick, user, }: chatItemType) => {
                     </div>
                 </div>
                 <div className='d-flex align-items-center'>
-                    {user.bio.trim().length > 0 ? <p className={style.chat__message}>{user.bio}</p> : null}
+                    {user.bio.trim().length > 0 ? <p className={style.chat__message}>{shortenText(user.bio, 18)}</p> : null}
                 </div>
             </div>
         </div>

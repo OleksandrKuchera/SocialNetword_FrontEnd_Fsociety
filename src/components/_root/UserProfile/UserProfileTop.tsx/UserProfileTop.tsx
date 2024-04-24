@@ -5,7 +5,7 @@ import { userDataType } from '../UserProfile';
 import { useEffect, useState } from 'react';
 import { User } from '../../FriendList/FriendList';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 type UserProfileTopProps = {
     userData: userDataType;
@@ -16,6 +16,8 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     const [userDataState] = useState<User>(userData);
     const [isFollow, setIsFollow] = useState<boolean>(false);
     const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
+    const [myUserName, setMyUserName] = useState<string>('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getMyFriendList = async () => {
@@ -27,6 +29,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                 }
 
                 const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                setMyUserName(responseUser.data.name);
                 const response = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseUser.data.name}`);
                 setMyFriendList(response.data);
             } catch (error) {
@@ -93,6 +96,20 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
             console.error('Помилка при видаленні друга:', error);
         }
     };
+    const handleClickMessage = async(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); 
+        e.preventDefault();
+        try{
+            const dataForm = new FormData();
+            dataForm.append('sender_name', myUserName);
+            dataForm.append('receiver_name', userData.name);
+            await axios.post('http://127.0.0.1:8000/chat/create_chat_room/', dataForm);
+        } catch(e) {
+            console.log(e);
+        } finally {
+            navigate('/message/');
+        }
+    };
 
 
 
@@ -116,9 +133,8 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                                         <h2 className={style.user__name}>{userData.name}</h2>
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
-                                        <button><Message /></button>
-                                        {isFollow ? <button className={style.unfollow__btn} onClick={handleClickDelete}>Unfollow</button> : <button onClick={handleFollow}>Follow</button>}
-                                    </div>
+                                        <button onClick={handleClickMessage}><Message /></button>
+                                        {userDataState.name !== myUserName ? isFollow ? <button className={style.unfollow__btn} onClick={handleClickDelete}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}                                </div>
                                 </div>
                             </div>
                             <div className="row">
@@ -158,8 +174,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     </div>
                     <Divider className={style.divider} />
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 

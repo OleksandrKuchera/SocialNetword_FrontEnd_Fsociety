@@ -40,8 +40,8 @@
     &__post {
         &__img {
             width: 100% !important;
-            height: 50vh;
-            object-fit: cover;
+            height: 80vh;
+            object-fit: contain;
         }
     }
 }

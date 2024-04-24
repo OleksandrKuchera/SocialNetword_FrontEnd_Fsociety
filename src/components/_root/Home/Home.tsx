@@ -41,7 +41,8 @@ const Home = () => {
                 }
                 const responseMyProfile = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
                 const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/look/${responseMyProfile.data.name}`);
-                setPosts(response.data.reverse());
+                const sortedPosts = response.data.sort((a, b) => b.id - a.id);
+                setPosts(sortedPosts);
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
