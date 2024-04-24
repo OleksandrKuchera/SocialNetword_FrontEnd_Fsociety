@@ -1,6 +1,6 @@
 import style from './style.module.scss'
-import { Search } from '@mui/icons-material';
-//import logo from '../../../assets/FSLogo2.png';
+import { Search, PauseCircle, PlayCircle, SkipNext, SkipPrevious, VolumeUp } from '@mui/icons-material';
+import albumPhoto from '../../../assets/artworks-000074397388-tx10b9-t240x240.jpg';
 
 const Music = () => {
     return (
@@ -17,47 +17,104 @@ const Music = () => {
                             </div>
                         </div>
                     </div>
-                    Music page
-                    {/* <div className="row">
-                        <div className="d-flex align-items-center">
-                            <div className={style.text__layout}>
-                                <div className={style.text__container__product}>
-                                    <div className={style.text__section}>
-                                        <h2>About Our Product:</h2>
+                    <div className={style.songList}>
+                        <div className={style.songList__title}>
+                            <h1>Popular now</h1>
+                        </div>
+                        <div>
+                            <div className={style.songList__song}>
+                                <div className={style.songList__song__number}>1</div>
+                                <div className={style.songList__song__img}>
+                                    <img src={albumPhoto} alt="Song logo" />
+                                </div>
+                                <div className={style.songList__song__info}>
+                                    <div className={style.songList__song__info__name}>
+                                        <h1>Song name</h1>
+                                        <h2>Author</h2>
                                     </div>
-                                    <div className={style.text__section}>
-                                        <h3>Welcome to the "About Our Product" page! We are excited to introduce you to our offerings, designed to make your life easier and provide you with the latest and most effective </h3>
-                                        <h3>Our team is committed to developing innovative products that meet modern demands and user needs. We strive to provide you with convenience, efficiency, and safety in using our products.</h3>
-                                        <h3>Whether you're looking for entertainment, work tools, or communication platforms, we have something for you. From exciting games to powerful business tools, you'll find everything you need to achieve your goals.</h3>
-                                        <h3>We take pride in our products and are always ready to answer your questions and assist you with any inquiries. Join our community today and learn more about how our product can positively impact your life!</h3>
+                                    <h1>3:30</h1>
+                                </div>
+                            </div>
+                            <div className={style.songList__song}>
+                                <div className={style.songList__song__number}>2</div>
+                                <div className={style.songList__song__img}>
+                                    <img src={albumPhoto} alt="Song logo" />
+                                </div>
+                                <div className={style.songList__song__info}>
+                                    <div className={style.songList__song__info__name}>
+                                        <h1>Song name</h1>
+                                        <h2>Author</h2>
                                     </div>
-                                    <div className={style.text__section}>
-                                        <h2>Best regards,</h2>
-                                        <h2>Fsociety Team</h2>
+                                    <h1>3:30</h1>
+                                </div>
+                            </div>
+                            <div className={style.songList__song}>
+                                <div className={style.songList__song__number}>3</div>
+                                <div className={style.songList__song__img}>
+                                    <img src={albumPhoto} alt="Song logo" />
+                                </div>
+                                <div className={style.songList__song__info}>
+                                    <div className={style.songList__song__info__name}>
+                                        <h1>Song name</h1>
+                                        <h2>Author</h2>
+                                    </div>
+                                    <h1>3:30</h1>
+                                </div>
+                            </div>
+                            <div className={style.songList__song}>
+                                <div className={style.songList__song__number}>4</div>
+                                <div className={style.songList__song__img}>
+                                    <img src={albumPhoto} alt="Song logo" />
+                                </div>
+                                <div className={style.songList__song__info}>
+                                    <div className={style.songList__song__info__name}>
+                                        <h1>Song name</h1>
+                                        <h2>Author</h2>
+                                    </div>
+                                    <h1>3:30</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={style.player__layout}>
+                        <div className={style.player__activeSong}>
+                            <div className={style.player__activeSong__img}>
+                                <img src={albumPhoto} alt="Song logo" />
+                            </div>
+                            <div className={style.player__activeSong__info}>
+                                <h3>Now playing:</h3>
+                                <h1>Гондурас</h1>
+                                <h2>Злий Репер Зеник</h2>
+                                <h4>3:30</h4>
+                            </div>
+                        </div>
+                        <div className={style.player__controls__layout}>
+                            <div className={style.player__controls__container}>
+                                <div className={style.player__controls__buttons}>
+                                    <SkipPrevious className={style.player__controls__icon}/>
+                                    <PauseCircle className={style.player__controls__icon}/>
+                                    {/* <PlayCircle className={style.player__controls__icon}/> */}
+                                    <SkipNext className={style.player__controls__icon}/>
+                                </div>
+                                <div className={style.player__controls__time}>
+                                    <progress className={style.bar__time} id="time" value="32" max="100"></progress>
+                                    <div className={style.player__controls__time__timecode}>
+                                        <h2>1:07</h2>
+                                        <h2>3:30</h2>
                                     </div>
                                 </div>
-                                <div className={style.text__container__team}>
-                                    <div className={style.text__section}>
-                                        <h2>Our team:</h2>
+                                <div className={style.player__controls__volume}>
+                                    <div className={style.player__controls__volume__iconContainer}>
+                                        <VolumeUp className={style.player__controls__icon}/>
                                     </div>
-                                    <div className={style.text__section}>
-                                        <h2>Frontend:</h2>
-                                        <h3>Bogdan Bayurchak</h3>
-                                        <h3>Serhii Oleniak</h3>
-                                    </div>
-                                    <div className={style.text__section}>
-                                        <h2>Backend</h2>
-                                        <h3>Oleksandr Kuchera</h3>
-                                    </div>
-                                    <div className={style.text__section}>
-                                        <h2>Site layout</h2>
-                                        <h3>Maksym Kuryliuk</h3>
-                                        <h3>Dariia Fomina</h3>
+                                    <div className={style.player__controls__volume__barContainer}>
+                                        <progress className={style.bar__volume} id="time" value="76" max="100"></progress>
+                                        <h2>76%</h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>

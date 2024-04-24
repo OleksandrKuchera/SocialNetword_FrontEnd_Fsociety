@@ -63,191 +63,224 @@
     }
 }
 
-
-
-
-
-.text {
-    &__layout {
-        height: 60vh;
-        display: flex;
-        justify-content: space-around;
-        align-items: start;
-    }
-
-    &__container__product {
-        width: 50%;
-        height: 45vh;
-        margin-left: 7vh;
-        margin-right: 7vh;
-        display: flex;
-        justify-content: space-around;
-        flex-direction: column;
-
-        h2 {
-            font-size: 18px;
-            font-weight: 400;
-
-        }
-
-        h3 {
-            font-size: 15px;
-            font-weight: 400;
-        }
-    }
-
-    &__container__team {
-        width: 50%;
-        height: 30vh;
-        margin-left: 7vh;
-        margin-right: 7vh;
-        display: flex;
-        justify-content: space-around;
-        flex-direction: column;
-
-        h2 {
-            font-size: 18px;
-            font-weight: 400;
-
-        }
-
-        h3 {
-            font-size: 14px;
-            font-weight: 400;
-        }
-    }
-
-    &__section {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-}
-
-.logo__container {
+.songList {
+    flex-grow: 1;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    
+    &__title {
+        height: 7vh;
+        margin-left: 5vh;
+        margin-right: 5vh;
+        align-content: center;
 
-    img {
-        width: 20vh;
-        height: 20vh;
-        transition: all 0.5s;
+        h1 {
+            font-size: 20px;
+            color: rgba(225, 225, 225, 0.85);
+        }
+    }
+
+    &__song {
+        height: 9vh;
+        margin-left: 3vh;
+        margin-right: 3vh;
+        margin-bottom: 1vh;
+        border-radius: 10px;
+        border: 1px solid $greyBorder;
+        display: flex;
+        justify-content: stretch;
+        align-content: center;
+        
+        &__number {
+            width: 8vh;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        &__img {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+    
+            img {
+                width: 8vh;
+                height: 8vh;
+                object-fit: cover;
+            }
+        }
+
+        &__info {
+            margin-left: 3vh;
+            margin-right: 3vh;
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            align-items: center;
+            h1 {
+                align-content: center;
+                height: 3vh; 
+                font-size: 16px;
+                color: rgba(225, 225, 225, 1);
+            }
+            h2 {
+                align-content: center;
+                height: 3vh;
+                font-size: 15px;
+                color: rgba(225, 225, 225, 0.8);
+            }
+        }
     }
 }
 
+.player {
+    &__layout{
+        border-top: 1px solid $greyBorder;
+        height: 35vh;
+    }
 
+    &__activeSong {
+        height: 25vh;
+        display: flex;
+        flex-direction: row;
 
+        &__info{
+            width: 100%;
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            margin-right: 5vh;
+            display: flex;
+            flex-direction: column;
 
+            h1{
+                height: 4vh; 
+                font-size: 20px;
+                color: rgba(225, 225, 225, 1);
+            }
+            
+            h2 {
+                height: 4vh;
+                font-size: 17px;
+                color: rgba(225, 225, 225, 0.8);
+            }
+            
+            h3 {
+               height: 3vh; 
+               color: rgba(225, 225, 225, 0.65);
+               font-size: 15px;
+            }
 
+            h4 {
+                height: 3vh;
+                color: rgba(225, 225, 225, 0.9);
+                font-size: 15px;
+            }
+        }
+        
+        &__img {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+    
+            img {
+                margin-left: 5vh;
+                margin-right: 5vh;
+                width: 20vh;
+                height: 20vh;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+    }
+    
+    &__controls{
+        &__layout {
+            height: 10vh;
+            border-top: 1px solid $greyBorder;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+        }
+        
+        &__container{
+            height: 75%;
+            width: 95%;
+            border-radius: 1vh;
+            border: 1px solid rgb(9, 100, 62);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            align-content: center;
+        }
+            
+        &__buttons{
+            width: 16vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
+            justify-content: space-evenly;
+        }
 
+        &__time{
+            width: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
 
-// @import '../../styles/color.scss';
+            &__timecode {
+                width: 70vh;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
 
-// .chat {
-//     &__layout {
-//         width: 90%;
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//     }
+        &__volume{
+            width: 23vh;
+            display: flex;
+            align-content: center;
+            
+            &__iconContainer {
+                width: 4vh;
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+            }
 
-//     &__container {
-//         border-radius: 20px;
-//         height: 98vh;
-//         width: 60vw;
-//         box-shadow: 0px 0px 10px black;
-//         background-color: rgba(0, 0, 0, 0.380);
-//         border: 1px solid $greyBorder;
-//         border-radius: 10px;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: space-between;
-//     }
-// }
+            &__barContainer {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        } 
 
-// .avatar {
-//     position: relative;
-//     width: 50px;
-//     height: 50px;
-//     margin-right: 10px;
-//     border-radius: 50%;
-//     box-shadow: 0px 2px 0px 2px $green;
+        &__icon {
+            transform: scale(1.4);
+            color: rgba(0, 255, 148, 1);
+        }
+    }
+}
 
-//     img {
-//         width: 50px;
-//         height: 50px;
-//         border-radius: 50%;
-//         object-fit: cover;
-//     }
-// }
+.bar {
+    &__time {
+        width: 70vh;
+        accent-color: rgba(0, 255, 148, 1);
+    }
 
-// .chat__top__container {
-//     padding: 10px 15px;
-//     border-bottom: 1px solid $greyBorder;
-// }
-
-// .avatar__info {
-//     h3 {
-//         color: #FFF;
-//         font-size: 18px;
-//         font-weight: 400;
-//     }
-
-//     p {
-//         color: $green;
-//         font-size: 14px;
-//         font-weight: 400;
-//     }
-// }
-
-// .messages__container {
-//     height: 100%;
-//     padding-left: 10px;
-//     padding-right: 15px;
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-// }
-
-// .message__received {
-//     padding: 10px 15px 10px 15px;
-//     background-color: rgba(125, 124, 124, 0.701);
-//     font-size: 15px;
-//     margin: 10px;
-//     border-radius: 20px;
-//     max-width: 70%;
-//     width: fit-content;
-//     text-align: start;
-//     word-wrap: break-word;
-// }
-// .message__staptime{
-//     color: grey;
-//     font-size: 10px;
-// }
-// .user__chat{
-//     display: flex;
-//     align-items: center;
-//     transition: all 0.3s;
-//     cursor: pointer;
-//     &:hover{
-//         transform: scale(0.98);
-//     }
-// }
-
-// .message__sender {
-//     padding: 10px 15px 10px 15px;
-//     color: #000;
-//     max-width: 70%;
-//     width: fit-content;
-//     text-align: start;
-//     word-wrap: break-word;
-//     background: $buttonGreen;
-//     font-size: 15px;
-//     margin: 10px;
-//     border-radius: 20px;
-//     text-align: start;
-// }
-
-// .height__control {
-//     height: 100vh;
-// }
+    &__volume {
+        width: 16vh;
+        accent-color: rgba(0, 255, 148, 1);
+    }
+}
