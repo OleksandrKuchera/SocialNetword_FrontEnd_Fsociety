@@ -72,10 +72,10 @@ const RegistrationForm: React.FC = () => {
     };
 
     return (
-        <div className={style.loginFormContainer}>
+        <div className={style.login_form_container}>
             {loading ? (
                 <div className={style.loading}>
-                    <CircularProgress color="primary" />
+                    <CircularProgress color="success" />
                 </div>
             ) : (
                 <>
