@@ -23,7 +23,7 @@
     }
 
     & img {
-        width: 30%;
+        width: 25%;
     }
 
     & figcaption {
@@ -63,7 +63,8 @@
         }
         &.activeLink{
             background: $buttonGreen;
-            box-shadow: 10px 0px 15px rgba(137, 255, 69, 0.4);
+            box-shadow: 10px 0px 15px rgba(137, 255, 69, 0.5);
+            z-index: 1;
             color: black;
             display: flex; 
             align-items: center;

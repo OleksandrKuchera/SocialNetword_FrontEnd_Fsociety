@@ -36,7 +36,6 @@ const AboutProduct = () => {
                                     <div className={style.text__section}>
                                         <h2>Frontend:</h2>
                                         <h3>Bogdan Bayurchak</h3>
-                                        <h3>Serhii Oleniak</h3>
                                     </div>
                                     <div className={style.text__section}>
                                         <h2>Backend</h2>
@@ -44,6 +43,7 @@ const AboutProduct = () => {
                                     </div>
                                     <div className={style.text__section}>
                                         <h2>Site layout</h2>
+                                        <h3>Serhii Oleniak</h3>
                                         <h3>Maksym Kuryliuk</h3>
                                         <h3>Dariia Fomina</h3>
                                     </div>

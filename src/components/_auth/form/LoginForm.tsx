@@ -16,18 +16,18 @@ const LoginForm = () => {
             [event.target.name]: event.target.value
         });
     };
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData);
             localStorage.setItem('accessToken', response.data.accessToken);
-            console.log(response.data);
-            navigate('/home');
+            setTimeout(() => {
+                navigate('/home');
+            },2000)
         } catch (error) {
-            setError('Обліковий запис не знайдено')
             if (axios.isAxiosError(error)) {
                 console.error('Error:', error.response?.data);
+                setError(error.response?.data.error)
             } else {
                 console.error('An unexpected error occurred:', error);
             }

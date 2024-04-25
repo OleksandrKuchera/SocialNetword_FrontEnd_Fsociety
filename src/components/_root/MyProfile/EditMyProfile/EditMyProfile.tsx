@@ -115,7 +115,11 @@ const EditMyProfile: React.FC = () => {
             window.location.reload();
         } catch (error) {
             setIsLoading(false);
-            setErrorMessage(`Помилка зміни профілю: такий нікнейм уже зайнято оберіть інший`); 
+            if (axios.isAxiosError(error)) {
+                setErrorMessage(error.response?.data.error || error.response?.data.bio)
+            } else {
+                console.error('An unexpected error occurred:', error);
+            }
         }
     };
 

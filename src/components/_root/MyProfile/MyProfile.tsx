@@ -8,9 +8,6 @@ import { CircularProgress } from '@mui/material';
 
 type userDataType = {
   name: string,
-  postCount: number,
-  friendsCount: number,
-  followersCount: number,
   located: string,
   birth_date: string,
   bio: string,
@@ -18,14 +15,13 @@ type userDataType = {
   isFollow: boolean,
   friends_count: number,
   subscribers_count: number,
+  post_count: number
 }
 
 function MyProfile() {
   const [userData, setUserData] = useState<userDataType>({
     name: '',
-    postCount: 0,
-    friendsCount: 0,
-    followersCount: 0,
+    post_count: 0,
     located: '',
     birth_date: '',
     bio: '',

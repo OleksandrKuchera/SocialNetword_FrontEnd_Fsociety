@@ -57,12 +57,15 @@ const RegistrationForm: React.FC = () => {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/register/', registrationData);
+            await axios.post('http://127.0.0.1:8000/api/register/', registrationData);
             navigate("/confirm-email");
-            console.log(response.data);
         } catch (error) {
-            console.error('Error during registration:', error);
-            setError('Error during registration');
+            if (axios.isAxiosError(error)) {
+                console.error('Error:', error.response?.data);
+                setError(error.response?.data.error)
+            } else {
+                console.error('An unexpected error occurred:', error);
+            }
         } finally {
             setLoading(false);
         }

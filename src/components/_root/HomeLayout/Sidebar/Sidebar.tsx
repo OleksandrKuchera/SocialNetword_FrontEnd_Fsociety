@@ -1,4 +1,4 @@
-import logo from '../../../../assets/FS2D2.png'
+import logo from '../../../../assets/FSLogo2.png'
 import style from './style.module.scss';
 import { Button, Nav } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -21,8 +21,9 @@ const Sidebar = () => {
             await axios.post('http://127.0.0.1:8000/api/logout/', {
                 account_token: accessToken
             });
+            localStorage.removeItem('accessToken');
             navigate('/login');
-
+            window.location.reload();
         } catch (error) {
             console.error('Logout failed:', error);
         }

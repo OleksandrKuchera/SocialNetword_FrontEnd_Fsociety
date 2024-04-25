@@ -3,7 +3,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Dialog } from '@mui/material';
+import { Alert, Button, Dialog } from '@mui/material';
 import style from './style.module.scss';
 import { Add } from '@mui/icons-material';
 import axios from 'axios';
@@ -18,6 +18,7 @@ const AddPost = ({ userName }: AddPostType) => {
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
     const [avatar, setAvatar] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const handleClickOpen = () => {
@@ -58,13 +59,21 @@ const AddPost = ({ userName }: AddPostType) => {
         formData.append('author', userName); // Hard-coded author value
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/posts/create/", formData);
-            console.log(response.data);
-            setLoading(false); // При успішному відправленні встановіть стан завантаження на false
-            handleClose(); // Закрийте діалогове вікно при успішній відправці
+            if(!selectedFile) {
+                setErrorMessage('No upload photo');
+                new Error('no photo')
+                setLoading(false);
+            }
+            await axios.post("http://127.0.0.1:8000/posts/create/", formData);
+            setLoading(false); 
+            handleClose();
             window.location.reload();
         } catch (error) {
-            console.error("Error adding post:", error);
+            if (axios.isAxiosError(error)) {
+                setErrorMessage(error.response?.data.errors.description[0]);
+            } else {
+                setErrorMessage('')
+            }
             setLoading(false); // При помилці також встановіть стан завантаження на false
         }
     };
@@ -97,6 +106,11 @@ const AddPost = ({ userName }: AddPostType) => {
                             <h2 className={style.add__post__title}>Add post</h2>
                         </div>
                     </div>
+                    {errorMessage &&
+                        <Alert style={{ color: 'orange' }} className='mb-3' variant="outlined" severity="warning">
+                            {errorMessage}
+                        </Alert>
+                    }
                     <div className="row">
                         <div className="col-12">
                             <div className={style.add__post__container}>
