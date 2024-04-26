@@ -18,8 +18,20 @@ const Music = () => {
                         </div>
                     </div>
                     <div className={style.songList}>
-                        <div className={style.songList__title}>
-                            <h1>Popular now</h1>
+                        <div className={style.songList__sections}>
+                            <div className={style.songList__title}>
+                                <div className={style.songList__title__activeContainer}>
+                                    <h1>Popular now</h1>
+                                </div>
+                                <div className={style.songList__title__container}>
+                                    <h1>My music</h1>
+                                </div>
+                            </div>
+                            <div className={style.songList__title}>
+                                <div className={style.songList__title__container}>
+                                    <h1>+ Add new</h1>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div className={style.songList__song}>
