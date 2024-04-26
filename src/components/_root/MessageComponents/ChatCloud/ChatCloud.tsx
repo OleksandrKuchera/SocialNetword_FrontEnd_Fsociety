@@ -174,7 +174,7 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
                     <div ref={messagesEndRef} />
                 </div>
                 <div className="input__message">
-                    <InputChat onEnter={sendMessage} />
+                    <InputChat onEnter={sendMessage} placeholder='Type a message'/>
                 </div>
             </div>
         </div>

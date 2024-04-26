@@ -6,18 +6,10 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import './style.scss';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { Author } from '../MyProfileDesc/MyProfileDesc';
+import { Author, Post } from '../MyProfileDesc/MyProfileDesc';
 import axios from 'axios';
 
-type Post = {
-    image: string;
-    description: string;
-    likes: number,
-    isLiked: boolean,
-
-};
-
-type MyProfilePostProps = {
+export type MyProfilePostProps = {
     id: number
     post: Post;
     autor: Author,

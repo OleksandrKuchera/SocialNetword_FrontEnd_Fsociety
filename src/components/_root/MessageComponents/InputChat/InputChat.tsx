@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import InputEmoji from 'react-input-emoji'
+import { useState } from 'react';
+import InputEmoji from 'react-input-emoji';
+import './style.scss';
 
 interface InputChatProps {
   onEnter: (text: string) => void;
+  placeholder: string
 }
 
-export default function InputChat({ onEnter }: InputChatProps) {
+export default function InputChat({ onEnter, placeholder }: InputChatProps) {
   const [text, setText] = useState('')
 
   function handleOnEnter(text: string) {
-    text.trim().length > 0 ? onEnter(text): null;
+    text.trim().length > 0 ? onEnter(text) : null;
   }
 
   return (
@@ -19,7 +21,7 @@ export default function InputChat({ onEnter }: InputChatProps) {
       cleanOnEnter
       onEnter={handleOnEnter}
       shouldReturn
-      placeholder="Type a message"
+      placeholder={placeholder}
     />
   )
 }

@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router';
 import { PostData } from '../Home';
 import axios from 'axios';
 import { TextPreview } from '../../functions/showText';
+import CommentsContainer from '../../Comments/CommentsContainer';
 
-type HomePostType = {
+export type HomePostType = {
     postData:PostData,
 }
 
@@ -26,8 +27,8 @@ const HomePost = ({postData} : HomePostType) => {
                 console.error('Access token not found in localStorage');
                 return;
             }
-
             const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+
             const formData = new FormData();
             formData.append('name_user', responseUser.data.name);
             formData.append('post_id', postData.id.toString());
@@ -90,6 +91,7 @@ const HomePost = ({postData} : HomePostType) => {
                         </div>
                     </div>
                 </div>
+                <CommentsContainer id={postData.id} comments={postData.post.comments}/>
                 <div className="row">
                     <div className="col-2">
                         <div className={style.like__container}>

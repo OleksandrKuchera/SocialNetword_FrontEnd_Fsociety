@@ -23,7 +23,12 @@ export type Post = {
     description: string;
     likes: number;
     isLiked: boolean;
-    comments: string[]; // Assuming comments are of any type
+    comments: Comments[]; // Assuming comments are of any type
+}
+
+export type Comments = {
+    author: Author;
+    text: string
 }
 
 

@@ -9,7 +9,6 @@ import GameSnake from './_root/GameList/SnakeGame/SnakeGame';
 import ConfirmEmail from './_auth/ConfirmEmail/ConfirmEmail';
 import MyProfile from './_root/MyProfile/MyProfile';
 import UserProfile from './_root/UserProfile/UserProfile';
-import FriendList from './_root/FriendList/FriendList';
 import AboutProduct from './_root/AboutProduct/AboutProduct';
 import LoginForm from './_auth/form/LoginForm';
 import RegistrationForm from './_auth/form/RegistrationForm';
@@ -19,6 +18,7 @@ import SuccessfullyConfirmedEmail from './_auth/SuccessfullyConfirmedEmail/Succe
 import ConfirmRequestNotFound from './_auth/ConfirmRequestNotFound/ConfirmRequestNotFound';
 import SuccessfullyResetPassword from './_auth/SuccessfullyResetPassword/SuccessfullyResetPassword';
 import ErrorPage from './_root/ErrorPage/ErrorPage';
+import FrendList from './_root/FriendList/FriendList';
 
 
 const AppContainer = () => {
@@ -66,7 +66,10 @@ const AppContainer = () => {
                             <Route path="/my-profile" element={<MyProfile />} />
                             <Route path="/profile/:userName" element={<UserProfile />} />
                             <Route path="/game/snake" element={<GameSnake />} />
-                            <Route path="/friends/*" element={<FriendList />} />
+                            <Route element={<FrendList />}>
+                            <Route path="/:type" element={<FrendList />} />
+                            <Route path="/:userNameParams/:type" element={<FrendList />} />
+                        </Route>
                             <Route path="/about-product" element={<AboutProduct />} />
                             {/* Add any other authenticated routes here */}
                         </Route>
