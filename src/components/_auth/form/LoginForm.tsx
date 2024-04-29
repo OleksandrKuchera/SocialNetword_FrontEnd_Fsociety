@@ -64,8 +64,8 @@ const LoginForm = () => {
                         </div>
                     </div>
 
-                    <div className={style.recommendation}>
-                        <p>Don’t have an account? <Link className={style.recommendation__link} to="/register"><strong>Sign Up</strong></Link></p>
+                    <div className={style.recomendation}>
+                        <p>Don’t have an account? <Link className={style.recomendation__link} to="/register"><strong>Sign Up</strong></Link></p>
                     </div>
                 </div>
             )}
