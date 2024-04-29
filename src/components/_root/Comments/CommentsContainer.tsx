@@ -16,8 +16,6 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
     const [commentsCollection, setCommentsCollection] = useState<Comments[]>(comments);
     const [myName, setMyName] = useState<Author>();
 
-
-
     useEffect(() => {
         const getMyProfile = async () => {
             try {
@@ -44,6 +42,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
             try {
                 await axios.post(`http://127.0.0.1:8000/posts/comment/`, formData);
                 const newComment = {
+                    id: 0,
                     author: {
                         name: myName.name,
                         avatar: myName.avatar.slice(13),
@@ -65,9 +64,9 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
             <div className="row">
                 <div className="col-12">
                     <div style={{ maxHeight: maxHeightValue, height: heightValue }} className={style.comment__cloud}>
-                        {commentsCollection.map((comment, index) => (
-                            <CommentsItem key={index} autor={comment.author} text={comment.text} />
-                        ))}
+                        {myName ? commentsCollection.map((comment, index) => (
+                            <CommentsItem myName={myName.name} id={comment.id} key={index} autor={comment.author} text={comment.text} />
+                        )): null}
                     </div>
                 </div>
             </div>

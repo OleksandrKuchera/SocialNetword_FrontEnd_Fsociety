@@ -27,6 +27,7 @@ export type Post = {
 }
 
 export type Comments = {
+    id: number;
     author: Author;
     text: string
 }

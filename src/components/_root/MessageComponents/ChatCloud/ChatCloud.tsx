@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
 import { User } from '../Chat/Chat';
 import InputChat from '../InputChat/InputChat';
 import style from './chat.module.scss'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
 
 type ChatCloudProps = {
     activUser: User,
     roomId: number,
+    menuOptionsArray: Option[],
 };
 export type ChatMessage = {
     id: number;
@@ -23,7 +24,7 @@ export type ChatNewMessage = {
 };
 type OptionKeys = 'time' | 'date';
 
-const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
+const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
     const [myUser, setMyUser] = useState<User>();
     const navigate = useNavigate();
@@ -54,16 +55,6 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
         const date = new Date(timestamp);
         return date.toLocaleDateString();
     };
-
-    const deleteChat = async() => {
-        console.log('delete');
-    }
-    const menuOptions : Option = {
-        label: 'Delete chat',
-        onClick: deleteChat,
-    }
-    const menuOptionsArray : Option[] = [];
-    menuOptionsArray.push(menuOptions);
 
     const getChat = async () => {
         try {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ChatCloud from '../ChatCloud/ChatCloud';
 import ChatList from '../ChatList/ChatList';
 import axios from 'axios';
+import { Option } from '../../../__ui/DropMenu/DropMenu';
 
 export type User = {
   email: string;
@@ -61,16 +62,33 @@ const Chat = () => {
     fetchUserData();
   }, [myName]);
 
-  const handleUserClick = (user: User, roomId : number) => {
+  const handleUserClick = (user: User, roomId: number) => {
     setActiveUser(user);
     setRoomId(roomId)
   };
 
+  const deleteChat = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('room_id', roomId.toString());
+      await axios.post('http://127.0.0.1:8000/chat/delete_chat/', formData)
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  const menuOptions: Option = {
+    label: 'Delete chat',
+    onClick: deleteChat,
+  }
+  const menuOptionsArray: Option[] = [];
+  menuOptionsArray.push(menuOptions);
+
   return (
     <div className='d-flex justify-content-between'>
-      {activeUser ? <ChatCloud activUser={activeUser} roomId = {roomId}/> : null}
+      {activeUser ? <ChatCloud menuOptionsArray={menuOptionsArray} activUser={activeUser} roomId={roomId} /> : null}
       <div className='col-3'>
-       {myName ? <ChatList myName={myName} chatList={userChatList} onUserClick={handleUserClick} /> : null} 
+        {myName ? <ChatList myName={myName} chatList={userChatList} onUserClick={handleUserClick} /> : null}
 
       </div>
     </div>
