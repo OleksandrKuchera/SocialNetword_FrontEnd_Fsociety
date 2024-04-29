@@ -32,6 +32,7 @@ const LoginForm = () => {
             if (axios.isAxiosError(error)) {
                 console.error('Error:', error.response?.data);
                 setError(error.response?.data.error);
+                setLoading(false);
             } else {
                 console.error('An unexpected error occurred:', error);
             }

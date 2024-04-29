@@ -20,7 +20,6 @@ const HomePost = ({ postData }: HomePostType) => {
 
     useEffect(() => {
         setLikeCount(postData.post.likes);
-
     }, [postData.post.likes])
     useEffect(() => {
         const getMyName = async () => {
@@ -51,22 +50,14 @@ const HomePost = ({ postData }: HomePostType) => {
     }
     const removeLike = async () => {
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const formData = new FormData();
-            formData.append('name_user', responseUser.data.name);
+            formData.append('name_user', myProfileName);
             formData.append('post_id', postData.id.toString());
             await axios.post('http://127.0.0.1:8000/posts/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
     }
-
     const handleLike = () => {
         isLike ? removeLike() : addLike();
         isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);

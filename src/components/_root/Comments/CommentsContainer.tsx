@@ -3,7 +3,7 @@ import InputChat from "../MessageComponents/InputChat/InputChat";
 import style from './comments.module.scss'
 import { useEffect, useState } from "react";
 import CommentsItem from "./CommentsItem";
-import { Comments } from "../Home/Home";
+import { Author, Comments } from "../Home/Home";
 
 export type CommentsContainer = {
     id: number;
@@ -13,8 +13,9 @@ export type CommentsContainer = {
 }
 
 const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: CommentsContainer) => {
-    // const [comments, setComments] = useState(PostData.post.comments);
-    const [myName, setMyName] = useState<string>('');
+    const [commentsCollection, setCommentsCollection] = useState<Comments[]>(comments);
+    const [myName, setMyName] = useState<Author>();
+
 
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
                     return;
                 }
                 const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-                setMyName(responseUser.data.name);
+                setMyName(responseUser.data);
             } catch (e) {
                 console.log(e);
             }
@@ -35,19 +36,36 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
     }, []);
 
     const sendComents = async (text: string) => {
-        const formData = new FormData();
-        formData.append('name_user', myName);
-        formData.append('post_id', id.toString());
-        formData.append('comment', text);
-        await axios.post(`http://127.0.0.1:8000/posts/comment/`, formData);
+        if(myName) {
+            const formData = new FormData();
+            formData.append('name_user', myName.name);
+            formData.append('post_id', id.toString());
+            formData.append('comment', text);
+            try {
+                await axios.post(`http://127.0.0.1:8000/posts/comment/`, formData);
+                const newComment = {
+                    author: {
+                        name: myName.name,
+                        avatar: myName.avatar.slice(13),
+                        email: myName.email
+                    },
+                    text: text
+                }
+    
+                setCommentsCollection(prevComments => [...prevComments, newComment]);
+    
+            } catch (e) {
+                console.log(e);
+            }
+        }
     }
 
     return (
         <div>
             <div className="row">
                 <div className="col-12">
-                    <div style={{maxHeight:maxHeightValue,height: heightValue}} className={style.comment__cloud}>
-                    {comments.map((comment, index) => (
+                    <div style={{ maxHeight: maxHeightValue, height: heightValue }} className={style.comment__cloud}>
+                        {commentsCollection.map((comment, index) => (
                             <CommentsItem key={index} autor={comment.author} text={comment.text} />
                         ))}
                     </div>

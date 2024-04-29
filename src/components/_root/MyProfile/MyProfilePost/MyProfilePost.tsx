@@ -11,6 +11,7 @@ import axios from 'axios';
 import CommentsContainer from '../../Comments/CommentsContainer';
 import { TextPreview } from '../../functions/showText';
 import { Option } from '../../../__ui/DropMenu/DropMenu';
+import DropMenu from '../../../__ui/DropMenu/DropMenu';
 
 export type MyProfilePostProps = {
     id: number
@@ -56,13 +57,6 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
 
     const addLike = async () => {
         try {
-            // const accessToken = localStorage.getItem('accessToken');
-            // if (!accessToken) {
-            //     console.error('Access token not found in localStorage');
-            //     return;
-            // }
-
-            // const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const formData = new FormData();
             formData.append('name_user', myProfileName);
             formData.append('post_id', id.toString());
@@ -73,13 +67,6 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     }
     const removeLike = async () => {
         try {
-            // const accessToken = localStorage.getItem('accessToken');
-            // if (!accessToken) {
-            //     console.error('Access token not found in localStorage');
-            //     return;
-            // }
-
-            // const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const formData = new FormData();
             formData.append('name_user', myProfileName);
             formData.append('post_id', id.toString());
@@ -145,20 +132,31 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
                             </div>
                             <div className="col-6 d-flex flex-column justify-content-between">
                                 <div className="profile__container">
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <img src={autor.avatar} alt="avatar" />
+                                    <div className="row d-flex justify-content-between align-items-center">
+                                        <div className="col-10">
+                                            <div className="row justify-content-start align-items-center">
+                                            <div className="col-3">
+                                                <img src={autor.avatar} alt="avatar" />
+                                            </div>
+                                            <div className="col-6">
+                                                <h2>{autor.name}</h2>
+                                            </div>
+                                            </div>
                                         </div>
-                                        <div className="col-9">
-                                            <h2>{autor.name}</h2>
-                                        </div>
+
+                                        {
+                                            myProfileName === autor.name ?
+                                                <div className="col-2">
+                                                    <DropMenu options={postMenuOptionsArray} />
+                                                </div> : null
+                                        }
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <p className='post__description'><TextPreview text={post.description} lenghtText={35}/></p>
+                                            <p className='post__description'><TextPreview text={post.description} lenghtText={35} /></p>
                                         </div>
                                     </div>
-                                    <CommentsContainer maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments}/>
+                                    <CommentsContainer maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments} />
                                 </div>
                                 <div className="row">
                                     <div className="col-3 d-flex align-items-center">
