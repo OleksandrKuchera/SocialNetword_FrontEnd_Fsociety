@@ -6,31 +6,43 @@ import { PostData } from '../Home';
 import axios from 'axios';
 import { TextPreview } from '../../functions/showText';
 import CommentsContainer from '../../Comments/CommentsContainer';
+import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
 
 export type HomePostType = {
-    postData:PostData,
+    postData: PostData,
 }
 
-const HomePost = ({postData} : HomePostType) => {
+const HomePost = ({ postData }: HomePostType) => {
     const [isLike, setIsLike] = useState(postData.post.isLiked);
     const navigate = useNavigate();
     const [likeCount, setLikeCount] = useState<number>(0);
+    const [myProfileName, setMyProfileName] = useState<string>('');
 
     useEffect(() => {
         setLikeCount(postData.post.likes);
-    },[postData.post.likes])
+
+    }, [postData.post.likes])
+    useEffect(() => {
+        const getMyName = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                setMyProfileName(responseUser.data.name);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getMyName()
+    }, [])
 
     const addLike = async () => {
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-
             const formData = new FormData();
-            formData.append('name_user', responseUser.data.name);
+            formData.append('name_user', myProfileName);
             formData.append('post_id', postData.id.toString());
             await axios.post('http://127.0.0.1:8000/posts/like/', formData);
         } catch (e) {
@@ -65,10 +77,29 @@ const HomePost = ({postData} : HomePostType) => {
         navigate(`/profile/${postData.author.name}`);
     }
 
+    const deletePost = async () => {
+        try {
+            const dataForm = new FormData();
+            dataForm.append('name_user', myProfileName);
+            dataForm.append('post_id', postData.id.toString());
+            await axios.post('http://127.0.0.1:8000/posts/delete/', dataForm);
+            window.location.reload();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const postMenuOptions: Option = {
+        label: 'Delete post',
+        onClick: deletePost,
+    }
+    const postMenuOptionsArray: Option[] = [];
+    postMenuOptionsArray.push(postMenuOptions);
+
     return (
         <div className="col-12">
             <div className={style.post__container}>
-                <div className="row">
+                <div className="row d-flex justify-content-between">
                     <div className="col-5">
                         <div onClick={handleToProfile} className={style.post__top__container}>
                             <div className={style.post__profile__info}>
@@ -77,6 +108,13 @@ const HomePost = ({postData} : HomePostType) => {
                             </div>
                         </div>
                     </div>
+                    {
+                        myProfileName === postData.author.name ?
+                            <div className="col-2">
+                                <DropMenu options={postMenuOptionsArray} />
+                            </div> : null
+                    }
+
                 </div>
                 <div className="row">
                     <div className="col-12">
@@ -87,11 +125,11 @@ const HomePost = ({postData} : HomePostType) => {
                     <div className="col-12">
                         <div className={style.post__text}>
                             <h3>{postData.author.name}:</h3>
-                            <p><TextPreview text={postData.post.description}/></p>
+                            <p><TextPreview text={postData.post.description} lenghtText={35} /></p>
                         </div>
                     </div>
                 </div>
-                <CommentsContainer id={postData.id} comments={postData.post.comments}/>
+                <CommentsContainer id={postData.id} comments={postData.post.comments} />
                 <div className="row">
                     <div className="col-2">
                         <div className={style.like__container}>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import DropMenu from '../../../__ui/DropMenu/DropMenu';
+import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
 import { User } from '../Chat/Chat';
 import InputChat from '../InputChat/InputChat';
 import style from './chat.module.scss'
@@ -29,7 +29,6 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
     const navigate = useNavigate();
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
-
     function formatDateTime(dateTimeString: string, options: string): string {
         const date = new Date(dateTimeString);
 
@@ -55,6 +54,16 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
         const date = new Date(timestamp);
         return date.toLocaleDateString();
     };
+
+    const deleteChat = async() => {
+        console.log('delete');
+    }
+    const menuOptions : Option = {
+        label: 'Delete chat',
+        onClick: deleteChat,
+    }
+    const menuOptionsArray : Option[] = [];
+    menuOptionsArray.push(menuOptions);
 
     const getChat = async () => {
         try {
@@ -126,7 +135,7 @@ const ChatCloud = ({ activUser, roomId }: ChatCloudProps) => {
                             </div>
                         </div>
                         <div className="col-6 d-flex align-items-center justify-content-end">
-                            <DropMenu />
+                            <DropMenu options={menuOptionsArray}/>
                         </div>
                     </div>
                 </div>

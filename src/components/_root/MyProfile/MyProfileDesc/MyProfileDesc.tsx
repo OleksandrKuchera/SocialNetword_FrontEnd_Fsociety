@@ -3,6 +3,7 @@ import MyProfilePost from '../MyProfilePost/MyProfilePost';
 import style from './style.module.scss';
 import axios from 'axios';
 import { userDataType } from '../../UserProfile/UserProfile';
+import { Comments } from '../../Home/Home';
 
 export type Author = {
     name: string;
@@ -21,7 +22,7 @@ export type Post = {
     description: string;
     likes: number;
     isLiked: boolean;
-    comments: string[]; // Assuming comments are of any type
+    comments: Comments[]; // Assuming comments are of any type
 }
 
 type MyProfileDescProps = {

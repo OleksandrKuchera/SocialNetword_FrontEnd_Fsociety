@@ -8,9 +8,11 @@ import { Comments } from "../Home/Home";
 export type CommentsContainer = {
     id: number;
     comments: Comments[];
+    maxHeightValue?: string;
+    heightValue?: string;
 }
 
-const CommentsContainer = ({ id, comments }: CommentsContainer) => {
+const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: CommentsContainer) => {
     // const [comments, setComments] = useState(PostData.post.comments);
     const [myName, setMyName] = useState<string>('');
 
@@ -44,7 +46,7 @@ const CommentsContainer = ({ id, comments }: CommentsContainer) => {
         <div>
             <div className="row">
                 <div className="col-12">
-                    <div className={style.comment__cloud}>
+                    <div style={{maxHeight:maxHeightValue,height: heightValue}} className={style.comment__cloud}>
                     {comments.map((comment, index) => (
                             <CommentsItem key={index} autor={comment.author} text={comment.text} />
                         ))}

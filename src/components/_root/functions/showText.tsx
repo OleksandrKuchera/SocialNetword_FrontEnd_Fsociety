@@ -1,23 +1,25 @@
 import { useState } from 'react';
 import style from './style.module.scss'; 
 
-export const TextPreview = ({ text }: { text: string }) => {
+export const TextPreview = ({ text, lenghtText }: { text: string, lenghtText: number }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const toggleExpanded = () => {
+  const toggleExpanded = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation(); 
+    e.preventDefault();
     setExpanded(!expanded);
   };
 
   const renderText = () => {
-    if (text.length <= 40 || expanded) {
+    if (text.length <= lenghtText || expanded) {
       return text;
     } else {
-      return text.slice(0, 40) + '...';
+      return text.slice(0, lenghtText) + '...';
     }
   };
 
   const renderToggleButton = () => {
-    if (text.length > 40) {
+    if (text.length > lenghtText) {
       return (
         <button className={style.btn__toggle} onClick={toggleExpanded}>
           {expanded ? 'Згорнути' : 'Детальніше'}
@@ -28,7 +30,7 @@ export const TextPreview = ({ text }: { text: string }) => {
   };
 
   return (
-    <div>
+    <div className={style.preview__text}>
       {renderText()}
       {renderToggleButton()}
     </div>

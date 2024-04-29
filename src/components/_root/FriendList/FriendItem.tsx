@@ -100,7 +100,6 @@ const FriendItem = ({ user }: Props) => {
     const handleClickMessage = async(e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation(); 
         e.preventDefault();
-        console.log(myProfileName, user.name)
         try{
             const dataForm = new FormData();
             dataForm.append('sender_name', myProfileName);

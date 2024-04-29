@@ -8,6 +8,9 @@ import './style.scss';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Author, Post } from '../MyProfileDesc/MyProfileDesc';
 import axios from 'axios';
+import CommentsContainer from '../../Comments/CommentsContainer';
+import { TextPreview } from '../../functions/showText';
+import { Option } from '../../../__ui/DropMenu/DropMenu';
 
 export type MyProfilePostProps = {
     id: number
@@ -19,7 +22,25 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     const [open, setOpen] = useState(false);
     const [isLike, setIsLike] = useState(post.isLiked);
     const [likeCount, setLikeCount] = useState<number>(0);
-    console.log(isLike);
+    const [myProfileName, setMyProfileName] = useState<string>('');
+
+
+    useEffect(() => {
+        const getMyName = async () => {
+            try {
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    console.error('Access token not found in localStorage');
+                    return;
+                }
+                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                setMyProfileName(responseUser.data.name);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getMyName()
+    }, [])
 
     useEffect(() => {
         setLikeCount(post.likes);
@@ -35,15 +56,15 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
 
     const addLike = async () => {
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
+            // const accessToken = localStorage.getItem('accessToken');
+            // if (!accessToken) {
+            //     console.error('Access token not found in localStorage');
+            //     return;
+            // }
 
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            // const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const formData = new FormData();
-            formData.append('name_user', responseUser.data.name);
+            formData.append('name_user', myProfileName);
             formData.append('post_id', id.toString());
             await axios.post('http://127.0.0.1:8000/posts/like/', formData);
         } catch (e) {
@@ -52,15 +73,15 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     }
     const removeLike = async () => {
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
+            // const accessToken = localStorage.getItem('accessToken');
+            // if (!accessToken) {
+            //     console.error('Access token not found in localStorage');
+            //     return;
+            // }
 
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            // const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
             const formData = new FormData();
-            formData.append('name_user', responseUser.data.name);
+            formData.append('name_user', myProfileName);
             formData.append('post_id', id.toString());
             await axios.post('http://127.0.0.1:8000/posts/unlike/', formData);
         } catch (e) {
@@ -73,6 +94,25 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
         isLike ? setLikeCount(likeCount - 1) : setLikeCount(likeCount + 1);
         setIsLike(!isLike);
     };
+
+    const deletePost = async () => {
+        try {
+            const dataForm = new FormData();
+            dataForm.append('name_user', myProfileName);
+            dataForm.append('post_id', id.toString());
+            await axios.post('http://127.0.0.1:8000/posts/delete/', dataForm)
+            window.location.reload();
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const postMenuOptions: Option = {
+        label: 'Delete post',
+        onClick: deletePost,
+    }
+    const postMenuOptionsArray: Option[] = [];
+    postMenuOptionsArray.push(postMenuOptions);
 
     return (
         <div className="col-4 d-flex justify-content-center">
@@ -115,9 +155,10 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <p className='post__description'>{post.description}</p>
+                                            <p className='post__description'><TextPreview text={post.description} lenghtText={35}/></p>
                                         </div>
                                     </div>
+                                    <CommentsContainer maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments}/>
                                 </div>
                                 <div className="row">
                                     <div className="col-3 d-flex align-items-center">
