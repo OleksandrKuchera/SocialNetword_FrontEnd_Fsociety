@@ -24,8 +24,8 @@ const RecomendationItem = ({user, handleClickCard} : RecomendationItemType) => {
                     return;
                 }
     
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-                const response = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseUser.data.name}`);
+                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
+                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/followers/${responseUser.data.name}`);
                 setMyProfileName(responseUser.data.name);
                 setMyFriendList(response.data);
                 console.log(responseUser.data.name, response.data)
@@ -54,7 +54,7 @@ const RecomendationItem = ({user, handleClickCard} : RecomendationItemType) => {
                 return;
             }
 
-            await axios.post('http://127.0.0.1:8000/friend/add/', {
+            await axios.post('http://socialnetword-fsociety.onrender.com/friend/add/', {
                 friend_name: user.name,
                 user_name: myProfileName, // Assuming you want to use the user's own name as user_name
             });
@@ -74,7 +74,7 @@ const RecomendationItem = ({user, handleClickCard} : RecomendationItemType) => {
                 return;
             }
 
-            await axios.delete('http://127.0.0.1:8000/friend/remove/', {
+            await axios.delete('http://socialnetword-fsociety.onrender.com/friend/remove/', {
                 data: {
                     friend_name: user.name,
                     user_name: myProfileName, // Assuming you want to use the user's own name as user_name

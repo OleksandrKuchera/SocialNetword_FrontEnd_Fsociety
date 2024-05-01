@@ -24,7 +24,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
                     console.error('Access token not found in localStorage');
                     return;
                 }
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
                 setMyName(responseUser.data);
             } catch (e) {
                 console.log(e);
@@ -40,7 +40,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
             formData.append('post_id', id.toString());
             formData.append('comment', text);
             try {
-                await axios.post(`http://127.0.0.1:8000/posts/comment/`, formData);
+                await axios.post(`http://socialnetword-fsociety.onrender.com/posts/comment/`, formData);
                 const newComment = {
                     id: 0,
                     author: {

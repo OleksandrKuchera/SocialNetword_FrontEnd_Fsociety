@@ -28,9 +28,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                     return;
                 }
 
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const responseUser = await axios.get(`api/mypage/${accessToken}`);
                 setMyUserName(responseUser.data.name);
-                const response = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseUser.data.name}`);
+                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/followers/${responseUser.data.name}`);
                 setMyFriendList(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -57,10 +57,10 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                 return;
             }
 
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
             const userName = responseUser.data.name;
 
-            await axios.post('http://127.0.0.1:8000/friend/add/', {
+            await axios.post('http://socialnetword-fsociety.onrender.com/friend/add/', {
                 friend_name: userData.name,
                 user_name: userName,
             });
@@ -80,11 +80,11 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
             }
 
             // Отримуємо ім'я користувача з accessToken
-            const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+            const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
             const userName = responseUser.data.name;
 
             // Відправляємо запит DELETE з використанням параметрів у URL
-            await axios.delete(`http://127.0.0.1:8000/friend/remove/`, {
+            await axios.delete(`http://socialnetword-fsociety.onrender.com/friend/remove/`, {
                 data: {
                     friend_name: userData.name,
                     user_name: userName
@@ -103,7 +103,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
             const dataForm = new FormData();
             dataForm.append('sender_name', myUserName);
             dataForm.append('receiver_name', userData.name);
-            await axios.post('http://127.0.0.1:8000/chat/create_chat_room/', dataForm);
+            await axios.post('http://socialnetword-fsociety.onrender.com/chat/create_chat_room/', dataForm);
         } catch(e) {
             console.log(e);
         } finally {

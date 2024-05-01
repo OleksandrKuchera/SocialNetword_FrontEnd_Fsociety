@@ -19,9 +19,9 @@ const RecomendationList = () => {
                     return;
                 }
         
-                const responseMyProfile = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-                const responseMyFriends = await axios.get(`http://127.0.0.1:8000/friend/followers/${responseMyProfile.data.name}`);
-                const responseAllFriends = await axios.get('http://127.0.0.1:8000/friend/users');
+                const responseMyProfile = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
+                const responseMyFriends = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/followers/${responseMyProfile.data.name}`);
+                const responseAllFriends = await axios.get('http://socialnetword-fsociety.onrender.com/friend/users');
         
                 const myFriends = responseMyFriends.data.map((friend : User) => friend.name);
                 const allUsers = responseAllFriends.data;

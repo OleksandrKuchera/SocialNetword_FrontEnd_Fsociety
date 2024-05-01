@@ -38,7 +38,7 @@ const EditMyProfile: React.FC = () => {
             }
 
             try {
-                const response = await axios.patch(`http://127.0.0.1:8000/api/update-profile/${accessToken}/`, {
+                const response = await axios.patch(`http://socialnetword-fsociety.onrender.com/api/update-profile/${accessToken}/`, {
                 });
                 const profileData: Profile = response.data;
                 setProfile(profileData);
@@ -102,7 +102,7 @@ const EditMyProfile: React.FC = () => {
             }
 
             await axios.patch(
-                `http://127.0.0.1:8000/api/update-profile/${accessToken}/`,
+                `http://socialnetword-fsociety.onrender.com/api/update-profile/${accessToken}/`,
                 formData,
                 {
                     headers: {

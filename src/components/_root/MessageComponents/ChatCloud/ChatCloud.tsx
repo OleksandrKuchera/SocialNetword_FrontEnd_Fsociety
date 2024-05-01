@@ -58,7 +58,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
 
     const getChat = async () => {
         try {
-            const getHistoryChat = await axios.get(`http://127.0.0.1:8000/chat/get_chat_history/${roomId}`);
+            const getHistoryChat = await axios.get(`http://socialnetword-fsociety.onrender.com/chat/get_chat_history/${roomId}`);
             setChatHistory(getHistoryChat.data);
             setTimeout(scrollToBottom, 1000)
         } catch (e) {
@@ -81,9 +81,9 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
                     return;
                 }
 
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
                 setMyUser(responseUser.data);
-                const responseNewMessage = await axios.get<ChatNewMessage>(`http://127.0.0.1:8000/chat/check_new_messages/${responseUser.data.name}`);
+                const responseNewMessage = await axios.get<ChatNewMessage>(`http://socialnetword-fsociety.onrender.com/chat/check_new_messages/${responseUser.data.name}`);
                 responseNewMessage.data.messages.forEach((message) => {
                     setChatHistory(prevChatHistory => [...prevChatHistory, message]);
                 })
@@ -102,7 +102,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
         formData.append('room_id', roomId.toString());
         myUser ? formData.append('sender_name', myUser.name) : null;
         formData.append('text', text);
-        await axios.post(`http://127.0.0.1:8000/chat/create_message/`, formData);
+        await axios.post(`http://socialnetword-fsociety.onrender.com/chat/create_message/`, formData);
         getChat();
     }
 

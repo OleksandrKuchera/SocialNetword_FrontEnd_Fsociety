@@ -42,14 +42,14 @@ const Chat = () => {
           return;
         }
 
-        const response = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
 
         setMyName(response.data.name);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/chat/user_chat_rooms/${myName}`);
+        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/chat/user_chat_rooms/${myName}`);
         setUserChatList(response.data);
         if (response.data.length > 0) {
           setActiveUser(response.data[0].receiver); // Встановлюємо першого користувача в списку як активного
@@ -71,7 +71,7 @@ const Chat = () => {
     try {
       const formData = new FormData();
       formData.append('room_id', roomId.toString());
-      await axios.post('http://127.0.0.1:8000/chat/delete_chat/', formData)
+      await axios.post('http://socialnetword-fsociety.onrender.com/chat/delete_chat/', formData)
       window.location.reload();
     } catch (e) {
       console.log(e);

@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData);
+            const response = await axios.post('http://socialnetword-fsociety.onrender.com/api/login/', loginData);
             localStorage.setItem('accessToken', response.data.accessToken);
             console.log(response.data);
             navigate('/home');

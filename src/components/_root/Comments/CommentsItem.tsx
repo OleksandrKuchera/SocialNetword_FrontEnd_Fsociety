@@ -21,7 +21,7 @@ const CommentsItem = ({ id, autor, text, myName }: CommentsItemProps) => {
         try {
             const formData = new FormData();
             formData.append('comment_id', id.toString());
-            await axios.post('http://127.0.0.1:8000/posts/delete_comment/', formData);
+            await axios.post('http://socialnetword-fsociety.onrender.com/posts/delete_comment/', formData);
             window.location.reload();
         } catch (e) {
             console.log(e);

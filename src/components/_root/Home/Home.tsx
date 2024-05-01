@@ -45,8 +45,8 @@ const Home = () => {
                     console.error('Access token not found in localStorage');
                     return;
                 }
-                const responseMyProfile = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
-                const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/look/${responseMyProfile.data.name}`);
+                const responseMyProfile = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
+                const response = await axios.get<PostData[]>(`http://socialnetword-fsociety.onrender.com/posts/look/${responseMyProfile.data.name}`);
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 setPosts(sortedPosts);
             } catch (error) {

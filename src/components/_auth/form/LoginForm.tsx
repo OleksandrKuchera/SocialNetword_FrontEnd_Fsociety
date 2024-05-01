@@ -22,7 +22,7 @@ const LoginForm = () => {
         event.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', loginData);
+            const response = await axios.post('http://socialnetword-fsociety.onrender.com/api/login/', loginData);
             localStorage.setItem('accessToken', response.data.accessToken);
             setTimeout(() => {
                 setLoading(false);

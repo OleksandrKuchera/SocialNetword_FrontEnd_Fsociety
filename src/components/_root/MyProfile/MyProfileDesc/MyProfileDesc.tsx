@@ -35,7 +35,7 @@ const MyProfileDesc: React.FC<MyProfileDescProps> = ({ userData }) => {
     useEffect(() => {
         const fetchUserPosts = async () => {
             try {
-                const response = await axios.get<PostData[]>(`http://127.0.0.1:8000/posts/lookPostUser/${userData.name}`);
+                const response = await axios.get<PostData[]>(`http://socialnetword-fsociety.onrender.com/posts/lookPostUser/${userData.name}`);
                 const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                 setUserPosts(sortedPosts);
             } catch (error) {

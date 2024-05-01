@@ -25,7 +25,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/friend/profile/${userName}`);
+        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/profile/${userName}`);
         setUserData(response.data.user_info);
 
       } catch (error) {

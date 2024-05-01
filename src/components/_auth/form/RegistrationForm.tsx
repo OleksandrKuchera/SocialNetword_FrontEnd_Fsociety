@@ -57,7 +57,7 @@ const RegistrationForm: React.FC = () => {
         }
 
         try {
-            await axios.post('http://127.0.0.1:8000/api/register/', registrationData);
+            await axios.post('http://socialnetword-fsociety.onrender.com/api/register/', registrationData);
             navigate("/confirm-email");
         } catch (error) {
             if (axios.isAxiosError(error)) {

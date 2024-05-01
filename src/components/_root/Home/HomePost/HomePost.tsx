@@ -29,7 +29,7 @@ const HomePost = ({ postData }: HomePostType) => {
                     console.error('Access token not found in localStorage');
                     return;
                 }
-                const responseUser = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
                 setMyProfileName(responseUser.data.name);
             } catch (e) {
                 console.log(e);
@@ -43,7 +43,7 @@ const HomePost = ({ postData }: HomePostType) => {
             const formData = new FormData();
             formData.append('name_user', myProfileName);
             formData.append('post_id', postData.id.toString());
-            await axios.post('http://127.0.0.1:8000/posts/like/', formData);
+            await axios.post('http://socialnetword-fsociety.onrender.com/posts/like/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -53,7 +53,7 @@ const HomePost = ({ postData }: HomePostType) => {
             const formData = new FormData();
             formData.append('name_user', myProfileName);
             formData.append('post_id', postData.id.toString());
-            await axios.post('http://127.0.0.1:8000/posts/unlike/', formData);
+            await axios.post('http://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -73,7 +73,7 @@ const HomePost = ({ postData }: HomePostType) => {
             const dataForm = new FormData();
             dataForm.append('name_user', myProfileName);
             dataForm.append('post_id', postData.id.toString());
-            await axios.post('http://127.0.0.1:8000/posts/delete/', dataForm);
+            await axios.post('http://socialnetword-fsociety.onrender.com/posts/delete/', dataForm);
             window.location.reload();
         } catch (e) {
             console.log(e);

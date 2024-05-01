@@ -53,7 +53,7 @@ const FrendList = () => {
                     return;
                 }
     
-                const response = await axios.get(`http://127.0.0.1:8000/api/mypage/${accessToken}`);
+                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
                 
                 setUserData(response.data);
                 console.log('Отримана інформація:', response.data);
@@ -79,16 +79,16 @@ const FrendList = () => {
                 let url = '';
                 switch (type) {
                     case 'friends': 
-                        url = `http://127.0.0.1:8000/friend/followers/${urlName}`;
+                        url = `http://socialnetword-fsociety.onrender.com/friend/followers/${urlName}`;
                         break;
                     case 'followers':
-                        url = `http://127.0.0.1:8000/friend/following/${urlName}`;
+                        url = `http://socialnetword-fsociety.onrender.com/friend/following/${urlName}`;
                         break;
                     case 'society':
-                        url = `http://127.0.0.1:8000/friend/search/${searchQuery}`
+                        url = `http://socialnetword-fsociety.onrender.com/friend/search/${searchQuery}`
                         break;
                     default:
-                        url = 'http://127.0.0.1:8000/friend/all';
+                        url = 'http://socialnetword-fsociety.onrender.com/friend/all';
                         break;
                 }
 
