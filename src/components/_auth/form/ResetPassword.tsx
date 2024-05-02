@@ -49,7 +49,7 @@ const ResetPassword = () => {
         }
 
         try {
-            const response = await axios.post('http://socialnetword-fsociety.onrender.com/api/register/', registrationData);
+            const response = await axios.post('https://socialnetword-fsociety.onrender.com/api/register/', registrationData);
             navigate("/confirm-email");
             // мб буде ще якийсь функціонал, який буде перевіряти токен користувача
             console.log(response.data);

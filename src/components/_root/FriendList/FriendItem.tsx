@@ -13,13 +13,13 @@ type User = {
 
 type Props = {
     user: User;
+    myProfile: userDataType,
+    myFriendList: userDataType[],
 };
 
-const FriendItem = ({ user }: Props) => {
+const FriendItem = ({ user, myProfile, myFriendList }: Props) => {
     const navigate = useNavigate();
     const [isFollow, setIsFollow] = useState<boolean>(false);
-    const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
-    const [myProfileName, setMyProfileName] = useState<string>('');
 
 
     const handleClickCard = () => {
@@ -27,25 +27,7 @@ const FriendItem = ({ user }: Props) => {
     };
 
     useEffect(() => {
-        const getMyFriendList = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-    
-                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/followers/${responseUser.data.name}`);
-                setMyProfileName(responseUser.data.name);
-                setMyFriendList(response.data);
-                console.log(responseUser.data.name, response.data)
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-    
-        getMyFriendList();
+
     }, []); 
     
     useEffect(() => {
@@ -65,9 +47,9 @@ const FriendItem = ({ user }: Props) => {
                 return;
             }
 
-            await axios.post('http://socialnetword-fsociety.onrender.com/friend/add/', {
+            await axios.post('https://socialnetword-fsociety.onrender.com/friend/add/', {
                 friend_name: user.name,
-                user_name: myProfileName, // Assuming you want to use the user's own name as user_name
+                user_name: myProfile.name, // Assuming you want to use the user's own name as user_name
             });
             setIsFollow(true);
         } catch (error) {
@@ -79,16 +61,10 @@ const FriendItem = ({ user }: Props) => {
         e.stopPropagation(); // Stop event propagation
         e.preventDefault();
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-
-            await axios.delete('http://socialnetword-fsociety.onrender.com/friend/remove/', {
+            await axios.delete('https://socialnetword-fsociety.onrender.com/friend/remove/', {
                 data: {
                     friend_name: user.name,
-                    user_name: myProfileName, // Assuming you want to use the user's own name as user_name
+                    user_name: myProfile.name, // Assuming you want to use the user's own name as user_name
                 }
             });
             setIsFollow(false); // Assuming unfollowing is successful
@@ -102,9 +78,9 @@ const FriendItem = ({ user }: Props) => {
         e.preventDefault();
         try{
             const dataForm = new FormData();
-            dataForm.append('sender_name', myProfileName);
+            dataForm.append('sender_name', myProfile.name);
             dataForm.append('receiver_name', user.name);
-            await axios.post('http://socialnetword-fsociety.onrender.com/chat/create_chat_room/', dataForm);
+            await axios.post('https://socialnetword-fsociety.onrender.com/chat/create_chat_room/', dataForm);
         } catch(e) {
             console.log(e);
         } finally {
@@ -121,7 +97,7 @@ const FriendItem = ({ user }: Props) => {
                 </div>
                 <div className={style.friend__btn}>
                     <button onClick={handleClickMessage}><Message /></button>
-                    {user.name !== myProfileName ? isFollow ? <button className={style.friend__btn__unfolow} onClick={handleClickDelete}>Unfollow</button> : <button className={style.friend__btn__folow} onClick={handleFollow}>Follow</button> : null}
+                    {user.name !== myProfile.name ? isFollow ? <button className={style.friend__btn__unfolow} onClick={handleClickDelete}>Unfollow</button> : <button className={style.friend__btn__folow} onClick={handleFollow}>Follow</button> : null}
                 </div>
             </div>
         </div>

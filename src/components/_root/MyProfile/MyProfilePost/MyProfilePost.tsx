@@ -12,36 +12,19 @@ import CommentsContainer from '../../Comments/CommentsContainer';
 import { TextPreview } from '../../functions/showText';
 import { Option } from '../../../__ui/DropMenu/DropMenu';
 import DropMenu from '../../../__ui/DropMenu/DropMenu';
+import { userDataType } from '../../HomeLayout/HomeLayout';
 
 export type MyProfilePostProps = {
     id: number
     post: Post;
     autor: Author,
+    myProfile: userDataType,
 };
 
-const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
+const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
     const [open, setOpen] = useState(false);
     const [isLike, setIsLike] = useState(post.isLiked);
     const [likeCount, setLikeCount] = useState<number>(0);
-    const [myProfileName, setMyProfileName] = useState<string>('');
-
-
-    useEffect(() => {
-        const getMyName = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                setMyProfileName(responseUser.data.name);
-            } catch (e) {
-                console.log(e);
-            }
-        }
-        getMyName()
-    }, [])
 
     useEffect(() => {
         setLikeCount(post.likes);
@@ -58,9 +41,9 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     const addLike = async () => {
         try {
             const formData = new FormData();
-            formData.append('name_user', myProfileName);
+            formData.append('name_user', myProfile.name);
             formData.append('post_id', id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/like/', formData);
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/like/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -68,9 +51,9 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     const removeLike = async () => {
         try {
             const formData = new FormData();
-            formData.append('name_user', myProfileName);
+            formData.append('name_user', autor.name);
             formData.append('post_id', id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -85,9 +68,9 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
     const deletePost = async () => {
         try {
             const dataForm = new FormData();
-            dataForm.append('name_user', myProfileName);
+            dataForm.append('name_user', autor.name);
             dataForm.append('post_id', id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/delete/', dataForm)
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/delete/', dataForm)
             window.location.reload();
         } catch (e) {
             console.log(e);
@@ -135,17 +118,17 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
                                     <div className="row d-flex justify-content-between align-items-center">
                                         <div className="col-10">
                                             <div className="row justify-content-start align-items-center">
-                                            <div className="col-3">
-                                                <img src={autor.avatar} alt="avatar" />
-                                            </div>
-                                            <div className="col-6">
-                                                <h2>{autor.name}</h2>
-                                            </div>
+                                                <div className="col-3">
+                                                    <img src={autor.avatar} alt="avatar" />
+                                                </div>
+                                                <div className="col-6">
+                                                    <h2>{autor.name}</h2>
+                                                </div>
                                             </div>
                                         </div>
 
                                         {
-                                            myProfileName === autor.name ?
+                                            myProfile.name === autor.name ?
                                                 <div className="col-2">
                                                     <DropMenu options={postMenuOptionsArray} />
                                                 </div> : null
@@ -156,7 +139,7 @@ const MyProfilePost = ({ id, post, autor }: MyProfilePostProps) => {
                                             <p className='post__description'><TextPreview text={post.description} lenghtText={35} /></p>
                                         </div>
                                     </div>
-                                    <CommentsContainer maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments} />
+                                    <CommentsContainer myProfile={myProfile} maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments} />
                                 </div>
                                 <div className="row">
                                     <div className="col-3 d-flex align-items-center">

@@ -48,3 +48,22 @@
         cursor: pointer;
     }
 }
+.comments__title {
+    font-size: 19px;
+    color: white;
+    font-weight: 700;
+}
+.divider {
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+    height: 2px;
+    border-radius: 10px;
+    background: $buttonGreen;
+    opacity: 1 !important;
+}
+.nothing__comments{
+    color: grey;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 2%;
+}

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ChatCloud from '../ChatCloud/ChatCloud';
 import ChatList from '../ChatList/ChatList';
 import axios from 'axios';
 import { Option } from '../../../__ui/DropMenu/DropMenu';
+import { MyProfileContext } from '../../HomeLayout/HomeLayout';
 
 export type User = {
   email: string;
@@ -25,42 +26,30 @@ export type Message = {
   receiver: User;
 };
 
-
 const Chat = () => {
-  const [myName, setMyName] = useState<string>('');
+  const myProfile = useContext(MyProfileContext);
   const [userChatList, setUserChatList] = useState<Message[] | []>([]);
   const [activeUser, setActiveUser] = useState<User | null>(null);
   const [roomId, setRoomId] = useState<number>(0);
 
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
-        if (!accessToken) {
-          console.error('Access token not found in localStorage');
-          return;
+    const getChatRooms = async() => {  
+      if(myProfile) {
+        try {
+          const response = await axios.get(`https://socialnetword-fsociety.onrender.com/chat/user_chat_rooms/${myProfile.name}`);
+          setUserChatList(response.data);
+          if (response.data.length > 0) {
+            setActiveUser(response.data[0].receiver); // Встановлюємо першого користувача в списку як активного
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
         }
-
-        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-
-        setMyName(response.data.name);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-      try {
-        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/chat/user_chat_rooms/${myName}`);
-        setUserChatList(response.data);
-        if (response.data.length > 0) {
-          setActiveUser(response.data[0].receiver); // Встановлюємо першого користувача в списку як активного
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
       }
     };
+    getChatRooms();
 
-    fetchUserData();
-  }, [myName]);
+  }, [myProfile]);
 
   const handleUserClick = (user: User, roomId: number) => {
     setActiveUser(user);
@@ -71,7 +60,7 @@ const Chat = () => {
     try {
       const formData = new FormData();
       formData.append('room_id', roomId.toString());
-      await axios.post('http://socialnetword-fsociety.onrender.com/chat/delete_chat/', formData)
+      await axios.post('https://socialnetword-fsociety.onrender.com/chat/delete_chat/', formData)
       window.location.reload();
     } catch (e) {
       console.log(e);
@@ -86,9 +75,9 @@ const Chat = () => {
 
   return (
     <div className='d-flex justify-content-between'>
-      {activeUser ? <ChatCloud menuOptionsArray={menuOptionsArray} activUser={activeUser} roomId={roomId} /> : null}
+      {activeUser && myProfile ? <ChatCloud myProfile={myProfile} menuOptionsArray={menuOptionsArray} activUser={activeUser} roomId={roomId} /> : null}
       <div className='col-3'>
-        {myName ? <ChatList myName={myName} chatList={userChatList} onUserClick={handleUserClick} /> : null}
+        {myProfile? <ChatList myName={myProfile.name } chatList={userChatList} onUserClick={handleUserClick} /> : null}
 
       </div>
     </div>

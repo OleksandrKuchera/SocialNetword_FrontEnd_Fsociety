@@ -64,7 +64,7 @@ const AddPost = ({ userName }: AddPostType) => {
                 new Error('no photo')
                 setLoading(false);
             }
-            await axios.post("http://socialnetword-fsociety.onrender.com/posts/create/", formData);
+            await axios.post("https://socialnetword-fsociety.onrender.com/posts/create/", formData);
             setLoading(false); 
             handleClose();
             window.location.reload();

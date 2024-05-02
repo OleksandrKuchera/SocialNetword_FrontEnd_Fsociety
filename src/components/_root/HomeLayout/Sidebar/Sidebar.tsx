@@ -18,7 +18,7 @@ const Sidebar = () => {
                 console.error('Access token not found in localStorage');
                 return;
             }
-            await axios.post('http://socialnetword-fsociety.onrender.com/api/logout/', {
+            await axios.post('https://socialnetword-fsociety.onrender.com/api/logout/', {
                 account_token: accessToken
             });
             localStorage.removeItem('accessToken');

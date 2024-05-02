@@ -3,26 +3,16 @@ import style from './style.module.scss';
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import { Search, SearchIconWrapper, StyledInputBase } from './themeSeacrchComponent';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { MyProfileContext, userDataType } from '../HomeLayout/HomeLayout';
 
 export type User = {
     name: string,
     avatar: string,
     isFollow: boolean,
 }
-type userDataType = {
-    name: string,
-    postCount: number,
-    friendsCount: number,
-    followersCount:number,
-    located: string,
-    birth_date: string,
-    bio: string,
-    avatar: string
-    isFollow : boolean
-  }
 
 const FrendList = () => {
 
@@ -31,40 +21,10 @@ const FrendList = () => {
     const { type } = useParams<{ type: string }>();
     const {userNameParams} = useParams<{ userNameParams: string }>();
     const [urlName, setUrlName] = useState<string>('');
+    const myProfile = useContext(MyProfileContext);
+    const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
 
-    const [userData, setUserData] = useState<userDataType>({
-        name: '',
-        postCount: 0,
-        friendsCount: 0,
-        followersCount:0,
-        located: '',
-        birth_date: '',
-        bio: '',
-        avatar: '',
-        isFollow : false
-      });
 
-    useEffect(()=>{
-        const fetchUserDataNameMainProfile = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-    
-                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                
-                setUserData(response.data);
-                console.log('Отримана інформація:', response.data);
-                
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-    
-        fetchUserDataNameMainProfile();
-    },[])
 
     useEffect(() => {
        
@@ -74,21 +34,21 @@ const FrendList = () => {
                 if(userNameParams) {
                     setUrlName(userNameParams) ;
                 } else {
-                    setUrlName(userData.name);
+                    myProfile ? setUrlName(myProfile.name) : null;
                 }
                 let url = '';
                 switch (type) {
                     case 'friends': 
-                        url = `http://socialnetword-fsociety.onrender.com/friend/followers/${urlName}`;
+                        url = `https://socialnetword-fsociety.onrender.com/friend/followers/${urlName}`;
                         break;
                     case 'followers':
-                        url = `http://socialnetword-fsociety.onrender.com/friend/following/${urlName}`;
+                        url = `https://socialnetword-fsociety.onrender.com/friend/following/${urlName}`;
                         break;
                     case 'society':
-                        url = `http://socialnetword-fsociety.onrender.com/friend/search/${searchQuery}`
+                        url = `https://socialnetword-fsociety.onrender.com/friend/search/${searchQuery}`
                         break;
                     default:
-                        url = 'http://socialnetword-fsociety.onrender.com/friend/all';
+                        url = 'https://socialnetword-fsociety.onrender.com/friend/all';
                         break;
                 }
 
@@ -103,13 +63,26 @@ const FrendList = () => {
                     }
                 });
                 setUserList(response.data);
+                
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
+            const getMyFriendList = async () => {
+                if(myProfile){
+                    try {
+                        const response = await axios.get(`https://socialnetword-fsociety.onrender.com/friend/followers/${myProfile.name}`);
+                        setMyFriendList(response.data);
+                    } catch (error) {
+                        console.error('Error fetching user data:', error);
+                    }
+                }
+            };
+        
+            getMyFriendList();
         };
 
         fetchUserData();
-    }, [searchQuery, type, userData.name, urlName, userNameParams]);
+    }, [searchQuery, type, myProfile, urlName, userNameParams]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -141,10 +114,10 @@ const FrendList = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {userList.map(user => (
-                       <FriendItem key={user.name} user={user}/>
+                    {myProfile ? userList.map(user => (
+                       <FriendItem key={user.name} myFriendList={myFriendList} myProfile={myProfile} user={user}/>
                     )
-                    )}
+                    ): null}
                 </div>
             </div>
         </div >

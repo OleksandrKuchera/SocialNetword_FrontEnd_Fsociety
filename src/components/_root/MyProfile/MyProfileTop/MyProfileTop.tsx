@@ -4,21 +4,12 @@ import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
 import { NavLink } from 'react-router-dom';
 import AddPost from '../AddPost/AddPost';
+import { userDataType } from '../../HomeLayout/HomeLayout';
 
 type UserProfileTopProps = {
     userData: userDataType;
 }
 
-type userDataType = {
-    name: string,
-    post_count: number,
-    located: string,
-    birth_date: string,
-    bio: string,
-    avatar: string,
-    friends_count: number,
-    subscribers_count: number,
-}
 
 const MyProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
 

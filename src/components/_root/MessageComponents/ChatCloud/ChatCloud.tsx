@@ -5,11 +5,13 @@ import style from './chat.module.scss'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
+import { userDataType } from '../../HomeLayout/HomeLayout';
 
 type ChatCloudProps = {
     activUser: User,
     roomId: number,
     menuOptionsArray: Option[],
+    myProfile: userDataType,
 };
 export type ChatMessage = {
     id: number;
@@ -24,9 +26,8 @@ export type ChatNewMessage = {
 };
 type OptionKeys = 'time' | 'date';
 
-const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
+const ChatCloud = ({ menuOptionsArray, activUser, roomId, myProfile }: ChatCloudProps) => {
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-    const [myUser, setMyUser] = useState<User>();
     const navigate = useNavigate();
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
@@ -58,7 +59,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
 
     const getChat = async () => {
         try {
-            const getHistoryChat = await axios.get(`http://socialnetword-fsociety.onrender.com/chat/get_chat_history/${roomId}`);
+            const getHistoryChat = await axios.get(`https://socialnetword-fsociety.onrender.com/chat/get_chat_history/${roomId}`);
             setChatHistory(getHistoryChat.data);
             setTimeout(scrollToBottom, 1000)
         } catch (e) {
@@ -75,15 +76,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
 
         const CheckNewMessage = async () => {
             try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-
-                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                setMyUser(responseUser.data);
-                const responseNewMessage = await axios.get<ChatNewMessage>(`http://socialnetword-fsociety.onrender.com/chat/check_new_messages/${responseUser.data.name}`);
+                const responseNewMessage = await axios.get<ChatNewMessage>(`https://socialnetword-fsociety.onrender.com/chat/check_new_messages/${myProfile.name}`);
                 responseNewMessage.data.messages.forEach((message) => {
                     setChatHistory(prevChatHistory => [...prevChatHistory, message]);
                 })
@@ -92,7 +85,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
             }
         };
 
-        const intervalId = setInterval(CheckNewMessage, 1000);
+        const intervalId = setInterval(CheckNewMessage, 3000);
         return () => clearInterval(intervalId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activUser.name, roomId])
@@ -100,9 +93,9 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
     const sendMessage = async (text: string) => {
         const formData = new FormData();
         formData.append('room_id', roomId.toString());
-        myUser ? formData.append('sender_name', myUser.name) : null;
+        myProfile ? formData.append('sender_name', myProfile.name) : null;
         formData.append('text', text);
-        await axios.post(`http://socialnetword-fsociety.onrender.com/chat/create_message/`, formData);
+        await axios.post(`https://socialnetword-fsociety.onrender.com/chat/create_message/`, formData);
         getChat();
     }
 
@@ -132,7 +125,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
                 </div>
                 <div className={style.messages__container}>
 
-                    {myUser ?
+                    {myProfile ?
                         chatHistory.map((message, index) => {
                             return (
                                 <>
@@ -151,7 +144,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId }: ChatCloudProps) => {
 
                                     ) : null}
 
-                                    {message.sender.name != myUser.name ? (
+                                    {message.sender.name != myProfile.name ? (
                                         <div key={index} className="row d-flex justify-content-start">
                                             <div className="col-12 d-flex align-items-center">
                                                 <p className={style.message__received}>{message.text}</p>

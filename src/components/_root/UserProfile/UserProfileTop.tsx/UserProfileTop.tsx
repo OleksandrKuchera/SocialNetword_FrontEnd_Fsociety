@@ -2,10 +2,11 @@ import { CalendarMonthOutlined, LocationOnOutlined, Message } from '@mui/icons-m
 import style from '../../MyProfile/MyProfileTop/style.module.scss';
 import { Divider } from '@mui/material';
 import { userDataType } from '../UserProfile';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { User } from '../../FriendList/FriendList';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { MyProfileContext } from '../../HomeLayout/HomeLayout';
 
 type UserProfileTopProps = {
     userData: userDataType;
@@ -16,21 +17,14 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     const [userDataState] = useState<User>(userData);
     const [isFollow, setIsFollow] = useState<boolean>(false);
     const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
-    const [myUserName, setMyUserName] = useState<string>('');
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
+    const myProfile = useContext(MyProfileContext);
+
 
     useEffect(() => {
         const getMyFriendList = async () => {
             try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-
-                const responseUser = await axios.get(`api/mypage/${accessToken}`);
-                setMyUserName(responseUser.data.name);
-                const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/followers/${responseUser.data.name}`);
+                const response = await axios.get(`https://socialnetword-fsociety.onrender.com/friend/followers/${myProfile?.name}`);
                 setMyFriendList(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -38,7 +32,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
         };
 
         getMyFriendList();
-    }, []);
+    }, [myProfile?.name]);
 
     useEffect(() => {
         if (myFriendList.length !== 0) {
@@ -51,18 +45,9 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
     const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-
-            const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-            const userName = responseUser.data.name;
-
-            await axios.post('http://socialnetword-fsociety.onrender.com/friend/add/', {
+            await axios.post('https://socialnetword-fsociety.onrender.com/friend/add/', {
                 friend_name: userData.name,
-                user_name: userName,
+                user_name: myProfile?.name,
             });
             setIsFollow(true);
         } catch (error) {
@@ -73,21 +58,10 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
         e.stopPropagation();
 
         try {
-            const accessToken = localStorage.getItem('accessToken');
-            if (!accessToken) {
-                console.error('Access token not found in localStorage');
-                return;
-            }
-
-            // Отримуємо ім'я користувача з accessToken
-            const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-            const userName = responseUser.data.name;
-
-            // Відправляємо запит DELETE з використанням параметрів у URL
-            await axios.delete(`http://socialnetword-fsociety.onrender.com/friend/remove/`, {
+            await axios.delete(`https://socialnetword-fsociety.onrender.com/friend/remove/`, {
                 data: {
                     friend_name: userData.name,
-                    user_name: userName
+                    user_name: myProfile?.name
                 }
             });
 
@@ -100,10 +74,12 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
         e.stopPropagation(); 
         e.preventDefault();
         try{
-            const dataForm = new FormData();
-            dataForm.append('sender_name', myUserName);
-            dataForm.append('receiver_name', userData.name);
-            await axios.post('http://socialnetword-fsociety.onrender.com/chat/create_chat_room/', dataForm);
+            if(myProfile) {
+                const dataForm = new FormData();
+                dataForm.append('sender_name', myProfile.name);
+                dataForm.append('receiver_name', userData.name);
+                await axios.post('https://socialnetword-fsociety.onrender.com/chat/create_chat_room/', dataForm);
+            }
         } catch(e) {
             console.log(e);
         } finally {
@@ -134,7 +110,7 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                                     </div>
                                     <div className="col-4 d-flex justify-content-end">
                                         <button onClick={handleClickMessage}><Message /></button>
-                                        {userDataState.name !== myUserName ? isFollow ? <button className={style.unfollow__btn} onClick={handleClickDelete}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}                                </div>
+                                        {userDataState.name !== myProfile?.name ? isFollow ? <button className={style.unfollow__btn} onClick={handleClickDelete}>Unfollow</button> : <button onClick={handleFollow}>Follow</button> : null}                                </div>
                                 </div>
                             </div>
                             <div className="row">

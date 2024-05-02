@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import style from '../MyProfile/style.module.scss';
 import UserProfileTop from "./UserProfileTop.tsx/UserProfileTop";
 import MyProfileDesc from "../MyProfile/MyProfileDesc/MyProfileDesc";
 import { CircularProgress, Container } from "@mui/material";
+import { MyProfileContext } from "../HomeLayout/HomeLayout";
 
 export type userDataType = {
   name: string,
@@ -16,16 +17,18 @@ export type userDataType = {
   isFollow: boolean,
   friends_count: number,
   subscribers_count: number,
+  email: string,
 }
 
 const UserProfile = () => {
   const { userName } = useParams();
+  const myProfile = useContext(MyProfileContext);
   const [userData, setUserData] = useState<userDataType | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://socialnetword-fsociety.onrender.com/friend/profile/${userName}`);
+        const response = await axios.get(`https://socialnetword-fsociety.onrender.com/friend/profile/${userName}`);
         setUserData(response.data.user_info);
 
       } catch (error) {
@@ -35,10 +38,6 @@ const UserProfile = () => {
     fetchUserData();
   }, [userName]);
 
-  useEffect(() => {
-
-  }, [])
-
 
   return (
     <Container>
@@ -46,10 +45,10 @@ const UserProfile = () => {
       {userData ? (
         <div className={style.profile__container}>
           <UserProfileTop userData={userData} />
-          <MyProfileDesc userData={userData} />
+          {myProfile ? <MyProfileDesc myProfile={myProfile} userData={userData} /> : null}
         </div>
       ) :
-        <div style={{width:'100%',height:'100vh', display: 'flex', alignItems:'center', justifyContent:'center'}}>
+        <div style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <CircularProgress color="success" />
         </div>
       }

@@ -3,8 +3,9 @@ import style from './style.module.scss';
 import HomePost from "./HomePost/HomePost";
 import RecomendationList from "./RecomendationList/RecomendationList";
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CircularProgress } from "@mui/material";
+import { MyProfileContext } from "../HomeLayout/HomeLayout";
 
 export type Author = {
     name: string;
@@ -35,27 +36,23 @@ export type Comments = {
 
 const Home = () => {
     const [posts, setPosts] = useState<PostData[]>([]);
+    const myProfile = useContext(MyProfileContext);
 
     useEffect(() => {
-
-        const fetchPosts = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
+        if (myProfile) {
+            const fetchPosts = async () => {
+                try {
+                    const response = await axios.get<PostData[]>(`https://socialnetword-fsociety.onrender.com/posts/look/${myProfile.name}`);
+                    const sortedPosts = response.data.sort((a, b) => b.id - a.id);
+                    setPosts(sortedPosts);
+                } catch (error) {
+                    console.error("Error fetching posts:", error);
                 }
-                const responseMyProfile = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                const response = await axios.get<PostData[]>(`http://socialnetword-fsociety.onrender.com/posts/look/${responseMyProfile.data.name}`);
-                const sortedPosts = response.data.sort((a, b) => b.id - a.id);
-                setPosts(sortedPosts);
-            } catch (error) {
-                console.error("Error fetching posts:", error);
-            }
-        };
+            };
 
-        fetchPosts();
-    }, []);
+            fetchPosts();
+        }
+    }, [myProfile]);
 
     return (
         <>
@@ -66,10 +63,11 @@ const Home = () => {
                             <Container>
                                 <div className={style.home__layout}>
                                     <div className="row">
-                                        {posts ? (
+                                        {(posts.length != 0 && myProfile) ? (
                                             posts.map((post, index) => (
                                                 <div key={index} className="col-12">
                                                     <HomePost
+                                                        myProfile={myProfile}
                                                         key={index}
                                                         postData={post}
                                                     />
@@ -90,7 +88,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="col-3 m-0 p-0">
-                    <RecomendationList />
+                    {myProfile ? <RecomendationList myProfile={myProfile} /> : null  }
                 </div>
             </div>
         </>

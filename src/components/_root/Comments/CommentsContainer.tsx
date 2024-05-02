@@ -1,58 +1,43 @@
 import axios from "axios";
 import InputChat from "../MessageComponents/InputChat/InputChat";
 import style from './comments.module.scss'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CommentsItem from "./CommentsItem";
 import { Author, Comments } from "../Home/Home";
+import { Divider } from "@mui/material";
 
 export type CommentsContainer = {
     id: number;
     comments: Comments[];
     maxHeightValue?: string;
     heightValue?: string;
+    myProfile: Author;
 }
 
-const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: CommentsContainer) => {
+const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfile }: CommentsContainer) => {
     const [commentsCollection, setCommentsCollection] = useState<Comments[]>(comments);
-    const [myName, setMyName] = useState<Author>();
 
-    useEffect(() => {
-        const getMyProfile = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                setMyName(responseUser.data);
-            } catch (e) {
-                console.log(e);
-            }
-        }
-        getMyProfile();
-    }, []);
 
     const sendComents = async (text: string) => {
-        if(myName) {
+        if (myProfile) {
             const formData = new FormData();
-            formData.append('name_user', myName.name);
+            formData.append('name_user', myProfile.name);
             formData.append('post_id', id.toString());
             formData.append('comment', text);
             try {
-                await axios.post(`http://socialnetword-fsociety.onrender.com/posts/comment/`, formData);
+                await axios.post(`https://socialnetword-fsociety.onrender.com/posts/comment/`, formData);
                 const newComment = {
                     id: 0,
                     author: {
-                        name: myName.name,
-                        avatar: myName.avatar.slice(13),
-                        email: myName.email
+                        name: myProfile.name,
+                        avatar: myProfile.avatar.slice(13),
+                        email: myProfile.email
                     },
                     text: text
                 }
-    
+
                 setCommentsCollection(prevComments => [...prevComments, newComment]);
-    
+
             } catch (e) {
                 console.log(e);
             }
@@ -62,11 +47,19 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue }: Commen
     return (
         <div>
             <div className="row">
+                <div className="col-12 d-flex justify-content-center">
+                    <h3 className={style.comments__title}>Comments</h3>
+                </div>
+                <Divider className={style.divider} />
                 <div className="col-12">
                     <div style={{ maxHeight: maxHeightValue, height: heightValue }} className={style.comment__cloud}>
-                        {myName ? commentsCollection.map((comment, index) => (
-                            <CommentsItem myName={myName.name} id={comment.id} key={index} autor={comment.author} text={comment.text} />
-                        )): null}
+                        {myProfile && commentsCollection.length > 0 ? commentsCollection.map((comment, index) => (
+                            <CommentsItem myName={myProfile.name} id={comment.id} key={index} autor={comment.author} text={comment.text} />
+                        )) :
+                            <div className='col-12 d-flex justify-content-center align-items-center'>
+                               <p className={style.nothing__comments}>Nothing comments</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

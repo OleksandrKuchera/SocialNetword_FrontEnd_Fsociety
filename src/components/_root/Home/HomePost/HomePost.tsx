@@ -7,43 +7,28 @@ import axios from 'axios';
 import { TextPreview } from '../../functions/showText';
 import CommentsContainer from '../../Comments/CommentsContainer';
 import DropMenu, { Option } from '../../../__ui/DropMenu/DropMenu';
+import { Author } from '../../MyProfile/MyProfileDesc/MyProfileDesc';
 
 export type HomePostType = {
     postData: PostData,
+    myProfile: Author,
 }
 
-const HomePost = ({ postData }: HomePostType) => {
+const HomePost = ({ postData, myProfile }: HomePostType) => {
     const [isLike, setIsLike] = useState(postData.post.isLiked);
     const navigate = useNavigate();
     const [likeCount, setLikeCount] = useState<number>(0);
-    const [myProfileName, setMyProfileName] = useState<string>('');
-
     useEffect(() => {
         setLikeCount(postData.post.likes);
     }, [postData.post.likes])
-    useEffect(() => {
-        const getMyName = async () => {
-            try {
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    console.error('Access token not found in localStorage');
-                    return;
-                }
-                const responseUser = await axios.get(`http://socialnetword-fsociety.onrender.com/api/mypage/${accessToken}`);
-                setMyProfileName(responseUser.data.name);
-            } catch (e) {
-                console.log(e);
-            }
-        }
-        getMyName()
-    }, [])
+
 
     const addLike = async () => {
         try {
             const formData = new FormData();
-            formData.append('name_user', myProfileName);
+            formData.append('name_user', myProfile.name);
             formData.append('post_id', postData.id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/like/', formData);
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/like/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -51,9 +36,9 @@ const HomePost = ({ postData }: HomePostType) => {
     const removeLike = async () => {
         try {
             const formData = new FormData();
-            formData.append('name_user', myProfileName);
+            formData.append('name_user', myProfile.name);
             formData.append('post_id', postData.id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -71,9 +56,9 @@ const HomePost = ({ postData }: HomePostType) => {
     const deletePost = async () => {
         try {
             const dataForm = new FormData();
-            dataForm.append('name_user', myProfileName);
+            dataForm.append('name_user', myProfile.name);
             dataForm.append('post_id', postData.id.toString());
-            await axios.post('http://socialnetword-fsociety.onrender.com/posts/delete/', dataForm);
+            await axios.post('https://socialnetword-fsociety.onrender.com/posts/delete/', dataForm);
             window.location.reload();
         } catch (e) {
             console.log(e);
@@ -100,7 +85,7 @@ const HomePost = ({ postData }: HomePostType) => {
                         </div>
                     </div>
                     {
-                        myProfileName === postData.author.name ?
+                        myProfile.name === postData.author.name ?
                             <div className="col-2">
                                 <DropMenu options={postMenuOptionsArray} />
                             </div> : null
@@ -120,7 +105,7 @@ const HomePost = ({ postData }: HomePostType) => {
                         </div>
                     </div>
                 </div>
-                <CommentsContainer id={postData.id} comments={postData.post.comments} />
+                <CommentsContainer myProfile={myProfile} id={postData.id} comments={postData.post.comments} />
                 <div className="row">
                     <div className="col-2">
                         <div className={style.like__container}>
