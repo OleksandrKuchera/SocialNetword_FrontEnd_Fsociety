@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { MyProfileContext, userDataType } from '../HomeLayout/HomeLayout';
+import { CircularProgress } from '@mui/material';
 
 export type User = {
     name: string,
@@ -23,6 +24,7 @@ const FrendList = () => {
     const [urlName, setUrlName] = useState<string>('');
     const myProfile = useContext(MyProfileContext);
     const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
 
 
@@ -30,7 +32,7 @@ const FrendList = () => {
        
         const fetchUserData = async () => {
             try {
-  
+                setLoading(true);
                 if(userNameParams) {
                     setUrlName(userNameParams) ;
                 } else {
@@ -45,14 +47,16 @@ const FrendList = () => {
                         url = `https://socialnetword-fsociety.onrender.com/friend/following/${urlName}`;
                         break;
                     case 'society':
-                        url = `https://socialnetword-fsociety.onrender.com/friend/search/${searchQuery}`
+                        url = searchQuery.length > 0
+                            ? `https://socialnetword-fsociety.onrender.com/friend/search/${searchQuery}`
+                            : 'https://socialnetword-fsociety.onrender.com/friend/users/';
                         break;
                     default:
                         url = 'https://socialnetword-fsociety.onrender.com/friend/all';
                         break;
                 }
-
-                const accessToken = localStorage.getItem('accessToken'); // Отримуємо accessToken з localStorage
+    
+                const accessToken = localStorage.getItem('accessToken');
                 if (!accessToken) {
                     console.error('Access token not found in localStorage');
                     return;
@@ -62,13 +66,17 @@ const FrendList = () => {
                         'Authorization': `Bearer ${accessToken}`
                     }
                 });
-                setUserList(response.data);
+                setUserList(response.data.reverse());
+                setLoading(false)
                 
             } catch (error) {
                 console.error('Error fetching user data:', error);
+                setLoading(false)
             }
+    
+            // Виклик функції getMyFriendList() залишається тут
             const getMyFriendList = async () => {
-                if(myProfile){
+                if (myProfile) {
                     try {
                         const response = await axios.get(`https://socialnetword-fsociety.onrender.com/friend/followers/${myProfile.name}`);
                         setMyFriendList(response.data);
@@ -80,7 +88,7 @@ const FrendList = () => {
         
             getMyFriendList();
         };
-
+    
         fetchUserData();
     }, [searchQuery, type, myProfile, urlName, userNameParams]);
 
@@ -114,10 +122,16 @@ const FrendList = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {myProfile ? userList.map(user => (
-                       <FriendItem key={user.name} myFriendList={myFriendList} myProfile={myProfile} user={user}/>
-                    )
-                    ): null}
+                {loading ? (
+                        <div className='col-12 d-flex justify-content-center align-items-center'>
+                            <CircularProgress color="success" />
+                        </div>
+                    ) : (
+                        myProfile && userList.length > 0 && userList.map(user => (
+                            user.name.length > 0 ?
+                                <FriendItem key={user.name} myFriendList={myFriendList} myProfile={myProfile} user={user} /> : null
+                        ))
+                    )}
                 </div>
             </div>
         </div >

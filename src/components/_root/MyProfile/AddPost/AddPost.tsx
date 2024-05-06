@@ -29,18 +29,25 @@ const AddPost = ({ userName }: AddPostType) => {
         setOpen(false);
     };
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-
-        setSelectedFile(e.target.files ? e.target.files[0] : null)
-
         const file = e.target.files ? e.target.files[0] : null;
+        const MAX_FILE_SIZE_MB = 10;
 
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const imageDataUrl = reader.result as string;
-                setAvatar(imageDataUrl);
-            };
-            reader.readAsDataURL(file); // Читаємо файл як URL або base64
+            if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                // Якщо розмір файлу більше максимального розміру
+                setErrorMessage(`File size exceeds ${MAX_FILE_SIZE_MB} MB`);
+                setSelectedFile(null);
+                setAvatar('');
+            } else {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const imageDataUrl = reader.result as string;
+                    setAvatar(imageDataUrl);
+                };
+                reader.readAsDataURL(file); // Читаємо файл як URL або base64
+                setSelectedFile(file);
+                setErrorMessage('');
+            }
         }
     };
 
