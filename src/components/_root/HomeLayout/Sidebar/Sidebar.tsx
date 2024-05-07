@@ -42,7 +42,7 @@ const Sidebar = () => {
                             <Home className={style.nav__icon} />
                             Home
                         </Link>
-                        <Link to="/society" className={pathname === '/society' ? style.activeLink : ''}>
+                        <Link to="users-list/society" className={pathname === '/society' ? style.activeLink : ''}>
                             <People className={style.nav__icon} />
                             Society
                         </Link>

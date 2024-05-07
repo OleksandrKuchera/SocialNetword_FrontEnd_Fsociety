@@ -76,11 +76,17 @@ const HomePost = ({ postData, myProfile }: HomePostType) => {
         <div className="col-12">
             <div className={style.post__container}>
                 <div className="row d-flex justify-content-between">
-                    <div className="col-5">
+                    <div className="col-10">
                         <div onClick={handleToProfile} className={style.post__top__container}>
                             <div className={style.post__profile__info}>
-                                <img src={postData.author.avatar} alt="avatar" />
-                                <h3>{postData.author.name}</h3>
+                                <div className="row">
+                                    <div className="col-6">
+                                        <img src={postData.author.avatar} alt="avatar" />
+                                    </div>
+                                </div>
+                                <div className="col-6">
+                                    <h3>{postData.author.name}</h3>
+                                </div>
                             </div>
                         </div>
                     </div>

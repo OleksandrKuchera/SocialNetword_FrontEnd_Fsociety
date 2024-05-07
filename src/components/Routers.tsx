@@ -30,7 +30,7 @@ const AppContainer = () => {
             checkAccessToken();
         }, 1000);
         return () => clearInterval(intervalId);
-    }, []); 
+    }, []);
 
     const checkAccessToken = async () => {
         try {
@@ -67,9 +67,9 @@ const AppContainer = () => {
                             <Route path="/profile/:userName" element={<UserProfile />} />
                             <Route path="/game/snake" element={<GameSnake />} />
                             <Route element={<FrendList />}>
-                            <Route path="/:type" element={<FrendList />} />
-                            <Route path="/:userNameParams/:type" element={<FrendList />} />
-                        </Route>
+                                <Route path="users-list/:type" element={<FrendList />} />
+                                <Route path="/:userNameParams/:type" element={<FrendList />} />
+                            </Route>
                             <Route path="/about-product" element={<AboutProduct />} />
                             {/* Add any other authenticated routes here */}
                         </Route>
@@ -81,6 +81,7 @@ const AppContainer = () => {
                     <Route path="/successfully-confirmed-email" element={<SuccessfullyConfirmedEmail />} />
                     <Route path="/confirm-request-not-found" element={<ConfirmRequestNotFound />} />
                     <Route path="/successfully-reset-password" element={<SuccessfullyResetPassword />} />
+                    
 
                     {/* Redirect to error page for any other unmatched routes */}
                     <Route path="*" element={<Navigate to='/error' replace />} />

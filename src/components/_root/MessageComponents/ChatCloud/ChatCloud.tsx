@@ -119,7 +119,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId, myProfile }: ChatCloud
                             </div>
                         </div>
                         <div className="col-6 d-flex align-items-center justify-content-end">
-                            <DropMenu options={menuOptionsArray}/>
+                            <DropMenu options={menuOptionsArray} />
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,14 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId, myProfile }: ChatCloud
                                     {message.sender.name != myProfile.name ? (
                                         <div key={index} className="row d-flex justify-content-start">
                                             <div className="col-12 d-flex align-items-center">
-                                                <p className={style.message__received}>{message.text}</p>
+                                                <div className={style.message__received}>
+                                                    {message.text.split('</br>').map((line, idx) => (
+                                                        <div key={idx}>
+                                                            {line}
+                                                            {idx !== message.text.split('\n').length - 1 && <br />}
+                                                        </div>
+                                                    ))}
+                                                </div>
                                                 <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
                                             </div>
                                         </div>
@@ -155,7 +162,14 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId, myProfile }: ChatCloud
                                         <div key={index} className="row d-flex justify-content-end">
                                             <div className="col-12 d-flex justify-content-end align-items-center">
                                                 <span className={style.message__staptime}>{formatDateTime(message.timestamp, 'time')}</span>
-                                                <p className={style.message__sender}>{message.text}</p>
+                                                <div className={style.message__sender}>
+                                                    {message.text.split('</br>').map((line, idx) => (
+                                                        <div key={idx}>
+                                                            {line}
+                                                            {idx !== message.text.split('\n').length - 1 && <br />}
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     )}
@@ -167,7 +181,7 @@ const ChatCloud = ({ menuOptionsArray, activUser, roomId, myProfile }: ChatCloud
                     <div ref={messagesEndRef} />
                 </div>
                 <div className="input__message">
-                    <InputChat onEnter={sendMessage} placeholder='Type a message'/>
+                    <InputChat onEnter={sendMessage} placeholder='Type a message' />
                 </div>
             </div>
         </div>

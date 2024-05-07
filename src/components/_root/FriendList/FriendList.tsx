@@ -20,7 +20,7 @@ const FrendList = () => {
     const [userList, setUserList] = useState<User[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const { type } = useParams<{ type: string }>();
-    const {userNameParams} = useParams<{ userNameParams: string }>();
+    const { userNameParams } = useParams<{ userNameParams: string }>();
     const [urlName, setUrlName] = useState<string>('');
     const myProfile = useContext(MyProfileContext);
     const [myFriendList, setMyFriendList] = useState<userDataType[]>([]);
@@ -29,18 +29,18 @@ const FrendList = () => {
 
 
     useEffect(() => {
-       
+
         const fetchUserData = async () => {
             try {
                 setLoading(true);
-                if(userNameParams) {
-                    setUrlName(userNameParams) ;
+                if (userNameParams) {
+                    setUrlName(userNameParams);
                 } else {
                     myProfile ? setUrlName(myProfile.name) : null;
                 }
                 let url = '';
                 switch (type) {
-                    case 'friends': 
+                    case 'friends':
                         url = `https://socialnetword-fsociety.onrender.com/friend/followers/${urlName}`;
                         break;
                     case 'followers':
@@ -55,7 +55,7 @@ const FrendList = () => {
                         url = 'https://socialnetword-fsociety.onrender.com/friend/all';
                         break;
                 }
-    
+
                 const accessToken = localStorage.getItem('accessToken');
                 if (!accessToken) {
                     console.error('Access token not found in localStorage');
@@ -68,12 +68,12 @@ const FrendList = () => {
                 });
                 setUserList(response.data.reverse());
                 setLoading(false)
-                
+
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 setLoading(false)
             }
-    
+
             // Виклик функції getMyFriendList() залишається тут
             const getMyFriendList = async () => {
                 if (myProfile) {
@@ -85,10 +85,10 @@ const FrendList = () => {
                     }
                 }
             };
-        
+
             getMyFriendList();
         };
-    
+
         fetchUserData();
     }, [searchQuery, type, myProfile, urlName, userNameParams]);
 
@@ -104,25 +104,27 @@ const FrendList = () => {
                         <h2>{type}</h2>
                     </div>
                 </div>
+                {type === 'society' ?
+                    < div className="row">
+                        <div className="col-12">
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Search>
+                                    <SearchIconWrapper>
+                                        <SearchIcon />
+                                    </SearchIconWrapper>
+                                    <StyledInputBase
+                                        placeholder="Search…"
+                                        inputProps={{ 'aria-label': 'search' }}
+                                        value={searchQuery}
+                                        onChange={handleSearchChange}
+                                    />
+                                </Search>
+                            </Box>
+                        </div>
+                    </div> : null
+                }
                 <div className="row">
-                    <div className="col-12">
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
-                                    value={searchQuery}
-                                    onChange={handleSearchChange}
-                                />
-                            </Search>
-                        </Box>
-                    </div>
-                </div>
-                <div className="row">
-                {loading ? (
+                    {loading ? (
                         <div className='col-12 d-flex justify-content-center align-items-center'>
                             <CircularProgress color="success" />
                         </div>

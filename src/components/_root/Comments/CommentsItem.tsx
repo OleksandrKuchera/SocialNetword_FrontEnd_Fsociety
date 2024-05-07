@@ -44,25 +44,23 @@ const CommentsItem = ({ id, autor, text, myName }: CommentsItemProps) => {
             <div className="col-12">
                 <div onClick={() => handleClickCard(autor.name)} className={style.recomendation__item}>
                     <div className="row d-flex align-items-center">
-                        <div className="col-3">
-                            <div className='d-flex align-items-center'>
-                                <img src={autor.avatar} alt="avatar" />
-                                <h3>{shortenText(autor.name, 11)}</h3>
-                            </div>
+                        <div className="col-4 d-flex align-items-center">
+                            <img src={autor.avatar} alt="avatar" />
+                            <h3>{shortenText(autor.name, 11)}</h3>
                         </div>
-                        <div className="col-7 d-flex align-items-center">
-                            <p><TextPreview text={text} lenghtText={22} /></p>
-                        </div>
-                        {
-                            autor.name === myName ?
-                                <div className="col-2">
-                                    <DropMenu options={commentsMenuOptionsArray} />
-                                </div> : null
-                        }
+                    <div className="col-6 d-flex align-items-center">
+                        <p><TextPreview text={text} lenghtText={22} /></p>
                     </div>
+                    {
+                        autor.name === myName ?
+                            <div className="col-2">
+                                <DropMenu options={commentsMenuOptionsArray} />
+                            </div> : null
+                    }
                 </div>
             </div>
         </div>
+        </div >
     );
 }
 
