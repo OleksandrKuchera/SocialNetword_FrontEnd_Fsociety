@@ -1,5 +1,5 @@
 import style from '../Home/HomePost/style.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FavoriteBorder, Favorite } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
@@ -17,10 +17,41 @@ const ReelsPost = ({ postData, myProfile }: HomePostType) => {
     const [isLike, setIsLike] = useState(postData.reel.isLiked);
     const navigate = useNavigate();
     const [likeCount, setLikeCount] = useState<number>(0);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
     useEffect(() => {
         setLikeCount(postData.reel.likes);
     }, [postData.reel.likes])
 
+    useEffect(() => {
+        const currentVideoRef = videoRef.current;
+    
+        const observer = new IntersectionObserver(
+            entries => {
+                if (currentVideoRef) {
+                    if (entries[0].isIntersecting) {
+                        currentVideoRef.play();
+                    } else {
+                        currentVideoRef.pause();
+                    }
+                }
+            },
+            {
+                threshold: 0.5
+            }
+        );
+    
+        if (currentVideoRef) {
+            observer.observe(currentVideoRef);
+        }
+    
+        return () => {
+            if (currentVideoRef) {
+                observer.unobserve(currentVideoRef);
+            }
+        };
+    }, []);
+    
 
     const addLike = async () => {
         try {
@@ -99,7 +130,7 @@ const ReelsPost = ({ postData, myProfile }: HomePostType) => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <video className={style.post__img} src={postData.reel.video} controls autoPlay />
+                        <video ref={videoRef} className={style.post__img} src={postData.reel.video} controls/>
                     </div>
                 </div>
                 <div className="row">
