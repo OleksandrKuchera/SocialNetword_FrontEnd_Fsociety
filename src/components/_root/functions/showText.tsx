@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import style from './style.module.scss'; 
+import FixBrComponent from './fixBrText';
 
 export const TextPreview = ({ text, lenghtText }: { text: string, lenghtText: number }) => {
   const [expanded, setExpanded] = useState(false);
@@ -31,7 +32,7 @@ export const TextPreview = ({ text, lenghtText }: { text: string, lenghtText: nu
 
   return (
     <div className={style.preview__text}>
-      {renderText()}
+      <FixBrComponent text={renderText()}/>
       {renderToggleButton()}
     </div>
   );

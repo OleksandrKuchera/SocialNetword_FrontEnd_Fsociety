@@ -2,7 +2,7 @@ import logo from '../../../../assets/FSLogo2.png'
 import style from './style.module.scss';
 import { Button, Nav } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person } from '@mui/icons-material';
+import { Error, ExitToAppRounded, Gamepad, Home, Message, People, Person, SlideshowOutlined } from '@mui/icons-material';
 import axios from 'axios';
 
 
@@ -42,9 +42,13 @@ const Sidebar = () => {
                             <Home className={style.nav__icon} />
                             Home
                         </Link>
-                        <Link to="users-list/society" className={pathname === '/society' ? style.activeLink : ''}>
+                        <Link to="users-list/society" className={pathname === 'users-list/society' ? style.activeLink : ''}>
                             <People className={style.nav__icon} />
                             Society
+                        </Link>
+                        <Link to="/reels" className={pathname === 'reels' ? style.activeLink : ''}>
+                            <SlideshowOutlined className={style.nav__icon} />
+                            Reels
                         </Link>
                         <Link to="/my-profile" className={pathname === '/my-profile' ? style.activeLink : ''}>
                             <Person className={style.nav__icon} />
