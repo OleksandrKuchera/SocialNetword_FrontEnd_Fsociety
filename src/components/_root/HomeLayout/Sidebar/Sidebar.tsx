@@ -42,11 +42,11 @@ const Sidebar = () => {
                             <Home className={style.nav__icon} />
                             Home
                         </Link>
-                        <Link to="users-list/society" className={pathname === 'users-list/society' ? style.activeLink : ''}>
+                        <Link to="/users-list/society" className={pathname === '/users-list/society' ? style.activeLink : ''}>
                             <People className={style.nav__icon} />
                             Society
                         </Link>
-                        <Link to="/reels" className={pathname === 'reels' ? style.activeLink : ''}>
+                        <Link to="/reels" className={pathname === '/reels' ? style.activeLink : ''}>
                             <SlideshowOutlined className={style.nav__icon} />
                             Reels
                         </Link>

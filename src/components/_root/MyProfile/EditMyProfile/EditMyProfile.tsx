@@ -191,7 +191,7 @@ const EditMyProfile: React.FC = () => {
                             <div className="col-6">
                                 <label>
                                     Country:
-                                    <input required maxLength={22} type="text" name="located" value={profile.located} onChange={handleInputChange} />                                </label>
+                                    <input required maxLength={18} type="text" name="located" value={profile.located} onChange={handleInputChange} />                                </label>
                             </div>
                             <div className="col-6">
                                 <label>

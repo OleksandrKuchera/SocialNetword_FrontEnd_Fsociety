@@ -16,7 +16,6 @@ export type User = {
 }
 
 const FrendList = () => {
-
     const [userList, setUserList] = useState<User[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const { type } = useParams<{ type: string }>();

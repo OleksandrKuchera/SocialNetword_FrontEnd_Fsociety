@@ -26,7 +26,7 @@ const ChatItem = ({ isActive, onClick, user, }: chatItemType) => {
                         </div>
                     </div>
                     <div className="col-5">
-                        {user.bio.trim().length > 0 ? <p className={style.chat__message}>{shortenText(user.bio, 18)}</p> : null}
+                        {user.bio.trim().length > 0 ? <p className={style.chat__message}>{shortenText(user.bio, 15)}</p> : null}
                     </div>
                 </div>
             </div>
