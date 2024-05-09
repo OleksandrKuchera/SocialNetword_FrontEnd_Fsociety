@@ -19,6 +19,7 @@ import ConfirmRequestNotFound from './_auth/ConfirmRequestNotFound/ConfirmReques
 import SuccessfullyResetPassword from './_auth/SuccessfullyResetPassword/SuccessfullyResetPassword';
 import ErrorPage from './_root/ErrorPage/ErrorPage';
 import FrendList from './_root/FriendList/FriendList';
+import GroupPage from './_root/GroupPage/GroupPage';
 
 
 const AppContainer = () => {
@@ -71,6 +72,7 @@ const AppContainer = () => {
                                 <Route path="/:userNameParams/:type" element={<FrendList />} />
                             </Route>
                             <Route path="/about-product" element={<AboutProduct />} />
+                            <Route path="/group" element={<GroupPage />} />
                             {/* Add any other authenticated routes here */}
                         </Route>
                     ) : (
