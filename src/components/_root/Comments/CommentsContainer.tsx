@@ -5,6 +5,7 @@ import { useState } from "react";
 import CommentsItem from "./CommentsItem";
 import { Author, Comments } from "../Home/Home";
 import { Divider } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 export type CommentsContainer = {
     id: number;
@@ -16,16 +17,27 @@ export type CommentsContainer = {
 
 const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfile }: CommentsContainer) => {
     const [commentsCollection, setCommentsCollection] = useState<Comments[]>(comments);
-
+    const location = useLocation();
+    const isReelsPage = location.pathname.includes('/reels');
 
     const sendComents = async (text: string) => {
         if (myProfile) {
             const formData = new FormData();
-            formData.append('name_user', myProfile.name);
-            formData.append('post_id', id.toString());
-            formData.append('comment', text);
+            if (isReelsPage) {
+                formData.append('name_user', myProfile.name);
+                formData.append('reel_id', id.toString());
+                formData.append('comment', text);
+            } else {
+                formData.append('name_user', myProfile.name);
+                formData.append('post_id', id.toString());
+                formData.append('comment', text);
+            }
             try {
-                await axios.post(`https://socialnetword-fsociety.onrender.com/posts/comment/`, formData);
+                if(isReelsPage) {
+                    await axios.post(`https://socialnetword-fsociety.onrender.com/reels/comment/`, formData);
+                } else {
+                    await axios.post(`https://socialnetword-fsociety.onrender.com/posts/comment/`, formData);
+                }
                 const newComment = {
                     id: 0,
                     author: {
@@ -57,7 +69,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfil
                             <CommentsItem myName={myProfile.name} id={comment.id} key={index} autor={comment.author} text={comment.text} />
                         )) :
                             <div className='col-12 d-flex justify-content-center align-items-center'>
-                               <p className={style.nothing__comments}>Nothing comments</p>
+                                <p className={style.nothing__comments}>Nothing comments</p>
                             </div>
                         }
                     </div>
