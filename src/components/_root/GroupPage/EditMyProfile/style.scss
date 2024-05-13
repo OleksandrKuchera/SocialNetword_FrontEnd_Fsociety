@@ -1,0 +1,93 @@
+@import '../../../styles/color.scss';
+
+.edit__profile__btn {
+    background: $buttonGreen !important;
+    padding: 10px 15px 10px 15px !important;
+    border: none;
+    border-radius: 50px !important;
+    transition: all 0.2s !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: black !important;
+    text-transform: uppercase;
+
+    text {
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px $green !important;
+    }
+}
+
+.edit__profile__form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    label {
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    input {
+        margin: 5px;
+        color: white;
+        background: none;
+        border: 1px solid $greyBorder;
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+    textarea {
+        color: white;
+        background: none;
+        border: 1px solid $greyBorder;
+        padding: 10px;
+        font-size: 15px;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+}
+
+.change__profile__info {
+    padding: 15px;
+    border: 1px solid $greyBorder;
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+    }
+
+    h2 {
+        color: white;
+        font-size: 18px;
+        font-weight: 700;
+        margin-left: 10px;
+    }
+}
+.edit__profile{
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+.upload__img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
