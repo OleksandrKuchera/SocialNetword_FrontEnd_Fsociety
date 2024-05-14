@@ -1,0 +1,140 @@
+@import './variables';
+@import './mixins';
+
+.story {
+  padding: 0.5rem;
+  height: 10rem;
+  width: 6rem;
+  min-width: 5rem;
+  position: relative;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 5px 17px -7px $box-shadow;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  transition: linear 200ms ease-in-out;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  @include for-small-screens {
+    height: 8rem;
+    width: 5rem;
+  }
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  .storyAvatar {
+    border: 4px solid $green;
+    margin: 0.1rem;
+  }
+
+  h4 {
+    position: absolute;
+    bottom: 0.6rem;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    box-shadow: 6px 5px 17px -17px $black;
+
+    @include for-small-screens {
+      font-size: smaller;
+    }
+  }
+}
+
+.createStory {
+  background: $buttonGreen;
+  min-width: 5rem;
+  height: 10rem;
+  width: 6rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  box-shadow: 0px 5px 17px -7px $box-shadow;
+  display: flex;
+  flex-direction: column;
+  transition: linear 200ms ease-in-out;
+  cursor: pointer;
+
+  @include for-small-screens {
+    height: 9rem;
+    width: 6rem;
+  }
+
+  @include for-mobile-only {
+    display: none;
+  }
+
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    z-index: 0;
+    border-bottom: 2px solid black ;
+  }
+  h5{
+    color: black;
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .lower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    bottom: 1rem;
+
+    .circle {
+      background-color: $green;
+      padding: 0.25rem;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: -0.2rem;
+      margin-bottom: 0.1rem;
+      border: 1px solid black;
+      color: black;
+      transition: all 0.2s;
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.storyReel {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  margin: 0.6rem;
+  align-items: center;
+
+  @include for-xl-devices {
+    width: 90%;
+  }
+
+  @include for-large-devices {
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include for-small-screens {
+    font-size: smaller;
+  }
+  overflow-x: auto;
+}
+

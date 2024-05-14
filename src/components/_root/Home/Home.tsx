@@ -7,6 +7,7 @@ import { MyProfileContext } from "../HomeLayout/HomeLayout";
 import PostContainer from "./PostContainer/PostContainer";
 import { useLocation } from "react-router-dom";
 import ReelsContainer from "../Reels/ReelsContainer";
+import StoryReel from "../Story";
 
 export type Author = {
     name: string;
@@ -87,6 +88,11 @@ const Home = () => {
                         <div className="col-9">
                             <Container>
                                 <div className={style.home__layout}>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <StoryReel/>
+                                        </div>
+                                    </div>
                                     {myProfile ?
                                         isReelsPage ? <ReelsContainer reels={reels} myProfile={myProfile} /> : <PostContainer posts={posts} myProfile={myProfile} />
                                         : null}
