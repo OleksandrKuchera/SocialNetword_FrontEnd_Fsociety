@@ -61,7 +61,7 @@ const Home = () => {
             const fetchPosts = async () => {
                 try {
                     let response;
-                    if(isReelsPage){
+                    if (isReelsPage) {
                         response = await axios.get<ReelsData[]>(`https://socialnetword-fsociety.onrender.com/reels/reelsAll/${myProfile.name}`);
                         const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                         setReels(sortedPosts);
@@ -90,7 +90,7 @@ const Home = () => {
                                 <div className={style.home__layout}>
                                     <div className="row">
                                         <div className="col-12">
-                                            <StoryReel myProfile={myProfile}/>
+                                            {myProfile ? <StoryReel myProfile={myProfile} /> : null}
                                         </div>
                                     </div>
                                     {myProfile ?

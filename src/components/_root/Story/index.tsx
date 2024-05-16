@@ -9,13 +9,13 @@ import axios from 'axios';
 interface StoryReelProps {
   myProfile: userDataType,
 }
-type StoryType = {
+export type StoryType = {
   id: number,
   author: Author,
-  story: Story,
+  story: StoryAsk,
 }
 
-type Story = {
+export type StoryAsk = {
   media: string,
   description: string,
   comments: [],
@@ -29,7 +29,7 @@ const StoryReel = ({myProfile} : StoryReelProps) => {
     if (myProfile) {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get<StoryType[]>(`https://socialnetword-fsociety.onrender.com/reels/reelsAll/${myProfile.name}`);
+                const response = await axios.get<StoryType[]>(`https://socialnetword-fsociety.onrender.com/stories/stories_all`);
                   const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                   setStoryList(sortedPosts);
             } catch (error) {
@@ -45,7 +45,7 @@ const StoryReel = ({myProfile} : StoryReelProps) => {
     <div className='storyReel'>
       <CreateStory myProfile = {myProfile}/>
       {storyList ? storyList.map(({ author, story }, index) => (
-        <Story key={index} username={author.name} profilePic={author.avatar} storyImage={story.media} />
+        <Story key={index} author={author} story={story} />
       )) : null}
     </div>
   );
