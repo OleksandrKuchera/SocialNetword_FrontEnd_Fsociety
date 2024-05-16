@@ -4,31 +4,39 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import './style.scss';
+import '../MyProfilePost/style.scss';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { Author, Post } from '../MyProfileDesc/MyProfileDesc';
+import { Author } from '../MyProfileDesc/MyProfileDesc';
 import axios from 'axios';
 import CommentsContainer from '../../Comments/CommentsContainer';
 import { TextPreview } from '../../functions/showText';
 import { Option } from '../../../__ui/DropMenu/DropMenu';
 import DropMenu from '../../../__ui/DropMenu/DropMenu';
 import { userDataType } from '../../HomeLayout/HomeLayout';
+import { Reel } from '../../Home/Home';
+import { getVideoThumbnail } from '../../functions/getVideoThumbnail';
 
-export type MyProfilePostProps = {
-    id: number
-    post: Post;
+export type MyProfileReelProps = {
+    id: number,
+    reel: Reel,
     autor: Author,
     myProfile: userDataType,
 };
 
-const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
+const MyProfileReel = ({ id, reel, autor, myProfile }: MyProfileReelProps) => {
     const [open, setOpen] = useState(false);
-    const [isLike, setIsLike] = useState(post.isLiked);
+    const [isLike, setIsLike] = useState(reel.isLiked);
+    const [thumbnail, setThumbnail] = useState<string>('');
     const [likeCount, setLikeCount] = useState<number>(0);
 
     useEffect(() => {
-        setLikeCount(post.likes);
-    }, [post.likes])
+        setLikeCount(reel.likes);
+
+        // Generate thumbnail
+        getVideoThumbnail(reel.video)
+            .then((thumb) => setThumbnail(thumb as string))
+            .catch((e) => console.error('Error generating thumbnail:', e));
+    }, [reel.likes, reel.video]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -42,8 +50,8 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
         try {
             const formData = new FormData();
             formData.append('name_user', myProfile.name);
-            formData.append('post_id', id.toString());
-            await axios.post('https://socialnetword-fsociety.onrender.com/posts/like/', formData);
+            formData.append('reel_id', id.toString());
+            await axios.post('https://socialnetword-fsociety.onrender.com/reels/like/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -52,8 +60,8 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
         try {
             const formData = new FormData();
             formData.append('name_user', autor.name);
-            formData.append('post_id', id.toString());
-            await axios.post('https://socialnetword-fsociety.onrender.com/posts/unlike/', formData);
+            formData.append('reel_id', id.toString());
+            await axios.post('https://socialnetword-fsociety.onrender.com/reels/unlike/', formData);
         } catch (e) {
             console.log(e);
         }
@@ -70,7 +78,7 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
             const dataForm = new FormData();
             dataForm.append('name_user', autor.name);
             dataForm.append('post_id', id.toString());
-            await axios.post('https://socialnetword-fsociety.onrender.com/posts/delete/', dataForm)
+            await axios.post('https://socialnetword-fsociety.onrender.com/reels/delete/', dataForm)
             window.location.reload();
         } catch (e) {
             console.log(e);
@@ -88,7 +96,7 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
         <div className="col-4 d-flex justify-content-center">
             <React.Fragment>
                 <Button className='post__img' variant="outlined" onClick={handleClickOpen}>
-                    <img className='post__img__label)' src={post.image} alt="postImgTitle" />
+                    {thumbnail ? <img className='post__img__label)' src={thumbnail} alt="postImgTitle" /> : null}
                 </Button>
                 <Dialog
                     onClose={handleClose}
@@ -111,7 +119,7 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
                     <DialogContent dividers>
                         <div className="row">
                             <div className="col-6 d-flex justify-content-center">
-                                <img className='open__post__img' src={post.image} alt="postImgTitle" />
+                                <video className='open__post__img' src={reel.video} controls />
                             </div>
                             <div className="col-6 d-flex flex-column justify-content-between">
                                 <div className="profile__container">
@@ -136,10 +144,10 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <p className='post__description'><TextPreview text={post.description} lenghtText={35} /></p>
+                                            <p className='post__description'><TextPreview text={reel.description} lenghtText={35} /></p>
                                         </div>
                                     </div>
-                                    <CommentsContainer myProfile={myProfile} maxHeightValue='50vh' heightValue='50vh' id={id} comments={post.comments} postOrReel={'post'}/>
+                                    <CommentsContainer myProfile={myProfile} maxHeightValue='50vh' heightValue='50vh' id={id} comments={reel.comments} postOrReel={'reels'}/>
                                 </div>
                                 <div className="row">
                                     <div className="col-3 d-flex align-items-center">
@@ -156,4 +164,4 @@ const MyProfilePost = ({ id, post, autor, myProfile }: MyProfilePostProps) => {
     );
 };
 
-export default MyProfilePost;
+export default MyProfileReel;

@@ -5,7 +5,7 @@ import { useState } from "react";
 import CommentsItem from "./CommentsItem";
 import { Author, Comments } from "../Home/Home";
 import { Divider } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { postOrReelsType } from "../MyProfile/MyProfile";
 
 export type CommentsContainer = {
     id: number;
@@ -13,17 +13,16 @@ export type CommentsContainer = {
     maxHeightValue?: string;
     heightValue?: string;
     myProfile: Author;
+    postOrReel: postOrReelsType;
 }
 
-const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfile }: CommentsContainer) => {
+const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfile, postOrReel }: CommentsContainer) => {
     const [commentsCollection, setCommentsCollection] = useState<Comments[]>(comments);
-    const location = useLocation();
-    const isReelsPage = location.pathname.includes('/reels');
 
     const sendComents = async (text: string) => {
         if (myProfile) {
             const formData = new FormData();
-            if (isReelsPage) {
+            if (postOrReel == 'reels') {
                 formData.append('name_user', myProfile.name);
                 formData.append('reel_id', id.toString());
                 formData.append('comment', text);
@@ -33,7 +32,7 @@ const CommentsContainer = ({ id, comments, maxHeightValue, heightValue, myProfil
                 formData.append('comment', text);
             }
             try {
-                if(isReelsPage) {
+                if(postOrReel == 'reels') {
                     await axios.post(`https://socialnetword-fsociety.onrender.com/reels/comment/`, formData);
                 } else {
                     await axios.post(`https://socialnetword-fsociety.onrender.com/posts/comment/`, formData);

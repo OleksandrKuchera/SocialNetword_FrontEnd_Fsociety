@@ -6,6 +6,7 @@ import UserProfileTop from "./UserProfileTop.tsx/UserProfileTop";
 import MyProfileDesc from "../MyProfile/MyProfileDesc/MyProfileDesc";
 import { CircularProgress, Container } from "@mui/material";
 import { MyProfileContext } from "../HomeLayout/HomeLayout";
+import { postOrReelsType } from "../MyProfile/MyProfile";
 
 export type userDataType = {
   name: string,
@@ -24,6 +25,8 @@ const UserProfile = () => {
   const { userName } = useParams();
   const myProfile = useContext(MyProfileContext);
   const [userData, setUserData] = useState<userDataType | null>(null);
+  const [postOrReels, setPostOrReels] = useState<postOrReelsType>('post');
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,8 +47,8 @@ const UserProfile = () => {
 
       {userData ? (
         <div className={style.profile__container}>
-          <UserProfileTop userData={userData} />
-          {myProfile ? <MyProfileDesc myProfile={myProfile} userData={userData} /> : null}
+          <UserProfileTop userData={userData} setPostOrReels={setPostOrReels} postOrReels={postOrReels}/>
+          {myProfile ? <MyProfileDesc myProfile={myProfile} userData={userData} postOrReels={postOrReels} /> : null}
         </div>
       ) :
         <div style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -141,7 +141,7 @@ const ReelsPost = ({ postData, myProfile }: HomePostType) => {
                         </div>
                     </div>
                 </div>
-                <CommentsContainer myProfile={myProfile} id={postData.id} comments={postData.reel.comments} />
+                <CommentsContainer myProfile={myProfile} id={postData.id} comments={postData.reel.comments} postOrReel='reels'/>
                 <div className="row">
                     <div className="col-2">
                         <div className={style.like__container}>

@@ -1,4 +1,4 @@
-import { CalendarMonthOutlined, LocationOnOutlined, Message } from '@mui/icons-material';
+import { CalendarMonthOutlined, InsertPhoto, LocationOnOutlined, Message, PhotoCameraFront } from '@mui/icons-material';
 import style from '../../MyProfile/MyProfileTop/style.module.scss';
 import { Divider } from '@mui/material';
 import { userDataType } from '../UserProfile';
@@ -7,12 +7,15 @@ import { User } from '../../FriendList/FriendList';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { MyProfileContext } from '../../HomeLayout/HomeLayout';
+import { postOrReelsType } from '../../MyProfile/MyProfile';
 
 type UserProfileTopProps = {
-    userData: userDataType;
+    userData: userDataType,
+    postOrReels: postOrReelsType,
+    setPostOrReels: (type: postOrReelsType) => void
 }
 
-const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
+const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData, postOrReels,setPostOrReels }) => {
 
     const [userDataState] = useState<User>(userData);
     const [isFollow, setIsFollow] = useState<boolean>(false);
@@ -146,6 +149,18 @@ const UserProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             <div className={style.profile__description}>
                                 <p> {userData.bio}</p>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-6 d-flex justify-content-center align-items-center">
+                            <button className={postOrReels == 'post' ? style.change__post__type__btn__active : style.change__post__type__btn} onClick={() => {setPostOrReels('post')}}>
+                                <InsertPhoto/>
+                            </button>
+                        </div>
+                        <div className="col-6 d-flex justify-content-center align-items-center">
+                            <button className={postOrReels == 'reels' ? style.change__post__type__btn__active : style.change__post__type__btn} onClick={() => {setPostOrReels('reels')}}>
+                                <PhotoCameraFront/>
+                            </button>
                         </div>
                     </div>
                     <Divider className={style.divider} />

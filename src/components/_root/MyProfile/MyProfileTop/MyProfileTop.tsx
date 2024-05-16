@@ -1,17 +1,20 @@
-import { CalendarMonthOutlined, LocationOnOutlined } from '@mui/icons-material';
+import { CalendarMonthOutlined, InsertPhoto, LocationOnOutlined, PhotoCameraFront } from '@mui/icons-material';
 import style from './style.module.scss';
 import { Divider } from '@mui/material';
 import EditMyProfile from '../EditMyProfile/EditMyProfile';
 import { NavLink } from 'react-router-dom';
 import AddPost from '../AddPost/AddPost';
 import { userDataType } from '../../HomeLayout/HomeLayout';
+import { postOrReelsType } from '../MyProfile';
 
 type UserProfileTopProps = {
-    userData: userDataType;
+    userData: userDataType,
+    postOrReels: postOrReelsType,
+    setPostOrReels: (typPost: postOrReelsType) => void,
 }
 
 
-const MyProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
+const MyProfileTop: React.FC<UserProfileTopProps> = ({ userData, postOrReels, setPostOrReels }) => {
 
 
     return (
@@ -65,6 +68,18 @@ const MyProfileTop: React.FC<UserProfileTopProps> = ({ userData }) => {
                             <div className={style.profile__description}>
                                 <p>{userData.bio}</p>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-6 d-flex justify-content-center align-items-center">
+                            <button className={postOrReels == 'post' ? style.change__post__type__btn__active : style.change__post__type__btn} onClick={() => {setPostOrReels('post')}}>
+                                <InsertPhoto/>
+                            </button>
+                        </div>
+                        <div className="col-6 d-flex justify-content-center align-items-center">
+                            <button className={postOrReels == 'reels' ? style.change__post__type__btn__active : style.change__post__type__btn} onClick={() => {setPostOrReels('reels')}}>
+                                <PhotoCameraFront/>
+                            </button>
                         </div>
                     </div>
                     <Divider className={style.divider} />

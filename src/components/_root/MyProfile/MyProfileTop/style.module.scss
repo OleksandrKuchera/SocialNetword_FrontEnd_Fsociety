@@ -76,10 +76,9 @@
 
 .divider {
     margin-bottom: 35px !important;
-    margin-top: 30px !important;
     height: 2px;
     border-radius: 10px;
-    background: $buttonGreen;
+    background: $green;
     opacity: 1 !important;
 }
 
@@ -127,4 +126,38 @@
 .user__name {
     font-size: 25px;
     font-weight: 600;
+}
+.change__post__type__btn {
+    background: none;
+    border: none;
+    padding: 0.3rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    transition: all 0.2s;
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    svg{
+        width: 2rem;
+        height: 2rem;
+        color: white;
+    }
+}
+.change__post__type__btn__active {
+    background: none;
+    border: none;
+    padding: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.047);
+    border-radius: 0.5rem 0.5rem 0 0;
+    transition: all 0.2s;
+    border-top: 2px solid $green;
+    border-left: 2px solid $green;
+    border-right: 2px solid $green;
+    &:hover{
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    svg{
+        width: 2rem;
+        height: 2rem;
+        color: $green;
+    }
 }
