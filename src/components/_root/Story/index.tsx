@@ -1,97 +1,55 @@
-import React from 'react';
-import { AddRounded } from '@mui/icons-material';
 import Story from './Story';
 import './StoryReel.scss';
-import avatarAddStory from '../../../assets/avatar.png';
+import CreateStory from './CreateStory';
+import { userDataType } from '../HomeLayout/HomeLayout';
+import { useEffect, useState } from 'react';
+import { Author } from '../Home/Home';
+import axios from 'axios';
 
-// interface StoryReelProps {
-//   photoUrl?: string;
-// }
+interface StoryReelProps {
+  myProfile: userDataType,
+}
+type StoryType = {
+  id: number,
+  author: Author,
+  story: Story,
+}
 
-function StoryReel(): React.ReactElement {
+type Story = {
+  media: string,
+  description: string,
+  comments: [],
+  like: 0
+}
+
+const StoryReel = ({myProfile} : StoryReelProps) => {
+  const [storyList, setStoryList] = useState<StoryType[]>();
+
+  useEffect(() => {
+    if (myProfile) {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get<StoryType[]>(`https://socialnetword-fsociety.onrender.com/reels/reelsAll/${myProfile.name}`);
+                  const sortedPosts = response.data.sort((a, b) => b.id - a.id);
+                  setStoryList(sortedPosts);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        };
+
+        fetchPosts();
+    }
+}, [myProfile]);
+  
   return (
     <div className='storyReel'>
-      <div className='createStory'>
-        <img src={avatarAddStory} alt='profile-pic' />
-        <div className='lower'>
-          <div className='circle'>
-            <AddRounded />
-          </div>
-          <h5>Create Story</h5>
-        </div>
-      </div>
-      {storyList.map(({ username, storyImage, profilePic }, index) => (
-        <Story key={index} username={username} profilePic={profilePic} storyImage={storyImage} />
-      ))}
+      <CreateStory myProfile = {myProfile}/>
+      {storyList ? storyList.map(({ author, story }, index) => (
+        <Story key={index} username={author.name} profilePic={author.avatar} storyImage={story.media} />
+      )) : null}
     </div>
   );
 }
 
 export default StoryReel;
 
-const storyList = [
-  {
-    username: 'John Doe',
-    storyImage:
-      'https://images.unsplash.com/photo-1611698529145-9fabdd4720c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Blake Cheek',
-    storyImage:
-      'https://images.unsplash.com/photo-1625339591418-46878dce5f69?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Adam Samson',
-    storyImage:
-      'https://images.unsplash.com/flagged/photo-1569231290150-9c6200705c5b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  {
-    username: 'Bella',
-    storyImage:
-      'https://images.unsplash.com/photo-1625007387168-cb24505afb14?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-    profilePic:
-      'https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
-  },
-  
-];

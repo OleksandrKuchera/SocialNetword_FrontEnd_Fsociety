@@ -90,7 +90,7 @@ const Home = () => {
                                 <div className={style.home__layout}>
                                     <div className="row">
                                         <div className="col-12">
-                                            <StoryReel/>
+                                            <StoryReel myProfile={myProfile}/>
                                         </div>
                                     </div>
                                     {myProfile ?

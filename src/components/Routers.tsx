@@ -62,7 +62,7 @@ const AppContainer = () => {
                         <Route element={<HomeLayout />}>
                             <Route path="/message" element={<Chat />} />
                             <Route path="/home" element={<Home />} />
-                            <Route path="/reels" element={<Home />} />
+                            <Route path="/feels" element={<Home />} />
                             <Route path="/game" element={<GameList />} />
                             <Route path="/my-profile" element={<MyProfile />} />
                             <Route path="/profile/:userName" element={<UserProfile />} />

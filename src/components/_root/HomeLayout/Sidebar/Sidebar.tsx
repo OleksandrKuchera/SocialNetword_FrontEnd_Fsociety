@@ -46,9 +46,9 @@ const Sidebar = () => {
                             <People className={style.nav__icon} />
                             Society
                         </Link>
-                        <Link to="/reels" className={pathname === '/reels' ? style.activeLink : ''}>
+                        <Link to="/reels" className={pathname === '/feels' ? style.activeLink : ''}>
                             <SlideshowOutlined className={style.nav__icon} />
-                            Reels
+                            Feels
                         </Link>
                         <Link to="/my-profile" className={pathname === '/my-profile' ? style.activeLink : ''}>
                             <Person className={style.nav__icon} />

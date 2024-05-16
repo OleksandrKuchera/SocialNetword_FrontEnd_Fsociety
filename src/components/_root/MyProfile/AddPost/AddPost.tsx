@@ -199,7 +199,7 @@ const AddPost = ({ userName }: AddPostType) => {
                                             />
                                             <label htmlFor="contained-button-file">
                                                 <Button className='edit__profile__btn' variant="contained" color="primary" component="span">
-                                                    {postType === 'photo' ? 'Upload photo' : 'Upload reels'}
+                                                    {postType === 'photo' ? 'Upload photo' : 'Upload feels'}
                                                 </Button>
                                             </label>
                                             {avatar.length > 0 || reel.length > 0 ?
