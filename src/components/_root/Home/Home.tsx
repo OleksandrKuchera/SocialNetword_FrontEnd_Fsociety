@@ -7,6 +7,7 @@ import { MyProfileContext } from "../HomeLayout/HomeLayout";
 import PostContainer from "./PostContainer/PostContainer";
 import { useLocation } from "react-router-dom";
 import ReelsContainer from "../Reels/ReelsContainer";
+import StoryReel from "../Story";
 
 export type Author = {
     name: string;
@@ -60,7 +61,7 @@ const Home = () => {
             const fetchPosts = async () => {
                 try {
                     let response;
-                    if(isReelsPage){
+                    if (isReelsPage) {
                         response = await axios.get<ReelsData[]>(`https://socialnetword-fsociety.onrender.com/reels/reelsAll/${myProfile.name}`);
                         const sortedPosts = response.data.sort((a, b) => b.id - a.id);
                         setReels(sortedPosts);
@@ -87,6 +88,11 @@ const Home = () => {
                         <div className="col-9">
                             <Container>
                                 <div className={style.home__layout}>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            {myProfile ? <StoryReel myProfile={myProfile} /> : null}
+                                        </div>
+                                    </div>
                                     {myProfile ?
                                         isReelsPage ? <ReelsContainer reels={reels} myProfile={myProfile} /> : <PostContainer posts={posts} myProfile={myProfile} />
                                         : null}
